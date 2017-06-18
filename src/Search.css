@@ -1,0 +1,22 @@
+.Search input[type=submit] {
+  box-shadow: 0px 1px 3px 0px #515151;
+  padding: 1rem;
+  background-color: #EE1844;
+  color: white;
+  border: none;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.trip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.trip-list li {
+  margin-bottom: 0.5rem;
+  background-color: white;
+  box-shadow: 0px 1px 3px 0px #515151;
+  padding: 1rem;
+}
