@@ -8,6 +8,10 @@
   margin-bottom: 0.5rem;
 }
 
+.searching {
+  text-align: center;
+}
+
 .trip-list {
   list-style: none;
   margin: 0;

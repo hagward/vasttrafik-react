@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from './Auth';
 import LocationInput from './LocationInput';
+import searching from './searching.svg';
 import './Search.css';
 
 class Search extends Component {
@@ -9,7 +10,8 @@ class Search extends Component {
     this.state = {
       originId: '',
       destId: '',
-      trips: []
+      trips: [],
+      searching: false
     };
     this.search = this.search.bind(this);
   }
@@ -22,6 +24,11 @@ class Search extends Component {
           <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
           <input type="submit" value="Sök" onClick={this.search} />
         </form>
+        {this.state.searching &&
+          <div className="searching">
+            <img src={searching} alt="Searching" />
+          </div>
+        }
         <ul className="trip-list">
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex}>
@@ -44,6 +51,10 @@ class Search extends Component {
   search(event) {
     event.preventDefault();
 
+    this.setState({
+      searching: true
+    });
+
     Auth.getToken().then(token => {
       const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
                   '&originId=' + encodeURIComponent(this.state.originId) +
@@ -55,7 +66,8 @@ class Search extends Component {
 
       xhr.addEventListener('load', () => {
         this.setState({
-          trips: this.parseTrips(xhr.response)
+          trips: this.parseTrips(xhr.response),
+          searching: false
         });
       });
 
