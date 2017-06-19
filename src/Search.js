@@ -21,9 +21,11 @@ class Search extends Component {
         <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
         <input type="submit" value="Sök" onClick={this.search} />
         <ul className="trip-list">
-          {this.state.trips.map(trip =>
-            <li key={trip.Leg.id}>
-              {trip.Leg.Origin.name} - {trip.Leg.Destination.name}
+          {this.state.trips.map((trip, tripIndex) =>
+            <li key={tripIndex}>
+              {trip.Leg.map((leg, legIndex) =>
+                <div key={legIndex}>{leg.Origin.name} - {leg.Destination.name}</div>
+              )}
             </li>
           )}
         </ul>
@@ -44,10 +46,8 @@ class Search extends Component {
       const xhr = new XMLHttpRequest();
 
       xhr.addEventListener('load', () => {
-        const json = JSON.parse(xhr.response);
-        console.log(json);
         this.setState({
-          trips: json.TripList.Trip
+          trips: this.parseTrips(xhr.response)
         });
       });
 
@@ -55,6 +55,23 @@ class Search extends Component {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
       xhr.send();
     });
+  }
+
+  parseTrips(response) {
+    const json = JSON.parse(response);
+    const trips = this.list(json.TripList.Trip);
+
+    console.log(json);
+    
+    for (let i = 0; i < trips.length; i++) {
+      trips[i].Leg = this.list(trips[i].Leg);
+    }
+
+    return trips;
+  }
+
+  list(object) {
+    return Array.isArray(object) ? object : [object];
   }
 }
 

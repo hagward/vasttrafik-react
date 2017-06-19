@@ -52,7 +52,7 @@ class LocationInput extends Component {
         const json = JSON.parse(xhr.response);
         this.setState({
           active: true,
-          locations: json.LocationList.StopLocation
+          locations: this.list(json.LocationList.StopLocation)
         });
       });
 
@@ -60,6 +60,10 @@ class LocationInput extends Component {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
       xhr.send();
     });
+  }
+
+  list(object) {
+    return Array.isArray(object) ? object : [object];
   }
 
   selectLocation(event) {
