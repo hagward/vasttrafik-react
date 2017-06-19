@@ -24,7 +24,10 @@ class Search extends Component {
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex}>
               {trip.Leg.map((leg, legIndex) =>
-                <div key={legIndex}>{leg.Origin.name} - {leg.Destination.name}</div>
+                <div key={legIndex}>
+                  <span className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</span>
+                  {leg.Origin.name} - {leg.Destination.name}
+                </div>
               )}
             </li>
           )}
@@ -62,7 +65,7 @@ class Search extends Component {
     const trips = this.list(json.TripList.Trip);
 
     console.log(json);
-    
+
     for (let i = 0; i < trips.length; i++) {
       trips[i].Leg = this.list(trips[i].Leg);
     }
