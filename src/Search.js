@@ -28,7 +28,9 @@ class Search extends Component {
               <div className="leg">
                 <div>{this.first(trip.Leg).Origin.time}</div>
                 {trip.Leg.map((leg, legIndex) =>
-                  <div key={legIndex} className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</div>
+                  <div key={legIndex} className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>
+                    {leg.sname ? leg.sname : 'Gå'}
+                  </div>
                 )}
                 <div>{this.first(trip.Leg).Destination.time}</div>
               </div>
