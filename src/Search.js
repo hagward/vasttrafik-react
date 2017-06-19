@@ -26,7 +26,7 @@ class Search extends Component {
               {trip.Leg.map((leg, legIndex) =>
                 <div key={legIndex}>
                   <span className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</span>
-                  {leg.Origin.name} - {leg.Destination.name}
+                  {this.shortLocation(leg.Origin.name)} - {this.shortLocation(leg.Destination.name)}
                 </div>
               )}
             </li>
@@ -75,6 +75,10 @@ class Search extends Component {
 
   list(object) {
     return Array.isArray(object) ? object : [object];
+  }
+
+  shortLocation(locationName) {
+    return locationName.split(',')[0];
   }
 }
 
