@@ -24,9 +24,10 @@ class Search extends Component {
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex}>
               {trip.Leg.map((leg, legIndex) =>
-                <div key={legIndex}>
-                  <span className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</span>
-                  {this.shortLocation(leg.Origin.name)} - {this.shortLocation(leg.Destination.name)}
+                <div className="leg" key={legIndex}>
+                  <div className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</div>
+                  <div>{this.shortLocation(leg.Origin.name)}</div>
+                  <div>{this.shortLocation(leg.Destination.name)}</div>
                 </div>
               )}
             </li>
