@@ -16,24 +16,26 @@ class Search extends Component {
 
   render() {
     return (
-      <form className="Search">
-        <LocationInput placeholder="Från" onSelection={value => this.setState({originId: value})} />
-        <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
-        <input type="submit" value="Sök" onClick={this.search} />
+      <div className="Search">
+        <form>
+          <LocationInput placeholder="Från" onSelection={value => this.setState({originId: value})} />
+          <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
+          <input type="submit" value="Sök" onClick={this.search} />
+        </form>
         <ul className="trip-list">
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex}>
-              {trip.Leg.map((leg, legIndex) =>
-                <div className="leg" key={legIndex}>
-                  <div className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</div>
-                  <div>{this.shortLocation(leg.Origin.name)}</div>
-                  <div>{this.shortLocation(leg.Destination.name)}</div>
-                </div>
-              )}
+              <div className="leg">
+                <div>{this.first(trip.Leg).Origin.time}</div>
+                {trip.Leg.map((leg, legIndex) =>
+                  <div key={legIndex} className="leg-name" style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>{leg.sname}</div>
+                )}
+                <div>{this.first(trip.Leg).Destination.time}</div>
+              </div>
             </li>
           )}
         </ul>
-      </form>
+      </div>
     )
   }
 
@@ -76,6 +78,14 @@ class Search extends Component {
 
   list(object) {
     return Array.isArray(object) ? object : [object];
+  }
+
+  first(array) {
+    return array[0];
+  }
+
+  last(array) {
+    return array[array.length - 1];
   }
 
   shortLocation(locationName) {

@@ -15,25 +15,27 @@
 }
 
 .trip-list li {
-  margin-bottom: 0.5rem;
   background-color: white;
   box-shadow: 0px 1px 3px 0px #515151;
 }
 
 .leg {
   display: flex;
-}
-
-.leg div {
+  text-align: center;
   padding: 1rem;
+  justify-content: space-between;
 }
 
 .leg div:first-child {
-  width: 2rem;
-  text-align: center;
-  padding: 1rem 0;
+  text-align: left;
 }
 
-.leg div:not(:first-child) {
-  width: 50%;
+.leg div:last-child {
+  text-align: right;
+}
+
+.leg-name {
+  border-radius: .2rem;
+  padding: 0 .5rem;
+  border: 1px solid #eee;
 }
