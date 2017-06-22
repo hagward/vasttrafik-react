@@ -5,8 +5,9 @@
   color: white;
   border: none;
   width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0 0 .5rem 0;
   cursor: pointer;
+  border-radius: 0;
 }
 
 .search__searching {
@@ -17,15 +18,19 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  box-shadow: 0px 1px 3px 0px #515151;
 }
 
 .search__trip {
   background-color: white;
-  box-shadow: 0px 1px 3px 0px #515151;
   display: flex;
   text-align: center;
   padding: 1rem;
   justify-content: space-between;
+}
+
+.search__trip:not(:last-child) {
+  border-bottom: 1px solid #eee;
 }
 
 .trip__origin-time {

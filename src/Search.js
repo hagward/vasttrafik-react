@@ -22,7 +22,7 @@ class Search extends Component {
         <form>
           <LocationInput placeholder="Från" onSelection={value => this.setState({originId: value})} />
           <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
-          <input className="search__search" type="submit" value="Sök" onClick={this.search} />
+          <button className="search__search" onClick={this.search}>Sök</button>
         </form>
         {this.state.searching &&
           <div className="search__searching">
