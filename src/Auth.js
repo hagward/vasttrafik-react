@@ -12,9 +12,10 @@ class Auth {
 
   getToken() {
     return new Promise((resolve, reject) => {
-      if (Date.now() < this.expireDate) {
+      const [token, expireDate] = this.getLocalToken();
+      if (Date.now() < expireDate) {
         console.log('used cached token');
-        resolve(this.token);
+        resolve(token);
       } else {
         this.signIn(e => {
           const xhr = e.target;
@@ -25,11 +26,24 @@ class Auth {
             this.token = json.access_token;
             this.expireDate = Date.now() + Number(json.expires_in) * 1000;
 
+            this.storeToken();
+
             resolve(this.token);
           }
         });
       }
     });
+  }
+
+  getLocalToken() {
+    return this.token ?
+      [this.token, this.expireDate] :
+      [localStorage.getItem('token'), localStorage.getItem('expireDate')];
+  }
+
+  storeToken() {
+    localStorage.setItem('token', this.token);
+    localStorage.setItem('expireDate', this.expireDate);
   }
 
   signIn(onSignedIn) {
