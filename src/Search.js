@@ -79,9 +79,15 @@ class Search extends Component {
 
   parseTrips(response) {
     const json = JSON.parse(response);
-    const trips = this.list(json.TripList.Trip);
 
     console.log(json);
+
+    if (json.TripList.error) {
+      console.error(json.TripList.errorText);
+      return [];
+    }
+
+    const trips = this.list(json.TripList.Trip);
 
     for (let i = 0; i < trips.length; i++) {
       trips[i].Leg = this.list(trips[i].Leg);
