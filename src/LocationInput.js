@@ -22,12 +22,12 @@ class LocationInput extends Component {
 
   render() {
     return (
-      <div className="LocationInput">
-        <input className="location-input" type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
+      <div className="location-input">
+        <input className="location-input__input" type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
         {this.state.active &&
-          <ul className="location-list">
+          <ul className="location-input__suggestions">
             {this.state.locations.map(location =>
-              <li key={location.id} id={location.id} onClick={this.selectLocation}>{location.name}</li>
+              <li className="location-input__suggestion" key={location.id} id={location.id} onClick={this.selectLocation}>{location.name}</li>
             )}
           </ul>
         }

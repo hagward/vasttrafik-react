@@ -1,4 +1,4 @@
-.Search input[type=submit] {
+.search__search {
   box-shadow: 0px 1px 3px 0px #515151;
   padding: 1rem;
   background-color: #EE1844;
@@ -6,39 +6,37 @@
   border: none;
   width: 100%;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
-.searching {
+.search__searching {
   text-align: center;
 }
 
-.trip-list {
+.search__trips {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.trip-list li {
+.search__trip {
   background-color: white;
   box-shadow: 0px 1px 3px 0px #515151;
-}
-
-.leg {
   display: flex;
   text-align: center;
   padding: 1rem;
   justify-content: space-between;
 }
 
-.leg div:first-child {
+.trip__origin-time {
   text-align: left;
 }
 
-.leg div:last-child {
+.trip__dest-time {
   text-align: right;
 }
 
-.leg-name {
+.trip__leg-name {
   border-radius: .2rem;
   padding: 0 .5rem;
   border: 1px solid #eee;

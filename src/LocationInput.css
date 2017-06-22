@@ -1,15 +1,15 @@
-.LocationInput {
+.location-input {
   position: relative;
 }
 
-.location-input {
+.location-input__input {
   width: 100%;
   border: none;
   padding: 1rem;
   border-bottom: 1px solid #eee;
 }
 
-.location-list {
+.location-input__suggestions {
   width: 100%;
   position: absolute;
   margin: 0;
@@ -22,12 +22,12 @@
   z-index: 10;
 }
 
-.location-list li {
+.location-input__suggestion {
   cursor: pointer;
   padding: 1rem;
 }
 
-.location-list li:hover {
+.location-input__suggestion:hover {
   background-color: #EE1844;
   color: white;
 }
