@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import Auth from './Auth';
 import './LocationInput.css';
 
@@ -14,6 +15,7 @@ class LocationInput extends Component {
       value: ''
     };
 
+    this.autoComplete = _.debounce(this.autoComplete, 300);
     this.handleChange = this.handleChange.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
   }
