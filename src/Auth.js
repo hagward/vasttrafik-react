@@ -1,13 +1,17 @@
 import settings from './settings';
 
 class Auth {
-  constructor(url, key, secret, scope) {
+  constructor(url, key, secret) {
     this.url = url;
     this.headers = {
       contentType: ['Content-Type', 'application/x-www-form-urlencoded'],
       auth: ['Authorization', 'Basic ' + btoa(key + ':' + secret)]
     };
-    this.body = 'grant_type=client_credentials&scope=' + scope;
+    this.body = 'grant_type=client_credentials&scope=' + this.generateScope();
+  }
+
+  generateScope() {
+    return Math.random().toString(36).slice(2);
   }
 
   getToken() {
@@ -58,6 +62,6 @@ class Auth {
   }
 }
 
-const auth = new Auth(settings.url, settings.key, settings.secret, '1');
+const auth = new Auth(settings.url, settings.key, settings.secret);
 
 export default auth;
