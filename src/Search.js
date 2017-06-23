@@ -20,9 +20,8 @@ class Search extends Component {
     return (
       <div className="search">
         <form>
-          <LocationInput placeholder="Från" onSelection={value => this.setState({originId: value})} />
-          <LocationInput placeholder="Till" onSelection={value => this.setState({destId: value})} />
-          <button className="search__search" onClick={this.search}>Sök</button>
+          <LocationInput placeholder="Från" onSelection={value => this.onOriginSelected(value)} />
+          <LocationInput placeholder="Till" onSelection={value => this.onDestinationSelected(value)} />
         </form>
         {this.state.searching &&
           <div className="search__searching">
@@ -46,8 +45,18 @@ class Search extends Component {
     )
   }
 
-  search(event) {
-    event.preventDefault();
+  onOriginSelected(originId) {
+    this.setState({originId: originId}, this.search);
+  }
+
+  onDestinationSelected(destId) {
+    this.setState({destId: destId}, this.search);
+  }
+
+  search() {
+    if (!this.state.originId || !this.state.destId) {
+      return;
+    }
 
     this.setState({
       searching: true
