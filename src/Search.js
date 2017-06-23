@@ -7,21 +7,27 @@ import './Search.css';
 class Search extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      originId: '',
-      destId: '',
+      originId: localStorage.getItem('originId') || '',
+      originName: localStorage.getItem('originName') || '',
+      destId: localStorage.getItem('destId') || '',
+      destName: localStorage.getItem('destName') || '',
       trips: [],
       searching: false
     };
+
     this.search = this.search.bind(this);
+    this.onOriginSelected = this.onOriginSelected.bind(this);
+    this.onDestinationSelected = this.onDestinationSelected.bind(this);
   }
 
   render() {
     return (
       <div className="search">
         <form>
-          <LocationInput placeholder="Från" onSelection={value => this.onOriginSelected(value)} />
-          <LocationInput placeholder="Till" onSelection={value => this.onDestinationSelected(value)} />
+          <LocationInput value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
+          <LocationInput value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
         </form>
         {this.state.searching &&
           <div className="search__searching">
@@ -45,16 +51,24 @@ class Search extends Component {
     )
   }
 
-  onOriginSelected(originId) {
-    this.setState({originId: originId}, this.search);
+  componentDidMount() {
+    this.search();
   }
 
-  onDestinationSelected(destId) {
-    this.setState({destId: destId}, this.search);
+  onOriginSelected(id, name) {
+    localStorage.setItem('originId', id);
+    localStorage.setItem('originName', name);
+    this.setState({originId: id}, this.search);
+  }
+
+  onDestinationSelected(id, name) {
+    localStorage.setItem('destId', id);
+    localStorage.setItem('destName', name);
+    this.setState({destId: id}, this.search);
   }
 
   search() {
-    if (!this.state.originId || !this.state.destId) {
+    if (this.state.originId === this.state.destId) {
       return;
     }
 

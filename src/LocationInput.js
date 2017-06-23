@@ -12,7 +12,7 @@ class LocationInput extends Component {
     this.state = {
       active: false,
       locations: [],
-      value: ''
+      value: props.value || ''
     };
 
     this.autoComplete = _.debounce(this.autoComplete, 300);
@@ -69,13 +69,16 @@ class LocationInput extends Component {
   }
 
   selectLocation(event) {
+    const id = event.target.id;
+    const name = event.target.innerText;
+
     this.setState({
       active: false,
-      value: event.target.innerText
+      value: name
     });
 
     if (this.props.onSelection) {
-      this.props.onSelection(event.target.id);
+      this.props.onSelection(id, name);
     }
   }
 }
