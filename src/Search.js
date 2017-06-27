@@ -43,7 +43,7 @@ class Search extends Component {
                   {leg.sname ? leg.sname : 'Gå'}
                 </div>
               )}
-              <div className="trip__dest-time">{this.first(trip.Leg).Destination.time}</div>
+              <div className="trip__dest-time">{this.last(trip.Leg).Destination.time}</div>
             </li>
           )}
         </ul>
