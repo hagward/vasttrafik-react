@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Auth from './Auth';
+import LocalStorage from './LocalStorage';
 import LocationInput from './LocationInput';
 import searching from './searching.svg';
 import switchLocations from './switch-locations.svg';
@@ -10,10 +11,10 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      originId: localStorage.getItem('originId') || '',
-      originName: localStorage.getItem('originName') || '',
-      destId: localStorage.getItem('destId') || '',
-      destName: localStorage.getItem('destName') || '',
+      originId: LocalStorage.getItem('originId') || '',
+      originName: LocalStorage.getItem('originName') || '',
+      destId: LocalStorage.getItem('destId') || '',
+      destName: LocalStorage.getItem('destName') || '',
       locationInputsSwitched: false,
       trips: [],
       searching: false
@@ -124,10 +125,10 @@ class Search extends Component {
   }
 
   storeLocations() {
-    localStorage.setItem('originId', this.state.originId);
-    localStorage.setItem('originName', this.state.originName);
-    localStorage.setItem('destId', this.state.destId);
-    localStorage.setItem('destName', this.state.destName);
+    LocalStorage.setItem('originId', this.state.originId);
+    LocalStorage.setItem('originName', this.state.originName);
+    LocalStorage.setItem('destId', this.state.destId);
+    LocalStorage.setItem('destName', this.state.destName);
   }
 
   parseTrips(response) {
@@ -166,4 +167,4 @@ class Search extends Component {
   }
 }
 
-export default Search
+export default Search;

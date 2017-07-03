@@ -1,3 +1,4 @@
+import LocalStorage from './LocalStorage';
 import settings from './settings';
 
 class Auth {
@@ -42,12 +43,12 @@ class Auth {
   getLocalToken() {
     return this.token ?
       [this.token, this.expireDate] :
-      [localStorage.getItem('token'), localStorage.getItem('expireDate')];
+      [LocalStorage.getItem('token'), LocalStorage.getItem('expireDate')];
   }
 
   storeToken() {
-    localStorage.setItem('token', this.token);
-    localStorage.setItem('expireDate', this.expireDate);
+    LocalStorage.setItem('token', this.token);
+    LocalStorage.setItem('expireDate', this.expireDate);
   }
 
   signIn(onSignedIn) {
@@ -62,6 +63,4 @@ class Auth {
   }
 }
 
-const auth = new Auth(settings.url, settings.key, settings.secret);
-
-export default auth;
+export default new Auth(settings.url, settings.key, settings.secret);
