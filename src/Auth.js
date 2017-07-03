@@ -8,7 +8,15 @@ class Auth {
       contentType: ['Content-Type', 'application/x-www-form-urlencoded'],
       auth: ['Authorization', 'Basic ' + btoa(key + ':' + secret)]
     };
-    this.body = 'grant_type=client_credentials&scope=' + this.generateScope();
+
+    this.body = 'grant_type=client_credentials&scope=' + this.getScope();
+  }
+
+  getScope() {
+    if (!LocalStorage.getItem('scope')) {
+      LocalStorage.setItem('scope', this.generateScope());
+    }
+    return LocalStorage.getItem('scope');
   }
 
   generateScope() {
