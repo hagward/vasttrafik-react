@@ -43,12 +43,12 @@ class Auth {
   getLocalToken() {
     return this.token ?
       [this.token, this.expireDate] :
-      [LocalStorage.getItem('token'), LocalStorage.getItem('expireDate')];
+      [LocalStorage.getItem('token'), LocalStorage.getItem('tokenExpireDate')];
   }
 
   storeToken() {
     LocalStorage.setItem('token', this.token);
-    LocalStorage.setItem('expireDate', this.expireDate);
+    LocalStorage.setItem('tokenExpireDate', this.expireDate);
   }
 
   signIn(onSignedIn) {
