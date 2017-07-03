@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './Auth';
 import LocationInput from './LocationInput';
 import searching from './searching.svg';
+import switchLocations from './switch-locations.svg';
 import './Search.css';
 
 class Search extends Component {
@@ -13,21 +14,32 @@ class Search extends Component {
       originName: localStorage.getItem('originName') || '',
       destId: localStorage.getItem('destId') || '',
       destName: localStorage.getItem('destName') || '',
+      locationInputsSwitched: false,
       trips: [],
       searching: false
     };
 
-    this.search = this.search.bind(this);
     this.onOriginSelected = this.onOriginSelected.bind(this);
     this.onDestinationSelected = this.onDestinationSelected.bind(this);
+    this.search = this.search.bind(this);
+    this.switchLocations = this.switchLocations.bind(this);
   }
 
   render() {
     return (
       <div className="search">
-        <LocationInput value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
-        <LocationInput value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
-        <button className="search__search" onClick={this.search}>Sök</button>
+        <div className="search__inputs">
+          <div className={'search__input' + this.state.originClassName}>
+            <LocationInput className="search__input-first" value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
+          </div>
+          <div className="search__input">
+            <LocationInput className="search__input-second" value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
+          </div>
+          <button className="search__switch-locations-button" onClick={this.switchLocations}>
+            <img src={switchLocations} />
+          </button>
+        </div>
+        <button className="search__search-button" onClick={this.search}>Sök</button>
         {this.state.searching &&
           <div className="search__searching">
             <img src={searching} alt="Searching" />
@@ -51,15 +63,31 @@ class Search extends Component {
   }
 
   onOriginSelected(id, name) {
-    localStorage.setItem('originId', id);
-    localStorage.setItem('originName', name);
-    this.setState({originId: id});
+    const locationType = this.state.locationInputsSwitched ? 'dest' : 'origin';
+    this.onLocationSelected(id, name, locationType);
   }
 
   onDestinationSelected(id, name) {
-    localStorage.setItem('destId', id);
-    localStorage.setItem('destName', name);
-    this.setState({destId: id});
+    const locationType = this.state.locationInputsSwitched ? 'origin' : 'dest';
+    this.onLocationSelected(id, name, locationType);
+  }
+
+  onLocationSelected(id, name, locationType) {
+    const newState = {};
+    newState[locationType + 'Id'] = id;
+    newState[locationType + 'Name'] = name;
+    this.setState(newState);
+  }
+
+  switchLocations() {
+    this.setState({
+      originClassName: this.state.originClassName ? '' : ' search__input--switched',
+      locationInputsSwitched: !this.state.locationInputsSwitched,
+      originId: this.state.destId,
+      originName: this.state.destName,
+      destId: this.state.originId,
+      destName: this.state.originName
+    });
   }
 
   search() {
@@ -70,6 +98,8 @@ class Search extends Component {
     this.setState({
       searching: true
     });
+
+    this.storeLocations();
 
     Auth.getToken().then(token => {
       const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
@@ -91,6 +121,13 @@ class Search extends Component {
       xhr.setRequestHeader('Authorization', 'Bearer ' + token);
       xhr.send();
     });
+  }
+
+  storeLocations() {
+    localStorage.setItem('originId', this.state.originId);
+    localStorage.setItem('originName', this.state.originName);
+    localStorage.setItem('destId', this.state.destId);
+    localStorage.setItem('destName', this.state.destName);
   }
 
   parseTrips(response) {

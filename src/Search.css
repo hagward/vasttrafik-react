@@ -1,4 +1,32 @@
-.search__search {
+.search__inputs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.search__input--switched {
+  order: 1;
+}
+
+.search__switch-locations-button {
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  padding: .5rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.search__switch-locations-button img {
+  vertical-align: middle;
+}
+
+.search__search-button {
   background-color: #EE1844;
   border: none;
   color: white;
