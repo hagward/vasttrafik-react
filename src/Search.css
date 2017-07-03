@@ -1,3 +1,13 @@
+.search__search {
+  background-color: #EE1844;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+}
+
 .search__searching {
   text-align: center;
 }

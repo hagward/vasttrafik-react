@@ -25,10 +25,9 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <form>
-          <LocationInput value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
-          <LocationInput value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
-        </form>
+        <LocationInput value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
+        <LocationInput value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
+        <button className="search__search" onClick={this.search}>Sök</button>
         {this.state.searching &&
           <div className="search__searching">
             <img src={searching} alt="Searching" />
@@ -51,20 +50,16 @@ class Search extends Component {
     )
   }
 
-  componentDidMount() {
-    this.search();
-  }
-
   onOriginSelected(id, name) {
     localStorage.setItem('originId', id);
     localStorage.setItem('originName', name);
-    this.setState({originId: id}, this.search);
+    this.setState({originId: id});
   }
 
   onDestinationSelected(id, name) {
     localStorage.setItem('destId', id);
     localStorage.setItem('destName', name);
-    this.setState({destId: id}, this.search);
+    this.setState({destId: id});
   }
 
   search() {
