@@ -36,7 +36,7 @@ class Search extends Component {
             <LocationInput className="search__input-second" value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
           </div>
           <button className="search__switch-locations-button" onClick={this.switchLocations}>
-            <img src={switchLocations} />
+            <img src={switchLocations} alt="Switch origin and destination" />
           </button>
         </div>
         <button className="search__search-button" onClick={this.search}>Sök</button>
