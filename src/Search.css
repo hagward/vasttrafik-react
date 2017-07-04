@@ -48,10 +48,13 @@
 
 .search__trip {
   background-color: white;
-  display: flex;
-  text-align: center;
   padding: 1rem;
+}
+
+.search__trip-row-one {
+  display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 .search__trip:not(:last-child) {

@@ -54,18 +54,56 @@ class Search extends Component {
         <ul className="search__trips">
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex} className="search__trip">
-              <div className="trip__origin-time">{this.first(trip.Leg).Origin.time}</div>
-              {trip.Leg.map((leg, legIndex) =>
-                <div className="trip__leg-name" key={legIndex} style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>
-                  {leg.sname ? leg.sname : 'Gå'}
-                </div>
-              )}
-              <div className="trip__dest-time">{this.last(trip.Leg).Destination.time}</div>
+              <div className="search__trip-row-one">
+                <div className="trip__origin-time">{this.first(trip.Leg).Origin.time}</div>
+                {trip.Leg.map((leg, legIndex) =>
+                  <div className="trip__leg-name" key={legIndex} style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>
+                    {leg.sname ? leg.sname : 'Gå'}
+                  </div>
+                )}
+                <div className="trip__dest-time">{this.last(trip.Leg).Destination.time}</div>
+              </div>
+              <div className="search__trip-row-two">
+                Restid: {this.diff(this.last(trip.Leg).Destination.time, this.first(trip.Leg).Origin.time)}
+              </div>
             </li>
           )}
         </ul>
       </div>
     )
+  }
+
+  diff(timeA, timeB) {
+    let timeASec = this.timeToSec(timeA);
+    let timeBSec = this.timeToSec(timeB);
+
+    // Handle midnight wraparound. We don't support several days yet.
+    if (timeASec < timeBSec) {
+      timeASec += 24*60*60;
+    }
+
+    return this.secToTime(timeASec - timeBSec);
+  }
+
+  timeToSec(time) {
+    // HH:mm
+    return time.split(':').reduce((acc, v) => acc * 60 + parseInt(v, 10), 0) * 60;
+  }
+
+  secToTime(seconds) {
+    const time = [];
+    while (seconds > 0) {
+      let unit = String(seconds % 60);
+      if (unit.length === 1) {
+        unit = '0' + unit;
+      }
+      time.push(unit);
+      seconds = Math.floor(seconds / 60);
+    }
+    if (time.length === 1) {
+      time.unshift('00');
+    }
+    return time.join(':');
   }
 
   onOriginSelected(id, name) {
@@ -109,10 +147,8 @@ class Search extends Component {
 
     this.auth.getToken().then(token => {
       const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-                  '&originId=' + encodeURIComponent(this.state.originId) +
-                  '&destId=' + encodeURIComponent(this.state.destId);
-                    // + '&date=' + encodeURIComponent(options.date)
-                    // + '&time=' + encodeURIComponent(options.time)
+        '&originId=' + encodeURIComponent(this.state.originId) +
+        '&destId=' + encodeURIComponent(this.state.destId);
 
       const xhr = new XMLHttpRequest();
 
