@@ -19,6 +19,7 @@ describe('getToken', () => {
 
   it('fetches token asynchronously if stored token not valid', () => {
     localStorage.setItem('tokenExpireDate', Date.now() - 100000);
+
     return expect(auth.getToken()).resolves.toEqual('token');
   });
 });
