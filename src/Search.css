@@ -49,16 +49,15 @@
 .search__trip {
   background-color: white;
   padding: 1rem;
+  margin: .5rem;
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.25);
+  border-radius: 1px;
 }
 
 .search__trip-row-one {
   display: flex;
   justify-content: space-between;
   text-align: center;
-}
-
-.search__trip:not(:last-child) {
-  border-bottom: 1px solid #eee;
 }
 
 .trip__origin-time {
