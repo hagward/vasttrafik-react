@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './Auth';
 import LocalStorage from './LocalStorage';
 import LocationInput from './LocationInput';
+import settings from './settings';
 import searching from './searching.svg';
 import switchLocations from './switch-locations.svg';
 import './Search.css';
@@ -10,11 +11,15 @@ class Search extends Component {
   constructor(props) {
     super(props);
 
+    this.localStorage = new LocalStorage();
+    this.auth = new Auth(settings.key, settings.secret, this.localStorage);
+
     this.state = {
-      originId: LocalStorage.getItem('originId') || '',
-      originName: LocalStorage.getItem('originName') || '',
-      destId: LocalStorage.getItem('destId') || '',
-      destName: LocalStorage.getItem('destName') || '',
+      originId: this.localStorage.getItem('originId') || '',
+      originName: this.localStorage.getItem('originName') || '',
+      destId: this.localStorage.getItem('destId') || '',
+      destName: this.localStorage.getItem('destName') || '',
+      originClassName: '',
       locationInputsSwitched: false,
       trips: [],
       searching: false
@@ -102,7 +107,7 @@ class Search extends Component {
 
     this.storeLocations();
 
-    Auth.getToken().then(token => {
+    this.auth.getToken().then(token => {
       const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
                   '&originId=' + encodeURIComponent(this.state.originId) +
                   '&destId=' + encodeURIComponent(this.state.destId);
@@ -125,10 +130,10 @@ class Search extends Component {
   }
 
   storeLocations() {
-    LocalStorage.setItem('originId', this.state.originId);
-    LocalStorage.setItem('originName', this.state.originName);
-    LocalStorage.setItem('destId', this.state.destId);
-    LocalStorage.setItem('destName', this.state.destName);
+    this.localStorage.setItem('originId', this.state.originId);
+    this.localStorage.setItem('originName', this.state.originName);
+    this.localStorage.setItem('destId', this.state.destId);
+    this.localStorage.setItem('destName', this.state.destName);
   }
 
   parseTrips(response) {

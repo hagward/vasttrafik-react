@@ -1,22 +1,20 @@
-import LocalStorage from './LocalStorage';
-import settings from './settings';
-
 class Auth {
-  constructor(url, key, secret) {
-    this.url = url;
+  constructor(key, secret, localStorage) {
+    this.localStorage = localStorage;
+
+    this.url = 'https://api.vasttrafik.se:443/token';
     this.headers = {
       contentType: ['Content-Type', 'application/x-www-form-urlencoded'],
       auth: ['Authorization', 'Basic ' + btoa(key + ':' + secret)]
     };
-
-    this.body = 'grant_type=client_credentials&scope=' + this.getScope();
+    this.body = 'grant_type=client_credentials&scope=' + this.scope();
   }
 
-  getScope() {
-    if (!LocalStorage.getItem('scope')) {
-      LocalStorage.setItem('scope', this.generateScope());
+  scope() {
+    if (!this.localStorage.getItem('scope')) {
+      this.localStorage.setItem('scope', this.generateScope());
     }
-    return LocalStorage.getItem('scope');
+    return this.localStorage.getItem('scope');
   }
 
   generateScope() {
@@ -25,44 +23,43 @@ class Auth {
 
   getToken() {
     return new Promise((resolve, reject) => {
-      const [token, expireDate] = this.getLocalToken();
+      const [token, expireDate] = this.getStoredToken();
       if (Date.now() < expireDate) {
         console.log('used cached token');
         resolve(token);
       } else {
-        this.signIn(e => {
-          const xhr = e.target;
-          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            console.log('SUCCESS!');
-
-            const json = JSON.parse(xhr.response);
-            this.token = json.access_token;
-            this.expireDate = Date.now() + Number(json.expires_in) * 1000;
-
-            this.storeToken();
-
-            resolve(this.token);
-          }
-        });
+        this.signIn(e => this.onSignedIn(e.target, resolve, reject));
       }
     });
   }
 
-  getLocalToken() {
-    return this.token ?
-      [this.token, this.expireDate] :
-      [LocalStorage.getItem('token'), LocalStorage.getItem('tokenExpireDate')];
+  onSignedIn(xhr, resolve, reject) {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      console.log('SUCCESS!');
+
+      const json = JSON.parse(xhr.response);
+      this.token = json.access_token;
+      this.expireDate = Date.now() + Number(json.expires_in) * 1000;
+
+      this.storeToken();
+
+      resolve(this.token);
+    }
+  }
+
+  getStoredToken() {
+    return [this.localStorage.getItem('token'), this.localStorage.getItem('tokenExpireDate')];
   }
 
   storeToken() {
-    LocalStorage.setItem('token', this.token);
-    LocalStorage.setItem('tokenExpireDate', this.expireDate);
+    this.localStorage.setItem('token', this.token);
+    this.localStorage.setItem('tokenExpireDate', this.expireDate);
   }
 
-  signIn(onSignedIn) {
+  signIn(onLoad) {
     const xhr = new XMLHttpRequest();
 
-    xhr.addEventListener('load', onSignedIn);
+    xhr.addEventListener('load', onLoad);
 
     xhr.open('POST', this.url);
     xhr.setRequestHeader(...this.headers.contentType);
@@ -71,4 +68,4 @@ class Auth {
   }
 }
 
-export default new Auth(settings.url, settings.key, settings.secret);
+export default Auth;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import Auth from './Auth';
+import LocalStorage from './LocalStorage';
+import settings from './settings';
 import './LocationInput.css';
 
 class LocationInput extends Component {
@@ -8,6 +10,8 @@ class LocationInput extends Component {
     super(props);
 
     this.baseUrl = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name';
+
+    this.auth = new Auth(settings.key, settings.secret, new LocalStorage());
 
     this.state = {
       active: false,
@@ -47,7 +51,7 @@ class LocationInput extends Component {
   }
 
   autoComplete(input) {
-    Auth.getToken().then(token => {
+    this.auth.getToken().then(token => {
       const xhr = new XMLHttpRequest();
 
       xhr.addEventListener('load', () => {
