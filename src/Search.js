@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './Auth';
 import LocalStorage from './LocalStorage';
 import LocationInput from './LocationInput';
+import Util from './Util';
 import settings from './settings';
 import searching from './searching.svg';
 import switchLocations from './switch-locations.svg';
@@ -55,55 +56,22 @@ class Search extends Component {
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex} className="search__trip">
               <div className="search__trip-row-one">
-                <div className="trip__origin-time">{this.first(trip.Leg).Origin.time}</div>
+                <div className="trip__origin-time">{Util.first(trip.Leg).Origin.time}</div>
                 {trip.Leg.map((leg, legIndex) =>
                   <div className="trip__leg-name" key={legIndex} style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>
                     {leg.sname ? leg.sname : 'Gå'}
                   </div>
                 )}
-                <div className="trip__dest-time">{this.last(trip.Leg).Destination.time}</div>
+                <div className="trip__dest-time">{Util.last(trip.Leg).Destination.time}</div>
               </div>
               <div className="search__trip-row-two">
-                Restid: {this.diff(this.last(trip.Leg).Destination.time, this.first(trip.Leg).Origin.time)}
+                Restid: {Util.diff(Util.first(trip.Leg).Origin.time, Util.last(trip.Leg).Destination.time)}
               </div>
             </li>
           )}
         </ul>
       </div>
     )
-  }
-
-  diff(timeA, timeB) {
-    let timeASec = this.timeToSec(timeA);
-    let timeBSec = this.timeToSec(timeB);
-
-    // Handle midnight wraparound. We don't support several days yet.
-    if (timeASec < timeBSec) {
-      timeASec += 24*60*60;
-    }
-
-    return this.secToTime(timeASec - timeBSec);
-  }
-
-  timeToSec(time) {
-    // HH:mm
-    return time.split(':').reduce((acc, v) => acc * 60 + parseInt(v, 10), 0) * 60;
-  }
-
-  secToTime(seconds) {
-    const time = [];
-    while (seconds > 0) {
-      let unit = String(seconds % 60);
-      if (unit.length === 1) {
-        unit = '0' + unit;
-      }
-      time.push(unit);
-      seconds = Math.floor(seconds / 60);
-    }
-    if (time.length === 1) {
-      time.unshift('00');
-    }
-    return time.join(':');
   }
 
   onOriginSelected(id, name) {
@@ -182,29 +150,13 @@ class Search extends Component {
       return [];
     }
 
-    const trips = this.list(json.TripList.Trip);
+    const trips = Util.list(json.TripList.Trip);
 
     for (let i = 0; i < trips.length; i++) {
-      trips[i].Leg = this.list(trips[i].Leg);
+      trips[i].Leg = Util.list(trips[i].Leg);
     }
 
     return trips;
-  }
-
-  list(object) {
-    return Array.isArray(object) ? object : [object];
-  }
-
-  first(array) {
-    return array[0];
-  }
-
-  last(array) {
-    return array[array.length - 1];
-  }
-
-  shortLocation(locationName) {
-    return locationName.split(',')[0];
   }
 }
 
