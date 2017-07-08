@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './Auth';
 import LocalStorage from './LocalStorage';
 import LocationInput from './LocationInput';
+import SearchResult from './SearchResult';
 import Util from './Util';
 import settings from './settings';
 import searching from './searching.svg';
@@ -55,23 +56,12 @@ class Search extends Component {
         <ul className="search__trips">
           {this.state.trips.map((trip, tripIndex) =>
             <li key={tripIndex} className="search__trip">
-              <div className="search__trip-row-one">
-                <div className="trip__origin-time">{Util.first(trip.Leg).Origin.time}</div>
-                {trip.Leg.map((leg, legIndex) =>
-                  <div className="trip__leg-name" key={legIndex} style={{backgroundColor: leg.fgColor, color: leg.bgColor}}>
-                    {leg.sname ? leg.sname : 'Gå'}
-                  </div>
-                )}
-                <div className="trip__dest-time">{Util.last(trip.Leg).Destination.time}</div>
-              </div>
-              <div className="search__trip-row-two">
-                Restid: {Util.diff(Util.first(trip.Leg).Origin.time, Util.last(trip.Leg).Destination.time)}
-              </div>
+              <SearchResult trip={trip} />
             </li>
           )}
         </ul>
       </div>
-    )
+    );
   }
 
   onOriginSelected(id, name) {

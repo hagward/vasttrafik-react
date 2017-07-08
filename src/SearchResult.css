@@ -1,0 +1,33 @@
+.search-result__times {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.search-result__time-origin,
+.search-result__time-arrow,
+.search-result__time-destination {
+  font-size: 1.1rem;
+  flex-grow: 1;
+}
+
+.search-result__time-total {
+  font-size: .9rem;
+  flex-grow: 3;
+  text-align: right;
+}
+
+.search-result__legs {
+  display: flex;
+}
+
+.search-result__leg {
+  padding: 0 .1rem;
+  font-size: .8rem;
+  line-height: 1rem;
+  margin-right: .2rem;
+  min-width: 1.5rem;
+  text-align: center;
+  border-radius: .1rem;
+  border: 1px solid black;
+}
