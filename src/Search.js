@@ -21,7 +21,6 @@ class Search extends Component {
       originName: this.localStorage.getItem('originName') || '',
       destId: this.localStorage.getItem('destId') || '',
       destName: this.localStorage.getItem('destName') || '',
-      originClassName: '',
       locationInputsSwitched: false,
       trips: [],
       searching: false
@@ -36,8 +35,8 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div className="search__inputs">
-          <div className={'search__input' + this.state.originClassName}>
+        <div className={"search__inputs" + (this.state.locationInputsSwitched ? ' search__inputs--switched' : '')}>
+          <div className="search__input">
             <LocationInput className="search__input-first" value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
           </div>
           <div className="search__input">
@@ -83,7 +82,6 @@ class Search extends Component {
 
   switchLocations() {
     this.setState({
-      originClassName: this.state.originClassName ? '' : ' search__input--switched',
       locationInputsSwitched: !this.state.locationInputsSwitched,
       originId: this.state.destId,
       originName: this.state.destName,

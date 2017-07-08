@@ -4,8 +4,8 @@
   flex-direction: column;
 }
 
-.search__input--switched {
-  order: 1;
+.search__inputs--switched {
+  flex-direction: column-reverse;
 }
 
 .search__switch-locations-button {
