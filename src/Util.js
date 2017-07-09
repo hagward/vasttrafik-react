@@ -15,7 +15,7 @@ class Util {
     return locationName.split(',')[0];
   }
 
-  static diff(timeA, timeB) {
+  static timeDiff(timeA, timeB) {
     let timeASec = this.timeToSec(timeA);
     let timeBSec = this.timeToSec(timeB);
 

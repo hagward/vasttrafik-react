@@ -41,17 +41,17 @@ describe('Util', () => {
     });
   });
 
-  describe('diff', () => {
+  describe('timeDiff', () => {
     it('returns the time difference in hours and minutes', () => {
-      expect(Util.diff('11:38', '12:37')).toEqual('00:59');
+      expect(Util.timeDiff('11:38', '12:37')).toEqual('00:59');
     });
 
     it('handles time differences > 1h', () => {
-      expect(Util.diff('01:23', '12:37')).toEqual('11:14');
+      expect(Util.timeDiff('01:23', '12:37')).toEqual('11:14');
     });
 
     it('handles time differences at midnight', () => {
-      expect(Util.diff('23:59', '00:09')).toEqual('00:10');
+      expect(Util.timeDiff('23:59', '00:09')).toEqual('00:10');
     });
   });
 });

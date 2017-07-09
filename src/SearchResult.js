@@ -33,7 +33,7 @@ class SearchResult extends Component {
   }
 
   totalTravelTime() {
-    return Util.diff(this.originTime(), this.destinationTime());
+    return Util.timeDiff(this.originTime(), this.destinationTime());
   }
 }
 
