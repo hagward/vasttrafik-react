@@ -12,7 +12,7 @@ class LocationInput extends Component {
 
     this.baseUrl = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name';
 
-    this.auth = new Auth(settings.key, settings.secret, new LocalStorage());
+    this.auth = new Auth(settings.key, settings.secret, new LocalStorage(window));
 
     this.state = {
       active: false,

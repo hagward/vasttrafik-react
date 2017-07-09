@@ -13,7 +13,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
 
-    this.localStorage = new LocalStorage();
+    this.localStorage = new LocalStorage(window);
     this.auth = new Auth(settings.key, settings.secret, this.localStorage);
 
     this.state = {
