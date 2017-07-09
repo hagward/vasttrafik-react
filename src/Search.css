@@ -26,14 +26,25 @@
   vertical-align: middle;
 }
 
-.search__search-button {
+.search__settings {
+  display: flex;
+}
+
+.search__settings-time {
+  border: 0;
+  border-radius: 0;
+  padding: 1rem;
+  font: inherit;
+  font-size: .8rem;
+}
+
+.search__settings-search {
   background-color: #EE1844;
   border: none;
   color: white;
   cursor: pointer;
-  display: block;
-  width: 100%;
   padding: 1rem;
+  flex-grow: 1;
 }
 
 .search__searching {
@@ -44,31 +55,4 @@
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.search__trip {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 1px;
-  border-bottom: 1px solid #eee;
-}
-
-.search__trip-row-one {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.trip__origin-time {
-  text-align: left;
-}
-
-.trip__dest-time {
-  text-align: right;
-}
-
-.trip__leg-name {
-  border-radius: .2rem;
-  padding: 0 .5rem;
-  border: 1px solid #eee;
 }

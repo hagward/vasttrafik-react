@@ -21,11 +21,13 @@ class Search extends Component {
       originName: this.localStorage.getItem('originName') || '',
       destId: this.localStorage.getItem('destId') || '',
       destName: this.localStorage.getItem('destName') || '',
+      time: this.currentTime(),
       locationInputsSwitched: false,
       trips: [],
       searching: false
     };
 
+    this.onTimeChanged = this.onTimeChanged.bind(this);
     this.onOriginSelected = this.onOriginSelected.bind(this);
     this.onDestinationSelected = this.onDestinationSelected.bind(this);
     this.search = this.search.bind(this);
@@ -46,7 +48,10 @@ class Search extends Component {
             <img src={switchLocations} alt="Switch origin and destination" />
           </button>
         </div>
-        <button className="search__search-button" onClick={this.search}>Sök</button>
+        <div className="search__settings">
+          <input className="search__settings-time" type="time" value={this.state.time} onChange={this.onTimeChanged} />
+          <button className="search__settings-search" onClick={this.search}>Sök</button>
+        </div>
         {this.state.searching &&
           <div className="search__searching">
             <img src={searching} alt="Searching" />
@@ -61,6 +66,14 @@ class Search extends Component {
         </ul>
       </div>
     );
+  }
+
+  currentTime() {
+    return new Date().toTimeString().substr(0, 5);
+  }
+
+  onTimeChanged(event) {
+    this.setState({time: event.target.value});
   }
 
   onOriginSelected(id, name) {
@@ -104,7 +117,8 @@ class Search extends Component {
     this.auth.getToken().then(token => {
       const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
         '&originId=' + encodeURIComponent(this.state.originId) +
-        '&destId=' + encodeURIComponent(this.state.destId);
+        '&destId=' + encodeURIComponent(this.state.destId) +
+        '&time=' + encodeURIComponent(this.state.time);
 
       const xhr = new XMLHttpRequest();
 

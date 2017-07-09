@@ -1,3 +1,9 @@
+.search-result {
+  margin-top: 1px;
+  background-color: white;
+  padding: 1rem;
+}
+
 .search-result__times {
   display: flex;
   justify-content: space-between;
@@ -24,7 +30,6 @@
 .search-result__leg {
   padding: 0 .1rem;
   font-size: .8rem;
-  line-height: 1rem;
   margin-right: .2rem;
   min-width: 1.5rem;
   text-align: center;
