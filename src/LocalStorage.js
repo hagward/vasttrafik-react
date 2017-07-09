@@ -1,18 +1,14 @@
 class LocalStorage {
-  constructor() {
-    this.storage = {};
+  constructor(window) {
+    this.storage = window && window.localStorage ? window.localStorage : {};
   }
 
   getItem(key) {
-    return window && window.localStorage ? window.localStorage.getItem(key) : this.storage[key];
+    return this.storage[key];
   }
 
   setItem(key, value) {
-    if (window && window.localStorage) {
-      window.localStorage.setItem(key, value);
-    } else {
-      this.storage[key] = value;
-    }
+    this.storage[key] = value;
   }
 }
 
