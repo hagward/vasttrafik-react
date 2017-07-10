@@ -77,30 +77,32 @@ class Search extends Component {
   }
 
   onOriginSelected(id, name) {
-    const locationType = this.state.locationInputsSwitched ? 'dest' : 'origin';
-    this.onLocationSelected(id, name, locationType);
+    this.onLocationSelected(id, name, true);
   }
 
   onDestinationSelected(id, name) {
-    const locationType = this.state.locationInputsSwitched ? 'origin' : 'dest';
-    this.onLocationSelected(id, name, locationType);
+    this.onLocationSelected(id, name, false);
   }
 
-  onLocationSelected(id, name, locationType) {
-    const newState = {};
-    newState[locationType + 'Id'] = id;
-    newState[locationType + 'Name'] = name;
-    this.setState(newState);
+  onLocationSelected(id, name, origin) {
+    this.setState(prevState => {
+      origin = (origin && !prevState.locationInputsSwitched) || (!origin && prevState.locationInputsSwitched);
+      const locationType = origin ? 'origin' : 'dest';
+      const newState = {};
+      newState[locationType + 'Id'] = id;
+      newState[locationType + 'Name'] = name;
+      return newState;
+    });
   }
 
   switchLocations() {
-    this.setState({
-      locationInputsSwitched: !this.state.locationInputsSwitched,
-      originId: this.state.destId,
-      originName: this.state.destName,
-      destId: this.state.originId,
-      destName: this.state.originName
-    });
+    this.setState(prevState => ({
+      locationInputsSwitched: !prevState.locationInputsSwitched,
+      originId: prevState.destId,
+      originName: prevState.destName,
+      destId: prevState.originId,
+      destName: prevState.originName
+    }));
   }
 
   search() {
