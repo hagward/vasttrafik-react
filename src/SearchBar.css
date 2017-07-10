@@ -1,14 +1,14 @@
-.search__inputs {
+.search-bar__locations {
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.search__inputs--switched {
+.search-bar__locations--switched {
   flex-direction: column-reverse;
 }
 
-.search__switch-locations-button {
+.search-bar__switch-locations {
   background-color: white;
   border: 1px solid #eee;
   border-radius: 1rem;
@@ -22,15 +22,15 @@
   z-index: 10;
 }
 
-.search__switch-locations-button img {
+.search-bar__switch-locations img {
   vertical-align: middle;
 }
 
-.search__settings {
+.search-bar__settings {
   display: flex;
 }
 
-.search__settings-time {
+.search-bar__time {
   border: 0;
   border-radius: 0;
   padding: 1rem;
@@ -38,21 +38,11 @@
   font-size: .8rem;
 }
 
-.search__settings-search {
+.search-bar__search {
   background-color: #EE1844;
   border: none;
   color: white;
   cursor: pointer;
   padding: 1rem;
   flex-grow: 1;
-}
-
-.search__searching {
-  text-align: center;
-}
-
-.search__trips {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
