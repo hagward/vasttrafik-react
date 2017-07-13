@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import Auth from './Auth';
-import LocalStorage from './LocalStorage';
 import Util from './Util';
 import settings from './settings';
 import './LocationInput.css';
@@ -10,7 +9,7 @@ class LocationInput extends Component {
   constructor(props) {
     super(props);
 
-    this.auth = new Auth(settings.key, settings.secret, new LocalStorage(window));
+    this.auth = new Auth(settings.key, settings.secret);
 
     this.state = {
       active: false,

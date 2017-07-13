@@ -1,8 +1,8 @@
 class Auth {
-  constructor(key, secret, localStorage) {
+  constructor(key, secret) {
     this.key = key;
     this.secret = secret;
-    this.localStorage = localStorage;
+    this.localStorage = window && window.localStorage ? window.localStorage : {};
   }
 
   getToken() {
@@ -26,7 +26,7 @@ class Auth {
   }
 
   getStoredToken() {
-    return [this.localStorage.getItem('token'), this.localStorage.getItem('tokenExpireDate')];
+    return [this.localStorage['token'], this.localStorage['tokenExpireDate']];
   }
 
   signIn() {
@@ -43,10 +43,10 @@ class Auth {
   }
 
   scope() {
-    if (!this.localStorage.getItem('scope')) {
-      this.localStorage.setItem('scope', this.generateScope());
+    if (!this.localStorage['scope']) {
+      this.localStorage['scope'] = this.generateScope();
     }
-    return this.localStorage.getItem('scope');
+    return this.localStorage['scope'];
   }
 
   generateScope() {
@@ -54,8 +54,8 @@ class Auth {
   }
 
   storeToken() {
-    this.localStorage.setItem('token', this.token);
-    this.localStorage.setItem('tokenExpireDate', this.expireDate);
+    this.localStorage['token'] = this.token;
+    this.localStorage['tokenExpireDate'] = this.expireDate;
   }
 }
 

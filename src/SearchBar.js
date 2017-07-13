@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LocalStorage from './LocalStorage';
 import LocationInput from './LocationInput';
 import switchLocations from './switch-locations.svg';
 import './SearchBar.css';
@@ -8,13 +7,13 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.localStorage = new LocalStorage(window);
+    this.localStorage = window && window.localStorage ? window.localStorage : {};
 
     this.state = {
-      originId: this.localStorage.getItem('originId') || '',
-      originName: this.localStorage.getItem('originName') || '',
-      destId: this.localStorage.getItem('destId') || '',
-      destName: this.localStorage.getItem('destName') || '',
+      originId: this.localStorage['originId'] || '',
+      originName: this.localStorage['originName'] || '',
+      destId: this.localStorage['destId'] || '',
+      destName: this.localStorage['destName'] || '',
       time: this.currentTime(),
       locationsSwitched: false
     };
@@ -87,10 +86,10 @@ class SearchBar extends Component {
   }
 
   storeLocations() {
-    this.localStorage.setItem('originId', this.state.originId);
-    this.localStorage.setItem('originName', this.state.originName);
-    this.localStorage.setItem('destId', this.state.destId);
-    this.localStorage.setItem('destName', this.state.destName);
+    this.localStorage['originId'] = this.state.originId;
+    this.localStorage['originName'] = this.state.originName;
+    this.localStorage['destId'] = this.state.destId;
+    this.localStorage['destName'] = this.state.destName;
   }
 }
 

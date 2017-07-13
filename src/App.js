@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Auth from './Auth';
-import LocalStorage from './LocalStorage';
 import SearchBar from './SearchBar';
 import TripList from './TripList';
 import Util from './Util';
@@ -11,7 +10,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.auth = new Auth(settings.key, settings.secret, new LocalStorage(window));
+    this.auth = new Auth(settings.key, settings.secret);
 
     this.state = {
       trips: [],

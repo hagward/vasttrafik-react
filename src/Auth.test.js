@@ -1,24 +1,23 @@
 import Auth from './Auth';
-import LocalStorage from './LocalStorage';
 
 describe('getToken', () => {
-  let auth, localStorage;
+  let auth;
 
   beforeEach(() => {
-    localStorage = new LocalStorage();
-    localStorage.setItem('token', 'storedToken');
-    auth = new Auth('key', 'secret', localStorage);
+    window.localStorage = {token: 'storedToken'};
     window.fetch = mockFetch();
+
+    auth = new Auth('key', 'secret');
   });
 
   it('returns stored token if valid', () => {
-    localStorage.setItem('tokenExpireDate', Date.now() + 100000);
+    localStorage['tokenExpireDate'] = Date.now() + 100000;
 
     return expect(auth.getToken()).resolves.toEqual('storedToken');
   });
 
   it('fetches token asynchronously if stored token not valid', () => {
-    localStorage.setItem('tokenExpireDate', Date.now() - 100000);
+    localStorage['tokenExpireDate'] = Date.now() - 100000;
 
     return expect(auth.getToken()).resolves.toEqual('token');
   });
