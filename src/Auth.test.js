@@ -8,7 +8,7 @@ describe('getToken', () => {
     localStorage = new LocalStorage();
     localStorage.setItem('token', 'storedToken');
     auth = new Auth('key', 'secret', localStorage);
-    mockXhr();
+    window.fetch = mockFetch();
   });
 
   it('returns stored token if valid', () => {
@@ -24,18 +24,11 @@ describe('getToken', () => {
   });
 });
 
-function mockXhr() {
-  const Xhr = function() {};
-  Xhr.DONE = 5;
-  Xhr.prototype.addEventListener = jest.fn()
-    .mockImplementation((eventType, callback) => callback({
-      target: {
-        readyState: Xhr.DONE,
-        status: 200,
-        response: JSON.stringify({access_token: 'token', expires_in: 3600})
-      }}));
-  Xhr.prototype.open = jest.fn();
-  Xhr.prototype.setRequestHeader = jest.fn();
-  Xhr.prototype.send = jest.fn();
-  window.XMLHttpRequest = Xhr;
+function mockFetch() {
+  return (url, init) => {
+    return new Promise(resolve => resolve({
+      json: () => new Promise(resolveInner =>
+        resolveInner({access_token: 'token', expires_in: 3600}))
+    }));
+  };
 }

@@ -31,38 +31,36 @@ class App extends Component {
   }
 
   onSearch(originId, destId, time) {
-    if (originId === destId) {
-      return;
+    if (originId !== destId) {
+      this.search(originId, destId, time);
     }
+  }
 
+  search(originId, destId, time) {
     this.setState({
       searching: true
     });
 
-    this.auth.getToken().then(token => {
-      const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-        '&originId=' + encodeURIComponent(originId) +
-        '&destId=' + encodeURIComponent(destId) +
-        '&time=' + encodeURIComponent(time);
+    this.auth.getToken()
+      .then(token => {
+        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
+          '&originId=' + encodeURIComponent(originId) +
+          '&destId=' + encodeURIComponent(destId) +
+          '&time=' + encodeURIComponent(time);
 
-      const xhr = new XMLHttpRequest();
-
-      xhr.addEventListener('load', () => {
-        this.setState({
-          trips: this.parseTrips(xhr.response),
-          searching: false
+        return fetch(url, {
+          method: 'GET',
+          headers: new Headers({'Authorization': 'Bearer ' + token})
         });
-      });
-
-      xhr.open('GET', url);
-      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-      xhr.send();
-    });
+      })
+      .then(response => response.json())
+      .then(json => this.setState({
+        searching: false,
+        trips: this.parseTrips(json)
+      }));
   }
 
-  parseTrips(response) {
-    const json = JSON.parse(response);
-
+  parseTrips(json) {
     console.log(json);
 
     if (json.TripList.error) {

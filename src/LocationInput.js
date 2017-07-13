@@ -10,8 +10,6 @@ class LocationInput extends Component {
   constructor(props) {
     super(props);
 
-    this.baseUrl = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name';
-
     this.auth = new Auth(settings.key, settings.secret, new LocalStorage(window));
 
     this.state = {
@@ -37,11 +35,12 @@ class LocationInput extends Component {
           </ul>
         }
       </div>
-    )
+    );
   }
 
   handleChange(event) {
     const input = event.target.value;
+
     this.setState({
       value: input
     });
@@ -52,21 +51,21 @@ class LocationInput extends Component {
   }
 
   autoComplete(input) {
-    this.auth.getToken().then(token => {
-      const xhr = new XMLHttpRequest();
+    this.auth.getToken()
+      .then(token => {
+        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
+          '?format=json&input=' + encodeURIComponent(input);
 
-      xhr.addEventListener('load', () => {
-        const json = JSON.parse(xhr.response);
-        this.setState({
-          active: true,
-          locations: Util.list(json.LocationList.StopLocation)
+        return fetch(url, {
+          method: 'GET',
+          headers: new Headers({'Authorization': 'Bearer ' + token})
         });
-      });
-
-      xhr.open('GET', this.baseUrl + '?format=json&input=' + encodeURIComponent(input));
-      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-      xhr.send();
-    });
+      })
+      .then(response => response.json())
+      .then(json => this.setState({
+        active: true,
+        locations: Util.list(json.LocationList.StopLocation)
+      }));
   }
 
   selectLocation(event) {

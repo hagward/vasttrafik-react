@@ -1,13 +1,45 @@
 class Auth {
   constructor(key, secret, localStorage) {
+    this.key = key;
+    this.secret = secret;
     this.localStorage = localStorage;
+  }
 
-    this.url = 'https://api.vasttrafik.se:443/token';
-    this.headers = {
-      contentType: ['Content-Type', 'application/x-www-form-urlencoded'],
-      auth: ['Authorization', 'Basic ' + btoa(key + ':' + secret)]
-    };
-    this.body = 'grant_type=client_credentials&scope=' + this.scope();
+  getToken() {
+    return new Promise((resolve, reject) => {
+      const [token, expireDate] = this.getStoredToken();
+      if (Date.now() < expireDate) {
+        resolve(token);
+      } else {
+        this.signIn()
+          .then(response => response.json())
+          .then(json => {
+            this.token = json.access_token;
+            this.expireDate = Date.now() + Number(json.expires_in) * 1000;
+
+            this.storeToken();
+
+            resolve(this.token);
+          });
+      }
+    });
+  }
+
+  getStoredToken() {
+    return [this.localStorage.getItem('token'), this.localStorage.getItem('tokenExpireDate')];
+  }
+
+  signIn() {
+    const headers = new Headers({
+      'Authorization': 'Basic ' + btoa(this.key + ':' + this.secret),
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    return fetch('https://api.vasttrafik.se:443/token', {
+      method: 'POST',
+      headers: headers,
+      body: 'grant_type=client_credentials&scope=' + this.scope()
+    });
   }
 
   scope() {
@@ -21,47 +53,9 @@ class Auth {
     return Math.random().toString(36).slice(2);
   }
 
-  getToken() {
-    return new Promise((resolve, reject) => {
-      const [token, expireDate] = this.getStoredToken();
-      if (Date.now() < expireDate) {
-        resolve(token);
-      } else {
-        this.signIn(e => this.onSignedIn(e.target, resolve, reject));
-      }
-    });
-  }
-
-  onSignedIn(xhr, resolve, reject) {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      const json = JSON.parse(xhr.response);
-      this.token = json.access_token;
-      this.expireDate = Date.now() + Number(json.expires_in) * 1000;
-
-      this.storeToken();
-
-      resolve(this.token);
-    }
-  }
-
-  getStoredToken() {
-    return [this.localStorage.getItem('token'), this.localStorage.getItem('tokenExpireDate')];
-  }
-
   storeToken() {
     this.localStorage.setItem('token', this.token);
     this.localStorage.setItem('tokenExpireDate', this.expireDate);
-  }
-
-  signIn(onLoad) {
-    const xhr = new XMLHttpRequest();
-
-    xhr.addEventListener('load', onLoad);
-
-    xhr.open('POST', this.url);
-    xhr.setRequestHeader(...this.headers.contentType);
-    xhr.setRequestHeader(...this.headers.auth);
-    xhr.send(this.body);
   }
 }
 
