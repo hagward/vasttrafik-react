@@ -48,18 +48,23 @@
   vertical-align: middle;
 }
 
-.search-bar__settings {
+.search-bar__datetime {
   display: flex;
 }
 
+.search-bar__date,
 .search-bar__time {
-  border: 0;
-  border-radius: 0;
-  padding: 1rem;
-  font: inherit;
-  font-size: .8rem;
   -webkit-appearance: none;
+  border: 0;
+  padding: 1rem;
+  font-size: .8rem;
   margin: 0;
+  flex-grow: 1;
+  border-radius: 0;
+}
+
+.search-bar__date {
+  border-right: 1px solid #eee;
 }
 
 .search-bar__search {
@@ -70,4 +75,5 @@
   padding: 1rem;
   flex-grow: 1;
   margin: 0;
+  width: 100%;
 }

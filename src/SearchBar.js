@@ -9,17 +9,21 @@ class SearchBar extends Component {
 
     this.localStorage = window && window.localStorage ? window.localStorage : {};
 
+    const [date, time] = this.currentDateTime();
+
     this.state = {
       originId: this.localStorage['originId'] || '',
       originName: this.localStorage['originName'] || '',
       destId: this.localStorage['destId'] || '',
       destName: this.localStorage['destName'] || '',
-      time: this.currentTime(),
+      date: date,
+      time: time,
       locationsSwitched: false
     };
 
     this.onOriginSelected = this.onOriginSelected.bind(this);
     this.onDestinationSelected = this.onDestinationSelected.bind(this);
+    this.onDateChanged = this.onDateChanged.bind(this);
     this.onTimeChanged = this.onTimeChanged.bind(this);
     this.switchLocations = this.switchLocations.bind(this);
     this.search = this.search.bind(this);
@@ -37,16 +41,18 @@ class SearchBar extends Component {
             <img src={switchLocations} alt="Switch origin and destination" />
           </button>
         </div>
-        <div className="search-bar__settings">
+        <div className="search-bar__datetime">
+          <input className="search-bar__date" type="date" value={this.state.date} onChange={this.onDateChanged} />
           <input className="search-bar__time" type="time" value={this.state.time} onChange={this.onTimeChanged} />
-          <button className="search-bar__search" onClick={this.search}>Sök</button>
         </div>
+        <button className="search-bar__search" onClick={this.search}>Sök</button>
       </div>
     );
   }
 
-  currentTime() {
-    return new Date().toTimeString().substr(0, 5);
+  currentDateTime() {
+    // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
+    return new Date().toLocaleString('sv-SE').substr(0, 16).split(' ');
   }
 
   onOriginSelected(id, name) {
@@ -78,13 +84,17 @@ class SearchBar extends Component {
     }));
   }
 
+  onDateChanged(event) {
+    this.setState({date: event.target.value});
+  }
+
   onTimeChanged(event) {
     this.setState({time: event.target.value});
   }
 
   search() {
     this.storeLocations();
-    this.props.onSearch(this.state.originId, this.state.destId, this.state.time);
+    this.props.onSearch(this.state.originId, this.state.destId, this.state.date, this.state.time);
   }
 
   storeLocations() {

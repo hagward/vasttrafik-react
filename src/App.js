@@ -29,13 +29,13 @@ class App extends Component {
     );
   }
 
-  onSearch(originId, destId, time) {
+  onSearch(originId, destId, date, time) {
     if (originId !== destId) {
-      this.search(originId, destId, time);
+      this.search(originId, destId, date, time);
     }
   }
 
-  search(originId, destId, time) {
+  search(originId, destId, date, time) {
     this.setState({
       searching: true
     });
@@ -45,6 +45,7 @@ class App extends Component {
         const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
           '&originId=' + encodeURIComponent(originId) +
           '&destId=' + encodeURIComponent(destId) +
+          '&date=' + encodeURIComponent(date) +
           '&time=' + encodeURIComponent(time);
 
         return fetch(url, {
