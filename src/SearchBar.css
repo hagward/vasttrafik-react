@@ -58,6 +58,8 @@
   padding: 1rem;
   font: inherit;
   font-size: .8rem;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .search-bar__search {
@@ -67,4 +69,5 @@
   cursor: pointer;
   padding: 1rem;
   flex-grow: 1;
+  margin: 0;
 }
