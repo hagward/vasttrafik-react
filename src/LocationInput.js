@@ -25,7 +25,7 @@ class LocationInput extends Component {
   render() {
     return (
       <div className="location-input">
-        <input className="location-input__input" type="search" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
+        <input className="location-input__input" type="search" placeholder="Station" value={this.state.value} onChange={this.handleChange} />
         {this.state.active &&
           <ul className="location-input__suggestions">
             {this.state.locations.map(location =>

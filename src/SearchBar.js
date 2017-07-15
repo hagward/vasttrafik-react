@@ -29,9 +29,11 @@ class SearchBar extends Component {
     return (
       <div className="search-bar">
         <div className={"search-bar__locations" + (this.state.locationsSwitched ? ' search-bar__locations--switched' : '')}>
-          <LocationInput value={this.state.originName} placeholder="Från" onSelection={this.onOriginSelected} />
-          <LocationInput value={this.state.destName} placeholder="Till" onSelection={this.onDestinationSelected} />
-          <button className="search-bar__switch-locations" onClick={this.switchLocations}>
+          <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
+          <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
+          <div className="locations__icon-origin">A</div>
+          <div className="locations__icon-destination">B</div>
+          <button className="locations__switch-locations" onClick={this.switchLocations}>
             <img src={switchLocations} alt="Switch origin and destination" />
           </button>
         </div>
