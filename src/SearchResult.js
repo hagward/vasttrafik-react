@@ -11,7 +11,7 @@ class SearchResult extends Component {
           <div className="search-result__time-origin">{this.originTime()}</div>
           <div className="search-result__time-arrow"><img src={arrow} alt="Arrow" /></div>
           <div className="search-result__time-destination">{this.destinationTime()}</div>
-          <div className="search-result__time-total">{this.totalTravelTime()} m</div>
+          <div className="search-result__time-total">Restid: {this.totalTravelTime()}</div>
         </div>
         <div className="search-result__legs">
           {this.props.trip.Leg.map((leg, legIndex) =>
