@@ -77,3 +77,14 @@
   margin: 0;
   width: 100%;
 }
+
+.search-bar__search:disabled {
+  background-color: gray;
+  cursor: default;
+}
+
+.search-bar__searching {
+  height: 1rem;
+  vertical-align: middle;
+  margin-left: .5rem;
+}

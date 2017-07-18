@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LocationInput from './LocationInput';
 import switchLocations from './switch-locations.svg';
+import searching from './searching.svg';
 import './SearchBar.css';
 
 class SearchBar extends Component {
@@ -45,7 +46,18 @@ class SearchBar extends Component {
           <input className="search-bar__date" type="date" value={this.state.date} onChange={this.onDateChanged} />
           <input className="search-bar__time" type="time" value={this.state.time} onChange={this.onTimeChanged} />
         </div>
-        <button className="search-bar__search" onClick={this.search}>Sök</button>
+        <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
+          {this.props.searching &&
+            <div>
+              Söker...
+              <img className="search-bar__searching" src={searching} alt="Searching" />
+            </div>
+          }
+
+          {!this.props.searching &&
+            <div>Sök</div>
+          }
+        </button>
       </div>
     );
   }

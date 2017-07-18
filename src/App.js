@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar onSearch={this.onSearch} searching={this.state.searching} />
         <TripList trips={this.state.trips} />
       </div>
     );
