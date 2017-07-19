@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Util from './Util';
-import arrow from './chevron-right.svg';
 import './SearchResult.css';
 
 class SearchResult extends Component {
@@ -9,7 +8,7 @@ class SearchResult extends Component {
       <div className="search-result">
         <div className="search-result__times">
           <div className="search-result__time-origin">{this.originTime()}</div>
-          <div className="search-result__time-arrow"><img src={arrow} alt="Arrow" /></div>
+          <div className="search-result__time-arrow">→</div>
           <div className="search-result__time-destination">{this.destinationTime()}</div>
           <div className="search-result__time-total">Restid: {this.totalTravelTime()}</div>
         </div>
