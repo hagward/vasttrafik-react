@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchResult from './SearchResult';
+import Trip from './Trip';
 import './TripList.css';
 
 class TripList extends Component {
@@ -8,7 +8,7 @@ class TripList extends Component {
       <ul className="trip-list">
         {this.props.trips.map((trip, tripIndex) =>
           <li key={tripIndex} className="trip-list__trip">
-            <SearchResult trip={trip} />
+            <Trip trip={trip} />
           </li>
         )}
       </ul>

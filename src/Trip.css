@@ -1,33 +1,33 @@
-.search-result {
+.trip {
   margin-top: 1px;
   background-color: white;
   padding: 1rem;
 }
 
-.search-result__times {
+.trip__times {
   display: flex;
   justify-content: space-between;
   margin-bottom: .5rem;
 }
 
-.search-result__time-origin,
-.search-result__time-arrow,
-.search-result__time-destination {
+.trip__time-origin,
+.trip__time-arrow,
+.trip__time-destination {
   font-size: 1.1rem;
   flex-grow: 1;
 }
 
-.search-result__time-total {
+.trip__time-total {
   font-size: .9rem;
   flex-grow: 3;
   text-align: right;
 }
 
-.search-result__legs {
+.trip__legs {
   display: flex;
 }
 
-.search-result__leg {
+.trip__leg {
   padding: 0 .1rem;
   font-size: .8rem;
   margin-right: .2rem;
