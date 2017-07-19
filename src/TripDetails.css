@@ -1,0 +1,9 @@
+.trip-details {
+  color: #EE1844;
+  padding: 0 1rem;
+  margin-top: .5rem;
+}
+
+.trip-details__leg span {
+  color: black;
+}

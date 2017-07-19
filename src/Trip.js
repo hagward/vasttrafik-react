@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import TripDetails from './TripDetails';
 import Util from './Util';
 import './Trip.css';
 
 class Trip extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expanded: false
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   render() {
     return (
-      <div className="trip">
+      <div className="trip" onClick={this.handleClick}>
         <div className="trip__times">
           <div className="trip__time-origin">{this.originTime()}</div>
           <div className="trip__time-arrow">→</div>
@@ -19,8 +30,17 @@ class Trip extends Component {
             </div>
           )}
         </div>
+        {this.state.expanded &&
+          <TripDetails trip={this.props.trip} />
+        }
       </div>
     );
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      expanded: !prevState.expanded
+    }));
   }
 
   originTime() {

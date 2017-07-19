@@ -4,6 +4,10 @@
   padding: 1rem;
 }
 
+.trip:hover {
+  cursor: pointer;
+}
+
 .trip__times {
   display: flex;
   justify-content: space-between;
@@ -25,11 +29,11 @@
 
 .trip__legs {
   display: flex;
+  font-size: .8rem;
 }
 
 .trip__leg {
   padding: 0 .1rem;
-  font-size: .8rem;
   margin-right: .2rem;
   min-width: 1.5rem;
   text-align: center;
