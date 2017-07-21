@@ -7,16 +7,19 @@ class TripDetails extends Component {
       <ul className="trip-details">
         {this.props.trip.Leg.map((leg, legIndex) =>
           <li className="trip-details__leg" key={legIndex}>
-            {legIndex !== this.props.trip.Leg.length-1 &&
-              this.renderLocation(leg.Origin)
-            }
-            {legIndex === this.props.trip.Leg.length-1 &&
-              this.renderLocation(leg.Destination)
-            }
+            {this.renderLeg(leg, legIndex)}
           </li>
         )}
       </ul>
     );
+  }
+
+  renderLeg(leg, index) {
+    if (index === this.props.trip.Leg.length - 1) {
+      return this.renderLocation(leg.Destination);
+    } else {
+      return this.renderLocation(leg.Origin);
+    }
   }
 
   renderLocation(location) {
