@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LocationInput from './LocationInput';
-import switchLocations from './switch-locations.svg';
-import searching from './searching.svg';
+import IconSwitchLocations from './icons/switch-locations.svg';
+import IconSearching from './icons/searching.svg';
 import './SearchBar.css';
 
 class SearchBar extends Component {
@@ -39,7 +39,7 @@ class SearchBar extends Component {
           <div className="locations__icon-origin">A</div>
           <div className="locations__icon-destination">B</div>
           <button className="locations__switch-locations" onClick={this.switchLocations}>
-            <img src={switchLocations} alt="Switch origin and destination" />
+            <img src={IconSwitchLocations} alt="Switch origin and destination" />
           </button>
         </div>
         <div className="search-bar__datetime">
@@ -50,7 +50,7 @@ class SearchBar extends Component {
           {this.props.searching &&
             <div>
               Söker...
-              <img className="search-bar__searching" src={searching} alt="Searching" />
+              <img className="search-bar__searching" src={IconSearching} alt="Searching" />
             </div>
           }
 
