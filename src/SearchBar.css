@@ -50,20 +50,6 @@
   display: flex;
 }
 
-.search-bar__date,
-.search-bar__time {
-  -webkit-appearance: none;
-  border: 0;
-  padding: .8rem;
-  margin: 0;
-  flex-grow: 1;
-  border-radius: 0;
-}
-
-.search-bar__date {
-  border-right: 1px solid #eee;
-}
-
 .search-bar__search {
   background-color: #EE1844;
   border: none;

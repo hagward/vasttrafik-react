@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import DatePicker from './DatePicker';
 import LocationInput from './LocationInput';
+import TimePicker from './TimePicker';
 import IconSwitchLocations from './icons/switch-locations.svg';
 import IconSearching from './icons/searching.svg';
 import './SearchBar.css';
@@ -43,8 +45,8 @@ class SearchBar extends Component {
           </button>
         </div>
         <div className="search-bar__datetime">
-          <input className="search-bar__date" type="date" value={this.state.date} onChange={this.onDateChanged} />
-          <input className="search-bar__time" type="time" value={this.state.time} onChange={this.onTimeChanged} />
+          <DatePicker value={this.state.date} onChange={this.onDateChanged} />
+          <TimePicker value={this.state.time} onChange={this.onTimeChanged} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching &&
