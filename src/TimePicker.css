@@ -1,8 +1,15 @@
-.time-picker {
+.time-picker__icon {
+  position: absolute;
+  padding: .8rem;
+  flex-grow: 1;
+}
+
+.time-picker__input {
+  padding: .8rem;
+  padding-left: 2.4rem;
   -webkit-appearance: none;
   border: 0;
-  padding: .8rem;
   margin: 0;
-  flex-grow: 1;
   border-radius: 0;
+  width: 100%;
 }

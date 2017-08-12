@@ -1,9 +1,19 @@
 .date-picker {
+  border-right: 1px solid #eee;
+  flex-grow: 1;
+}
+
+.date-picker__icon {
+  position: absolute;
+  padding: .8rem;
+}
+
+.date-picker__input {
+  padding: .8rem;
+  padding-left: 2.4rem;
   -webkit-appearance: none;
   border: 0;
-  border-right: 1px solid #eee;
-  padding: .8rem;
   margin: 0;
-  flex-grow: 1;
   border-radius: 0;
+  width: 100%;
 }

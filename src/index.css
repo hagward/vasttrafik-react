@@ -11,3 +11,7 @@ body {
 body, button, input {
   font: 1rem Arial, Helvetica, sans-serif;
 }
+
+svg {
+  fill: #EE1844;
+}
