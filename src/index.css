@@ -15,4 +15,5 @@ body, button, input {
 
 svg {
   fill: #EE1844;
+  vertical-align: middle;
 }

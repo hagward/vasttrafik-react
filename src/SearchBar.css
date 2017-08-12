@@ -13,20 +13,21 @@
 }
 
 .locations__switch-locations {
-  background-color: white;
-  border: 1px solid #eee;
+  background-color: transparent;
+  padding: 0;
   cursor: pointer;
-  display: inline-block;
-  padding: .1rem;
+  border: none;
   position: absolute;
   right: .8rem;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 25%;
+  transform: translateY(50%);
   z-index: 10;
 }
 
-.locations__switch-locations img {
-  vertical-align: middle;
+.locations__switch-locations svg {
+  height: 1.6rem;
+  width: 1.6rem;
+  fill: #666;
 }
 
 .search-bar__datetime {
@@ -45,7 +46,7 @@
 }
 
 .search-bar__search:disabled {
-  background-color: gray;
+  background-color: #666;
   cursor: default;
 }
 

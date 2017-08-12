@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import DatePicker from './DatePicker';
 import LocationInput from './LocationInput';
+import Icon from 'react-geomicons';
 import TimePicker from './TimePicker';
-import IconSwitchLocations from './icons/switch-locations.svg';
-import IconSearching from './icons/searching.svg';
 import './SearchBar.css';
 
 class SearchBar extends Component {
@@ -39,7 +38,7 @@ class SearchBar extends Component {
           <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
           <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
           <button className="locations__switch-locations" onClick={this.switchLocations}>
-            <img src={IconSwitchLocations} alt="Switch origin and destination" />
+            <Icon name="repost" />
           </button>
         </div>
         <div className="search-bar__datetime">
@@ -47,16 +46,8 @@ class SearchBar extends Component {
           <TimePicker value={this.state.time} onChange={this.onTimeChanged} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
-          {this.props.searching &&
-            <div>
-              Söker...
-              <img className="search-bar__searching" src={IconSearching} alt="Searching" />
-            </div>
-          }
-
-          {!this.props.searching &&
-            <div>Sök</div>
-          }
+          {this.props.searching && <span>Söker...</span>}
+          {!this.props.searching && <span>Sök</span>}
         </button>
       </div>
     );
