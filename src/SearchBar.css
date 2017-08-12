@@ -12,27 +12,6 @@
   flex-direction: column-reverse;
 }
 
-.locations__icon-origin,
-.locations__icon-destination {
-  position: absolute;
-  transform: translateY(-50%);
-  background-color: #EE1844;
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  text-align: center;
-  color: white;
-  left: .8rem;
-}
-
-.locations__icon-origin {
-  top: 25%;
-}
-
-.locations__icon-destination {
-  top: 75%;
-}
-
 .locations__switch-locations {
   background-color: white;
   border: 1px solid #eee;
