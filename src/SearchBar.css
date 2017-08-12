@@ -18,8 +18,7 @@
   height: 1rem;
   text-align: center;
   color: white;
-  left: 1rem;
-  font-size: .8rem;
+  left: .8rem;
 }
 
 .locations__icon-origin {
@@ -33,12 +32,11 @@
 .locations__switch-locations {
   background-color: white;
   border: 1px solid #eee;
-  border-radius: 1rem;
   cursor: pointer;
   display: inline-block;
-  padding: .5rem;
+  padding: .1rem;
   position: absolute;
-  right: 1rem;
+  right: .8rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
@@ -56,8 +54,7 @@
 .search-bar__time {
   -webkit-appearance: none;
   border: 0;
-  padding: 1rem;
-  font-size: .8rem;
+  padding: .8rem;
   margin: 0;
   flex-grow: 1;
   border-radius: 0;
@@ -72,7 +69,7 @@
   border: none;
   color: white;
   cursor: pointer;
-  padding: 1rem;
+  padding: .8rem;
   flex-grow: 1;
   margin: 0;
   width: 100%;
@@ -86,5 +83,5 @@
 .search-bar__searching {
   height: 1rem;
   vertical-align: middle;
-  margin-left: .5rem;
+  margin-left: .4rem;
 }
