@@ -29,7 +29,7 @@ class LocationInput extends Component {
         <div className="location-input__icon">
           <Icon name="pin" />
         </div>
-        <input className="location-input__input" type="search" placeholder="Station" value={this.state.value} onChange={this.handleChange} />
+        <input className="location-input__input" type="text" placeholder="Station" value={this.state.value} onChange={this.handleChange} />
         {this.state.active &&
           <ul className="location-input__suggestions">
             {this.state.locations.map(location =>
