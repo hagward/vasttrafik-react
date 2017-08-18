@@ -3,7 +3,7 @@ import TripDetails from './TripDetails';
 import Util from './Util';
 import './Trip.css';
 
-class Trip extends Component {
+export default class Trip extends Component {
   constructor(props) {
     super(props);
 
@@ -55,5 +55,3 @@ class Trip extends Component {
     return Util.timeDiff(this.originTime(), this.destinationTime());
   }
 }
-
-export default Trip;

@@ -5,7 +5,7 @@ import Icon from 'react-geomicons';
 import TimePicker from './TimePicker';
 import './SearchBar.css';
 
-class SearchBar extends Component {
+export default class SearchBar extends Component {
   constructor(props) {
     super(props);
 
@@ -107,5 +107,3 @@ class SearchBar extends Component {
     this.localStorage['destName'] = this.state.destName;
   }
 }
-
-export default SearchBar;

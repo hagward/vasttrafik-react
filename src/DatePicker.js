@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Icon from 'react-geomicons';
 import './DatePicker.css';
 
-class DatePicker extends Component {
+export default class DatePicker extends Component {
   render() {
     return (
       <div className="date-picker">
@@ -14,5 +14,3 @@ class DatePicker extends Component {
     );
   }
 }
-
-export default DatePicker;

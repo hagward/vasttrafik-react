@@ -1,4 +1,4 @@
-class Util {
+export default class Util {
   static list(object) {
     return Array.isArray(object) ? object : [object];
   }
@@ -49,5 +49,3 @@ class Util {
     return time.join(':');
   }
 }
-
-export default Util;

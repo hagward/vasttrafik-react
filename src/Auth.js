@@ -1,4 +1,4 @@
-class Auth {
+export default class Auth {
   constructor(key, secret) {
     this.key = key;
     this.secret = secret;
@@ -58,5 +58,3 @@ class Auth {
     this.localStorage['tokenExpireDate'] = this.expireDate;
   }
 }
-
-export default Auth;

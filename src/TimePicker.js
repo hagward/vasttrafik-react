@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Icon from 'react-geomicons';
 import './TimePicker.css';
 
-class TimePicker extends Component {
+export default class TimePicker extends Component {
   render() {
     return (
       <div className="time-picker">
@@ -14,5 +14,3 @@ class TimePicker extends Component {
     );
   }
 }
-
-export default TimePicker;

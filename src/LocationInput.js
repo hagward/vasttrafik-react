@@ -6,7 +6,7 @@ import Util from './Util';
 import settings from './settings';
 import './LocationInput.css';
 
-class LocationInput extends Component {
+export default class LocationInput extends Component {
   constructor(props) {
     super(props);
 
@@ -85,5 +85,3 @@ class LocationInput extends Component {
     }
   }
 }
-
-export default LocationInput;

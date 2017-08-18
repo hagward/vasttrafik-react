@@ -6,7 +6,7 @@ import Util from './Util';
 import settings from './settings';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
 
@@ -77,5 +77,3 @@ class App extends Component {
     return trips;
   }
 }
-
-export default App;

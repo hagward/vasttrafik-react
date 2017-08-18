@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Trip from './Trip';
 import './TripList.css';
 
-class TripList extends Component {
+export default class TripList extends Component {
   render() {
     return (
       <ul className="trip-list">
@@ -15,5 +15,3 @@ class TripList extends Component {
     );
   }
 }
-
-export default TripList;

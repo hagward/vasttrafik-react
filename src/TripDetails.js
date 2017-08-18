@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './TripDetails.css';
 
-class TripDetails extends Component {
+export default class TripDetails extends Component {
   render() {
     return (
       <ul className="trip-details">
@@ -28,5 +28,3 @@ class TripDetails extends Component {
     )
   }
 }
-
-export default TripDetails;
