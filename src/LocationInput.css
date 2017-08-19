@@ -21,6 +21,18 @@
   margin: 0;
 }
 
+.location-input__clear {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  font-variant: all-small-caps;
+  padding: .8rem;
+}
+
 .location-input__suggestions {
   width: 100%;
   position: absolute;

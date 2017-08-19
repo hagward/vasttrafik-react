@@ -14,11 +14,13 @@ export default class LocationInput extends Component {
 
     this.state = {
       active: false,
+      focus: false,
       locations: [],
       value: props.value || ''
     };
 
     this.autoComplete = _.debounce(this.autoComplete, 300);
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
   }
@@ -27,7 +29,15 @@ export default class LocationInput extends Component {
     return (
       <div className="location-input">
 	<Icon name="pin" />
-        <input className="location-input__input" type="text" placeholder="Station" value={this.state.value} onChange={this.handleChange} />
+        <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
+	       onChange={this.handleChange}
+	       onFocus={() => this.setState({focus: true})}
+	       onBlur={this.handleBlur}/>
+
+	{this.state.focus &&
+	  <button className="location-input__clear" onClick={() => this.setState({value: ''})}>Rensa</button>
+	}
+
         {this.state.active &&
           <ul className="location-input__suggestions">
             {this.state.locations.map(location =>
@@ -37,6 +47,11 @@ export default class LocationInput extends Component {
         }
       </div>
     );
+  }
+
+  handleBlur() {
+    // Ensure that button click happens before blur.
+    setTimeout(() => this.setState({focus: false}), 0);
   }
 
   handleChange(event) {
