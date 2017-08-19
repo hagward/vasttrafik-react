@@ -26,9 +26,7 @@ export default class LocationInput extends Component {
   render() {
     return (
       <div className="location-input">
-        <div className="location-input__icon">
-          <Icon name="pin" />
-        </div>
+	<Icon name="pin" />
         <input className="location-input__input" type="text" placeholder="Station" value={this.state.value} onChange={this.handleChange} />
         {this.state.active &&
           <ul className="location-input__suggestions">

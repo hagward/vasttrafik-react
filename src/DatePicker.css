@@ -1,11 +1,14 @@
 .date-picker {
+  position: relative;
   border-right: 1px solid #eee;
   flex-grow: 1;
 }
 
-.date-picker__icon {
+.date-picker svg {
   position: absolute;
-  padding: .8rem;
+  top: 50%;
+  left: .8rem;
+  transform: translateY(-50%);
 }
 
 .date-picker__input {

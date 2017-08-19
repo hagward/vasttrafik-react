@@ -2,9 +2,11 @@
   position: relative;
 }
 
-.location-input__icon {
+.location-input svg {
   position: absolute;
-  padding: .8rem;
+  top: 50%;
+  left: .8rem;
+  transform: translateY(-50%);
 }
 
 .location-input__input {

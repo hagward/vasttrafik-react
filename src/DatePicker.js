@@ -6,9 +6,7 @@ export default class DatePicker extends Component {
   render() {
     return (
       <div className="date-picker">
-        <div className="date-picker__icon">
-          <Icon name="calendar" />
-        </div>
+        <Icon name="calendar" />
         <input className="date-picker__input" type="date" value={this.props.value} onChange={this.props.onChange} />
       </div>
     );

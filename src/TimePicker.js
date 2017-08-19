@@ -6,9 +6,7 @@ export default class TimePicker extends Component {
   render() {
     return (
       <div className="time-picker">
-        <div className="time-picker__icon">
-          <Icon name="clock" />
-        </div>
+        <Icon name="clock" />
         <input className="time-picker__input" type="time" value={this.props.value} onChange={this.props.onChange} />
       </div>
     );

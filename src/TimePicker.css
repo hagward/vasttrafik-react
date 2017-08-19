@@ -1,7 +1,12 @@
-.time-picker__icon {
+.time-picker {
+  position: relative;
+}
+
+.time-picker svg {
   position: absolute;
-  padding: .8rem;
-  flex-grow: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  left: .8rem;
 }
 
 .time-picker__input {
