@@ -22,6 +22,7 @@
   border: none;
   border-bottom: 1px solid #eee;
   background-color: transparent;
+  margin: 0;
 }
 
 .locations__switch-locations svg {
