@@ -1,7 +1,7 @@
 .date-picker {
   position: relative;
   border-right: 1px solid #eee;
-  flex-grow: 1;
+  width: 50%;
 }
 
 .date-picker svg {
