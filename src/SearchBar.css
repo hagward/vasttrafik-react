@@ -3,25 +3,25 @@
 }
 
 .search-bar__locations {
+  display: flex;
+}
+
+.locations__inputs {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
-.search-bar__locations--switched {
+.locations__inputs--switched {
   flex-direction: column-reverse;
 }
 
 .locations__switch-locations {
-  background-color: transparent;
-  padding: 0;
   cursor: pointer;
   border: none;
-  position: absolute;
-  right: .8rem;
-  bottom: 25%;
-  transform: translateY(50%);
-  z-index: 10;
+  border-bottom: 1px solid #eee;
+  background-color: transparent;
 }
 
 .locations__switch-locations svg {

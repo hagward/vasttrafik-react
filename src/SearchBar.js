@@ -34,13 +34,15 @@ export default class SearchBar extends Component {
   render() {
     return (
       <div className="search-bar">
-        <div className={"search-bar__locations" + (this.state.locationsSwitched ? ' search-bar__locations--switched' : '')}>
-          <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
-          <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
-          <button className="locations__switch-locations" onClick={this.switchLocations}>
-            <Icon name="repost" />
-          </button>
-        </div>
+	<div className="search-bar__locations">
+	  <div className={"locations__inputs" + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
+	    <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
+	    <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
+	  </div>
+	  <button className="locations__switch-locations" onClick={this.switchLocations}>
+	    <Icon name="repost" />
+	  </button>
+	</div>
         <div className="search-bar__datetime">
           <DatePicker value={this.state.date} onChange={this.onDateChanged} />
           <TimePicker value={this.state.time} onChange={this.onTimeChanged} />
