@@ -22,6 +22,7 @@ export default class LocationInput extends Component {
     };
 
     this.autoComplete = _.debounce(this.autoComplete, 300);
+    this.clear = this.clear.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
@@ -33,12 +34,13 @@ export default class LocationInput extends Component {
       <div className="location-input">
         <Icon name="pin" />
         <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
+               ref={input => this.textInput = input}
                onChange={this.handleChange}
 	             onFocus={() => this.setState({focus: true})}
-	             onBlur={this.handleBlur}/>
+	             onBlur={this.handleBlur} />
 
         {this.state.focus &&
-          <button className="location-input__clear" onClick={() => this.setState({ value: '' })}>Rensa</button>
+          <button className="location-input__clear" onClick={this.clear}>Rensa</button>
         }
 
         {this.state.active &&
@@ -67,6 +69,12 @@ export default class LocationInput extends Component {
     } else {
       this.showMostRecentlyUsed();
     }
+  }
+
+  clear() {
+    this.setState({value: ''});
+    this.showMostRecentlyUsed();
+    this.textInput.focus();
   }
 
   autoComplete(input) {
