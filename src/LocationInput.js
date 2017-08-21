@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'underscore';
 import Auth from './Auth';
 import Icon from 'react-geomicons';
+import Mru from './Mru';
 import Util from './Util';
 import settings from './settings';
 import './LocationInput.css';
@@ -11,6 +12,7 @@ export default class LocationInput extends Component {
     super(props);
 
     this.auth = new Auth(settings.key, settings.secret);
+    this.mru = new Mru(10);
 
     this.state = {
       active: false,
@@ -23,20 +25,21 @@ export default class LocationInput extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
+    this.showMostRecentlyUsed = this.showMostRecentlyUsed.bind(this);
   }
 
   render() {
     return (
       <div className="location-input">
-	<Icon name="pin" />
+        <Icon name="pin" />
         <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
-	       onChange={this.handleChange}
-	       onFocus={() => this.setState({focus: true})}
-	       onBlur={this.handleBlur}/>
+               onChange={this.handleChange}
+	             onFocus={() => this.setState({focus: true})}
+	             onBlur={this.handleBlur}/>
 
-	{this.state.focus &&
-	  <button className="location-input__clear" onClick={() => this.setState({value: ''})}>Rensa</button>
-	}
+        {this.state.focus &&
+          <button className="location-input__clear" onClick={() => this.setState({ value: '' })}>Rensa</button>
+        }
 
         {this.state.active &&
           <ul className="location-input__suggestions">
@@ -57,12 +60,12 @@ export default class LocationInput extends Component {
   handleChange(event) {
     const input = event.target.value;
 
-    this.setState({
-      value: input
-    });
+    this.setState({value: input});
 
     if (input) {
       this.autoComplete(input);
+    } else {
+      this.showMostRecentlyUsed();
     }
   }
 
@@ -84,6 +87,13 @@ export default class LocationInput extends Component {
       }));
   }
 
+  showMostRecentlyUsed() {
+    this.setState({
+      active: true,
+      locations: this.mru.getMostRecentlyUsed()
+    });
+  }
+
   selectLocation(event) {
     const id = event.target.id;
     const name = event.target.innerText;
@@ -96,5 +106,7 @@ export default class LocationInput extends Component {
     if (this.props.onSelection) {
       this.props.onSelection(id, name);
     }
+
+    this.mru.add({id: id, name: name});
   }
 }
