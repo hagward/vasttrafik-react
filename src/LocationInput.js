@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import Auth from './Auth';
-import Icon from 'react-geomicons';
 import Mru from './Mru';
 import Util from './Util';
 import settings from './settings';
 import './LocationInput.css';
+
+// TODO: overlay height, get the icons back
 
 export default class LocationInput extends Component {
   constructor(props) {
@@ -15,16 +16,16 @@ export default class LocationInput extends Component {
     this.mru = new Mru(10);
 
     this.state = {
-      active: false,
-      focus: false,
       locations: [],
+      overlay: false,
+      selected: props.value || '',
       value: props.value || ''
     };
 
     this.autoComplete = _.debounce(this.autoComplete, 300);
-    this.clear = this.clear.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
     this.showMostRecentlyUsed = this.showMostRecentlyUsed.bind(this);
   }
@@ -32,49 +33,54 @@ export default class LocationInput extends Component {
   render() {
     return (
       <div className="location-input">
-        <Icon name="pin" />
-        <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
-               ref={input => this.textInput = input}
-               onChange={this.handleChange}
-	             onFocus={() => this.setState({focus: true})}
-	             onBlur={this.handleBlur} />
 
-        {this.state.focus &&
-          <button className="location-input__clear" onClick={this.clear}>Rensa</button>
+        {this.state.overlay &&
+          <div className="location-input__overlay">
+            <div className="overlay__top-bar">
+              <input className="overlay__input" type="text" placeholder="Station"
+                ref={input => this.textInput = input} value={this.state.value}
+                onChange={this.handleChange} />
+              <button className="overlay__cancel" onClick={this.handleCancel}>Avbryt</button>
+            </div>
+            <ul className="overlay__suggestions">
+              {this.state.locations.map(location =>
+                <li className="overlay__suggestion" key={location.id}
+                  id={location.id} onClick={this.selectLocation}>{location.name}</li>
+              )}
+            </ul>
+          </div>
         }
 
-        {this.state.active &&
-          <ul className="location-input__suggestions">
-            {this.state.locations.map(location =>
-              <li className="location-input__suggestion" key={location.id} id={location.id} onClick={this.selectLocation}>{location.name}</li>
-            )}
-          </ul>
-        }
+        <input className="location-input__input" placeholder="Station"
+          value={this.state.selected} onFocus={this.handleFocus} readOnly />
+
       </div>
     );
   }
 
-  handleBlur() {
-    // Ensure that button click happens before blur.
-    setTimeout(() => this.setState({focus: false}), 0);
+  handleFocus() {
+    this.setState({overlay: true}, () => this.textInput.focus());
   }
 
   handleChange(event) {
     const input = event.target.value;
 
-    this.setState({value: input});
-
-    if (input) {
-      this.autoComplete(input);
-    } else {
-      this.showMostRecentlyUsed();
-    }
+    this.setState({
+      value: input
+    }, () => {
+      if (input) {
+        this.autoComplete(input);
+      } else {
+        this.showMostRecentlyUsed();
+      }
+    });
   }
 
-  clear() {
-    this.setState({value: ''});
-    this.showMostRecentlyUsed();
-    this.textInput.focus();
+  handleCancel() {
+    this.setState(prevState => ({
+      overlay: false,
+      value: prevState.selected
+    }));
   }
 
   autoComplete(input) {
@@ -107,14 +113,15 @@ export default class LocationInput extends Component {
     const name = event.target.innerText;
 
     this.setState({
-      active: false,
+      overlay: false,
+      selected: name,
       value: name
+    }, () => {
+      this.mru.add({id: id, name: name});
+
+      if (this.props.onSelection) {
+        this.props.onSelection(id, name);
+      }
     });
-
-    if (this.props.onSelection) {
-      this.props.onSelection(id, name);
-    }
-
-    this.mru.add({id: id, name: name});
   }
 }
