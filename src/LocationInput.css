@@ -18,12 +18,15 @@
   height: 100vh;
   background-color: white;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
 }
 
 .overlay__top-bar {
   background-color: #EE1844;
   padding: .8rem;
   display: flex;
+  flex: 0 0 auto;
 }
 
 .overlay__input {
@@ -45,6 +48,9 @@
   margin: 0;
   list-style: none;
   padding: 0;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  flex: 1 1 auto;
 }
 
 .overlay__suggestion {
