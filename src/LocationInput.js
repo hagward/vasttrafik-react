@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import Auth from './Auth';
-import Icon from 'react-geomicons';
 import Mru from './Mru';
 import Util from './Util';
 import settings from './settings';
@@ -32,7 +31,6 @@ export default class LocationInput extends Component {
   render() {
     return (
       <div className="location-input">
-        <Icon name="pin" />
         <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
                ref={input => this.textInput = input}
                onChange={this.handleChange}

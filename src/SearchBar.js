@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from './DatePicker';
 import LocationInput from './LocationInput';
-import Icon from 'react-geomicons';
 import TimePicker from './TimePicker';
 import './SearchBar.css';
 
@@ -40,7 +39,6 @@ export default class SearchBar extends Component {
 	    <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
 	  </div>
 	  <button className="locations__switch-locations" onClick={this.switchLocations}>
-	    <Icon name="repost" />
 	  </button>
 	</div>
         <div className="search-bar__datetime">
