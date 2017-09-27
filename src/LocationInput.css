@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.location-input svg {
+.location-input .fa-map-marker {
   position: absolute;
   top: 50%;
   left: .8rem;

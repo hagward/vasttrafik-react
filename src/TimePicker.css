@@ -3,7 +3,7 @@
   width: 50%;
 }
 
-.time-picker svg {
+.time-picker .fa-clock-o {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 import DatePicker from './DatePicker';
 import LocationInput from './LocationInput';
 import TimePicker from './TimePicker';
@@ -33,14 +34,15 @@ export default class SearchBar extends Component {
   render() {
     return (
       <div className="search-bar">
-	<div className="search-bar__locations">
-	  <div className={"locations__inputs" + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
-	    <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
-	    <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
-	  </div>
-	  <button className="locations__switch-locations" onClick={this.switchLocations}>
-	  </button>
-	</div>
+        <div className="search-bar__locations">
+          <div className={"locations__inputs" + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
+            <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
+            <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
+          </div>
+          <button className="locations__switch-locations" onClick={this.switchLocations}>
+            <FontAwesome name="exchange" rotate={90} />
+          </button>
+        </div>
         <div className="search-bar__datetime">
           <DatePicker value={this.state.date} onChange={this.onDateChanged} />
           <TimePicker value={this.state.time} onChange={this.onTimeChanged} />

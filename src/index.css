@@ -13,7 +13,6 @@ body, button, input {
   line-height: 1.2rem;
 }
 
-svg {
-  fill: #EE1844;
-  vertical-align: middle;
+.fa {
+  color: #EE1844;
 }

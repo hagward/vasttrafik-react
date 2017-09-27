@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 import _ from 'underscore';
 import Auth from './Auth';
 import Mru from './Mru';
@@ -31,6 +32,7 @@ export default class LocationInput extends Component {
   render() {
     return (
       <div className="location-input">
+        <FontAwesome name="map-marker" />
         <input className="location-input__input" type="text" placeholder="Station" value={this.state.value}
                ref={input => this.textInput = input}
                onChange={this.handleChange}
