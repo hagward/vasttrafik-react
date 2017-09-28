@@ -38,6 +38,9 @@ export default class LocationInput extends Component {
         {this.state.overlay &&
           <div className="location-input__overlay">
             <div className="overlay__top-bar">
+              <div className="overlay__icon">
+                <FontAwesome name="map-marker" />
+              </div>
               <input className="overlay__input" type="text" placeholder="Station"
                 ref={input => this.textInput = input} value={this.state.value}
                 onChange={this.handleChange} />
