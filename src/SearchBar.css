@@ -26,10 +26,9 @@
   padding: .4rem;
 }
 
-.locations__switch-locations svg {
-  height: 1.6rem;
-  width: 1.6rem;
-  fill: #666;
+.locations__switch-locations .fa-exchange {
+  font-size: 1.2rem;
+  color: #666;
 }
 
 .search-bar__datetime {
