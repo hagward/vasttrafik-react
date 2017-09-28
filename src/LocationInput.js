@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 import _ from 'underscore';
 import Auth from './Auth';
 import Mru from './Mru';
@@ -50,6 +51,10 @@ export default class LocationInput extends Component {
             </ul>
           </div>
         }
+
+        <div className="location-input__icon">
+          <FontAwesome name="map-marker" />
+        </div>
 
         <input className="location-input__input" placeholder="Station"
           value={this.state.selected} onFocus={this.handleFocus} readOnly />

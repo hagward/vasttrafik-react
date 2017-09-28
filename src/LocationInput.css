@@ -1,15 +1,19 @@
-.location-input .fa-map-marker {
-  position: absolute;
-  top: 50%;
-  left: .8rem;
-  transform: translateY(-50%);
+.location-input {
+  display: flex;
+}
+
+.location-input__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem;
+  border-bottom: 1px solid #eee;
 }
 
 .location-input__input {
   width: 100%;
   border: none;
   padding: .8rem;
-  padding-left: 2.4rem;
   border-bottom: 1px solid #eee;
   border-right: 1px solid #eee;
   -webkit-appearance: none;
