@@ -59,7 +59,10 @@ export default class LocationInput extends Component {
   }
 
   handleFocus() {
-    this.setState({overlay: true}, () => this.textInput.focus());
+    this.setState({overlay: true}, () => {
+      this.textInput.focus();
+      this.textInput.setSelectionRange(0, this.textInput.value.length);
+    });
   }
 
   handleChange(event) {
