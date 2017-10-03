@@ -10,7 +10,7 @@ body {
 }
 
 body, button, input {
-  font: 1rem Arial, Helvetica, sans-serif;
+  font: 1rem sans-serif;
   line-height: 1.2rem;
 }
 
