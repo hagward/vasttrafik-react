@@ -7,36 +7,3 @@
 .trip:hover {
   cursor: pointer;
 }
-
-.trip__times {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: .5rem;
-}
-
-.trip__time-origin,
-.trip__time-arrow,
-.trip__time-destination {
-  font-size: 1.1rem;
-  flex-grow: 1;
-}
-
-.trip__time-total {
-  font-size: .9rem;
-  flex-grow: 3;
-  text-align: right;
-}
-
-.trip__legs {
-  display: flex;
-  font-size: .8rem;
-}
-
-.trip__leg {
-  padding: 0 .1rem;
-  margin-right: .2rem;
-  min-width: 1.5rem;
-  text-align: center;
-  border-radius: .1rem;
-  border: 1px solid black;
-}

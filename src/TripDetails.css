@@ -1,7 +1,6 @@
 .trip-details {
   color: #EE1844;
-  padding: 0 .8rem;
-  margin-top: .4rem;
+  padding: .8rem .8rem 0 .8rem;
 }
 
 .trip-details__leg span {
