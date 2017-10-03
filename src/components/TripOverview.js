@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Util from './Util';
+import Util from '../Util';
 import './TripOverview.css';
 
 export default class TripOverview extends Component {

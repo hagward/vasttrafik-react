@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Auth from './Auth';
+import Auth from '../Auth';
 import SearchBar from './SearchBar';
 import TripList from './TripList';
-import Util from './Util';
-import settings from './settings';
+import Util from '../Util';
+import settings from '../settings';
 import './App.css';
 
 export default class App extends Component {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import _ from 'underscore';
-import Auth from './Auth';
-import Mru from './Mru';
-import Util from './Util';
-import settings from './settings';
+import Auth from '../Auth';
+import Mru from '../Mru';
+import Util from '../Util';
+import settings from '../settings';
 import './LocationInput.css';
 
 // TODO: overlay height, get the icons back
