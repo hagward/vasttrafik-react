@@ -1,17 +1,24 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import TripDetails from './TripDetails';
 import TripOverview from './TripOverview';
+import { Trip } from './App';
 import './Trip.css';
 
-export default class Trip extends Component {
-  constructor(props) {
+interface Props {
+  trip: Trip;
+}
+
+interface State {
+  expanded: boolean;
+}
+
+export default class TripItem extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       expanded: false
     };
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -25,7 +32,7 @@ export default class Trip extends Component {
     );
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState(prevState => ({
       expanded: !prevState.expanded
     }));

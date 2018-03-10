@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import * as React from 'react';
+import * as FontAwesome from 'react-fontawesome';
 import './TimePicker.css';
 
-export default class TimePicker extends Component {
+interface Props {
+  value: string;
+  onChange(event: React.FormEvent<HTMLInputElement>): void;
+}
+
+export default class TimePicker extends React.Component<Props, any> {
   render() {
     return (
       <div className="time-picker">

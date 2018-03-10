@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Auth from '../Auth';
 import SearchBar from './SearchBar';
 import TripList from './TripList';
@@ -6,18 +6,40 @@ import Util from '../Util';
 import settings from '../settings';
 import './App.css';
 
-export default class App extends Component {
-  constructor() {
-    super();
+export interface Trip {
+  Leg: Leg[];
+}
+
+export interface Leg {
+  Origin: Location;
+  Destination: Location;
+  sname: string;
+  fgColor: string;
+  bgColor: string;
+}
+
+export interface Location {
+  name: string;
+  time: string;
+}
+
+export interface State {
+  searching: boolean;
+  trips: Trip[];
+}
+
+export default class App extends React.Component<any, State> {
+  private auth: Auth;
+
+  constructor(props: any) {
+    super(props);
 
     this.auth = new Auth(settings.key, settings.secret);
 
     this.state = {
+      searching: false,
       trips: [],
-      searching: false
     };
-
-    this.onSearch = this.onSearch.bind(this);
   }
 
   render() {
@@ -29,13 +51,13 @@ export default class App extends Component {
     );
   }
 
-  onSearch(originId, destId, date, time) {
+  onSearch = (originId: string, destId: string, date: string, time: string) => {
     if (originId !== destId) {
       this.search(originId, destId, date, time);
     }
   }
 
-  search(originId, destId, date, time) {
+  private search(originId: string, destId: string, date: string, time: string) {
     this.setState({
       searching: true
     });
@@ -56,16 +78,13 @@ export default class App extends Component {
       .then(response => response.json())
       .then(json => this.setState({
         searching: false,
-        trips: this.parseTrips(json)
+        trips: this.parseTrips(json),
       }));
   }
 
-  parseTrips(json) {
-    console.log(json);
-
+  private parseTrips(json: any) {
     if (json.TripList.error) {
-      console.error(json.TripList.errorText);
-      return [];
+      throw json.TripList.errorText;
     }
 
     const trips = Util.list(json.TripList.Trip);

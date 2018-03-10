@@ -1,7 +1,12 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Leg, Location, Trip } from './App';
 import './TripDetails.css';
 
-export default class TripDetails extends Component {
+interface Props {
+  trip: Trip;
+}
+
+export default class TripDetails extends React.Component<Props, any> {
   render() {
     return (
       <ul className="trip-details">
@@ -14,7 +19,7 @@ export default class TripDetails extends Component {
     );
   }
 
-  renderLeg(leg, index) {
+  renderLeg(leg: Leg, index: number) {
     if (index === this.props.trip.Leg.length - 1) {
       return this.renderLocation(leg.Destination);
     } else {
@@ -22,9 +27,7 @@ export default class TripDetails extends Component {
     }
   }
 
-  renderLocation(location) {
-    return (
-      <span>{location.time} {location.name}</span>
-    )
+  renderLocation(location: Location) {
+    return <span>{location.time} {location.name}</span>;
   }
 }

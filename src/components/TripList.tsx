@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
-import Trip from './Trip';
+import * as React from 'react';
+import TripItem from './TripItem';
+import { Trip } from './App';
 import './TripList.css';
 
-export default class TripList extends Component {
+interface Props {
+  trips: Trip[];
+}
+
+export default class TripList extends React.Component<Props, any> {
   render() {
     return (
       <ul className="trip-list">
         {this.props.trips.map((trip, tripIndex) =>
           <li key={tripIndex} className="trip-list__trip">
-            <Trip trip={trip} />
+            <TripItem trip={trip} />
           </li>
         )}
       </ul>

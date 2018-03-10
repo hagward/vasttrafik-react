@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import * as React from 'react';
+import * as FontAwesome from 'react-fontawesome';
 import './DatePicker.css';
 
-export default class DatePicker extends Component {
+interface Props {
+  value: string;
+  onChange(event: React.FormEvent<HTMLInputElement>): void;
+}
+
+export default class DatePicker extends React.Component<Props, any> {
   render() {
     return (
       <div className="date-picker">

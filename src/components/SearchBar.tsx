@@ -1,41 +1,51 @@
-import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import * as React from 'react';
+import * as FontAwesome from 'react-fontawesome';
 import DatePicker from './DatePicker';
 import LocationInput from './LocationInput';
 import TimePicker from './TimePicker';
 import './SearchBar.css';
 
-export default class SearchBar extends Component {
-  constructor(props) {
+interface Props {
+  searching: boolean;
+  onSearch(originId: string, destId: string, date: string, time: string): void;
+}
+
+interface State {
+  originId: string;
+  originName: string;
+  destId: string;
+  destName: string;
+  date: string;
+  time: string;
+  locationsSwitched: boolean;
+}
+
+export default class SearchBar extends React.Component<Props, State> {
+  private localStorage: Storage;
+
+  constructor(props: Props) {
     super(props);
 
-    this.localStorage = window && window.localStorage ? window.localStorage : {};
+    this.localStorage = window.localStorage;
 
     const [date, time] = this.currentDateTime();
 
     this.state = {
-      originId: this.localStorage['originId'] || '',
-      originName: this.localStorage['originName'] || '',
-      destId: this.localStorage['destId'] || '',
-      destName: this.localStorage['destName'] || '',
+      originId: this.localStorage.getItem('originId') || '',
+      originName: this.localStorage.getItem('originName') || '',
+      destId: this.localStorage.getItem('destId') || '',
+      destName: this.localStorage.getItem('destName') || '',
       date: date,
       time: time,
       locationsSwitched: false
     };
-
-    this.onOriginSelected = this.onOriginSelected.bind(this);
-    this.onDestinationSelected = this.onDestinationSelected.bind(this);
-    this.onDateChanged = this.onDateChanged.bind(this);
-    this.onTimeChanged = this.onTimeChanged.bind(this);
-    this.switchLocations = this.switchLocations.bind(this);
-    this.search = this.search.bind(this);
   }
 
   render() {
     return (
       <div className="search-bar">
         <div className="search-bar__locations">
-          <div className={"locations__inputs" + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
+          <div className={'locations__inputs' + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
             <LocationInput value={this.state.originName} onSelection={this.onOriginSelected} />
             <LocationInput value={this.state.destName} onSelection={this.onDestinationSelected} />
           </div>
@@ -60,15 +70,10 @@ export default class SearchBar extends Component {
     return new Date().toLocaleString('sv-SE').substr(0, 16).split(' ');
   }
 
-  onOriginSelected(id, name) {
-    this.onLocationSelected(id, name, true);
-  }
+  onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, true);
+  onDestinationSelected = (id: string, name: string) => this.onLocationSelected(id, name, false);
 
-  onDestinationSelected(id, name) {
-    this.onLocationSelected(id, name, false);
-  }
-
-  onLocationSelected(id, name, origin) {
+  onLocationSelected(id: string, name: string, origin: boolean) {
     this.setState(prevState => {
       origin = (origin && !prevState.locationsSwitched) || (!origin && prevState.locationsSwitched);
       const locationType = origin ? 'origin' : 'dest';
@@ -79,7 +84,7 @@ export default class SearchBar extends Component {
     });
   }
 
-  switchLocations() {
+  switchLocations = () => {
     this.setState(prevState => ({
       locationsSwitched: !prevState.locationsSwitched,
       originId: prevState.destId,
@@ -89,23 +94,25 @@ export default class SearchBar extends Component {
     }));
   }
 
-  onDateChanged(event) {
-    this.setState({date: event.target.value});
+  onDateChanged = (event: React.FormEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    this.setState({ date: target.value });
   }
 
-  onTimeChanged(event) {
-    this.setState({time: event.target.value});
+  onTimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    this.setState({ time: target.value });
   }
 
-  search() {
+  search = () => {
     this.storeLocations();
     this.props.onSearch(this.state.originId, this.state.destId, this.state.date, this.state.time);
   }
 
   storeLocations() {
-    this.localStorage['originId'] = this.state.originId;
-    this.localStorage['originName'] = this.state.originName;
-    this.localStorage['destId'] = this.state.destId;
-    this.localStorage['destName'] = this.state.destName;
+    this.localStorage.setItem('originId', this.state.originId);
+    this.localStorage.setItem('originName', this.state.originName);
+    this.localStorage.setItem('destId', this.state.destId);
+    this.localStorage.setItem('destName', this.state.destName);
   }
 }

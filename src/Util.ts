@@ -1,21 +1,21 @@
 export default class Util {
-  static list(object) {
+  static list(object: any): any[] {
     return Array.isArray(object) ? object : [object];
   }
 
-  static first(array) {
+  static first(array: any[]): any {
     return array[0];
   }
 
-  static last(array) {
+  static last(array: any[]): any {
     return array[array.length - 1];
   }
 
-  static shortLocation(locationName) {
+  static shortLocation(locationName: string): string {
     return locationName.split(',')[0];
   }
 
-  static timeDiff(timeA, timeB) {
+  static timeDiff(timeA: string, timeB: string): string {
     let timeASec = this.timeToSec(timeA);
     let timeBSec = this.timeToSec(timeB);
 
@@ -27,12 +27,12 @@ export default class Util {
     return this.secToTime(timeBSec - timeASec);
   }
 
-  static timeToSec(time) {
+  private static timeToSec(time: string): number {
     // HH:mm
     return time.split(':').reduce((acc, v) => acc * 60 + parseInt(v, 10), 0) * 60;
   }
 
-  static secToTime(seconds) {
+  private static secToTime(seconds: number): string {
     let s = Math.floor(seconds / 60);
     const time = [];
     while (s > 0) {
