@@ -10,7 +10,6 @@ import './LocationInput.css';
 // TODO: overlay height, get the icons back
 
 interface Props {
-  value?: string;
   onSelection?(id: string, name: string): void;
 }
 
@@ -40,8 +39,8 @@ export default class LocationInput extends React.Component<Props, State> {
     this.state = {
       locations: [],
       overlay: false,
-      selected: props.value || '',
-      value: props.value || ''
+      selected: '',
+      value: '',
     };
 
     this.autoComplete = _.debounce(this.autoComplete, 300);
@@ -100,7 +99,6 @@ export default class LocationInput extends React.Component<Props, State> {
     this.setState({ overlay: true }, () => {
       if (this.textInput) {
         this.textInput.focus();
-        this.textInput.setSelectionRange(0, this.textInput.value.length);
       }
     });
   }
@@ -121,7 +119,6 @@ export default class LocationInput extends React.Component<Props, State> {
   handleCancel = () => {
     this.setState(prevState => ({
       overlay: false,
-      value: prevState.selected
     }));
   }
 
@@ -156,7 +153,7 @@ export default class LocationInput extends React.Component<Props, State> {
     this.setState({
       overlay: false,
       selected: name,
-      value: name,
+      value: '',
     }, () => {
       this.mruCache.add({id: id, name: name});
 
