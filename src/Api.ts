@@ -12,5 +12,6 @@ export interface Leg {
 
 export interface Location {
   name: string;
+  rtTime: string;
   time: string;
 }

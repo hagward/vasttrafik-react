@@ -30,7 +30,10 @@ export default class TripOverview extends React.Component<Props, any> {
         </div>
         <div className="trip-overview__times">
           <div className="times__start-end">
-            <div className="times__start">{this.originTime()}</div>
+            <div className="times__start">
+              {this.originTime()}
+              {this.delay()}
+            </div>
             <div className="times__arrow">→</div>
             <div className="times__end">{this.destinationTime()}</div>
           </div>
@@ -50,5 +53,14 @@ export default class TripOverview extends React.Component<Props, any> {
 
   totalTravelTime() {
     return Util.timeDiff(this.originTime(), this.destinationTime());
+  }
+
+  delay() {
+    const origin = Util.first(this.props.trip.Leg).Origin;
+    if (origin.rtTime === origin.time) {
+      return '';
+    } else {
+      return ' (+' + Util.timeDiff(origin.time, origin.rtTime) + ')';
+    }
   }
 }
