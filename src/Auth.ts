@@ -39,7 +39,7 @@ export default class Auth {
   getStoredToken(): Token {
     return {
       token: this.localStorage.getItem('token') as string,
-      expiryDate: Number(this.localStorage.getItem('tokenExpireDate')),
+      expiryDate: Number(this.localStorage.getItem('tokenExpiryDate')),
     };
   }
 
