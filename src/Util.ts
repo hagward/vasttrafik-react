@@ -1,13 +1,13 @@
 export default class Util {
-  static list(object: any): any[] {
+  static list<T>(object: T): T[] {
     return Array.isArray(object) ? object : [object];
   }
 
-  static first(array: any[]): any {
+  static first<T>(array: T[]): T {
     return array[0];
   }
 
-  static last(array: any[]): any {
+  static last<T>(array: T[]): T {
     return array[array.length - 1];
   }
 
