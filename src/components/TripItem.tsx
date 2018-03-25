@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Trip } from '../Api';
 import TripDetails from './TripDetails';
 import TripOverview from './TripOverview';
-import { Trip } from './App';
 import './Trip.css';
 
 interface Props {

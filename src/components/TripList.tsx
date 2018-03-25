@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { Trip } from '../Api';
 import TripItem from './TripItem';
-import { Trip } from './App';
 import './TripList.css';
 
 interface Props {

@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { Trip } from '../Api';
 import Util from '../Util';
-import { Trip } from './App';
 import './TripOverview.css';
 
 interface Props {

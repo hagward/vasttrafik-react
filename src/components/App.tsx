@@ -1,27 +1,11 @@
 import * as React from 'react';
+import { Trip } from '../Api';
 import Auth from '../Auth';
 import SearchBar from './SearchBar';
 import TripList from './TripList';
 import Util from '../Util';
 import settings from '../settings';
 import './App.css';
-
-export interface Trip {
-  Leg: Leg[];
-}
-
-export interface Leg {
-  Origin: Location;
-  Destination: Location;
-  sname: string;
-  fgColor: string;
-  bgColor: string;
-}
-
-export interface Location {
-  name: string;
-  time: string;
-}
 
 export interface State {
   searching: boolean;

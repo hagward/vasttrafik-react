@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Leg, Location, Trip } from './App';
+import { Leg, Location, Trip } from '../Api';
 import './TripDetails.css';
 
 interface Props {
