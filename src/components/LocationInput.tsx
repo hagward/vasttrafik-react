@@ -67,13 +67,12 @@ export default class LocationInput extends React.Component<Props, State> {
             <ul className="overlay__suggestions">
               {this.state.locations.map(location =>
                 <li
+                  dangerouslySetInnerHTML={{__html: this.highlightSearchValue(location.name)}}
                   className="overlay__suggestion"
                   key={location.id}
                   id={location.id}
                   onClick={this.selectLocation}
-                >
-                  {location.name}
-                </li>
+                />
               )}
             </ul>
           </div>
@@ -92,6 +91,16 @@ export default class LocationInput extends React.Component<Props, State> {
         />
       </div>
     );
+  }
+
+  highlightSearchValue(name: string): string {
+    const value = this.state.value;
+    const i = name.toLowerCase().indexOf(value.toLowerCase());
+    if (i >= 0 && value) {
+      return name.substr(0, i) + '<b>' + name.substr(i, value.length) + '</b>' + name.substr(i + value.length);
+    } else {
+      return name;
+    }
   }
 
   handleFocus = () => {
