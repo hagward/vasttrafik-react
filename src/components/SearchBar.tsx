@@ -21,20 +21,16 @@ interface State {
 }
 
 export default class SearchBar extends React.Component<Props, State> {
-  private localStorage: Storage;
-
   constructor(props: Props) {
     super(props);
-
-    this.localStorage = window.localStorage;
 
     const [date, time] = this.currentDateTime();
 
     this.state = {
-      originId: this.localStorage.getItem('originId') || '',
-      originName: this.localStorage.getItem('originName') || '',
-      destId: this.localStorage.getItem('destId') || '',
-      destName: this.localStorage.getItem('destName') || '',
+      originId: localStorage.getItem('originId') || '',
+      originName: localStorage.getItem('originName') || '',
+      destId: localStorage.getItem('destId') || '',
+      destName: localStorage.getItem('destName') || '',
       date: date,
       time: time,
       locationsSwitched: false
@@ -110,9 +106,9 @@ export default class SearchBar extends React.Component<Props, State> {
   }
 
   storeLocations() {
-    this.localStorage.setItem('originId', this.state.originId);
-    this.localStorage.setItem('originName', this.state.originName);
-    this.localStorage.setItem('destId', this.state.destId);
-    this.localStorage.setItem('destName', this.state.destName);
+    localStorage.setItem('originId', this.state.originId);
+    localStorage.setItem('originName', this.state.originName);
+    localStorage.setItem('destId', this.state.destId);
+    localStorage.setItem('destName', this.state.destName);
   }
 }

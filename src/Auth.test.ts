@@ -4,20 +4,20 @@ describe('getToken', () => {
   let auth: Auth;
 
   beforeEach(() => {
-    (window.localStorage as any) = {token: 'storedToken'};
-    (window.fetch as any) = mockFetch();
+    localStorage.setItem('token', 'storedToken');
+    (fetch as any) = mockFetch();
 
     auth = new Auth('key', 'secret');
   });
 
   it('returns stored token if valid', () => {
-    localStorage.tokenExpireDate = Date.now() + 100000;
+    localStorage.setItem('tokenExpiryDate', String(Date.now() + 100000));
 
     return expect(auth.getToken()).resolves.toEqual('storedToken');
   });
 
   it('fetches token asynchronously if stored token not valid', () => {
-    localStorage.tokenExpireDate = Date.now() - 100000;
+    localStorage.setItem('tokenExpiryDate', String(Date.now() - 100000));
 
     return expect(auth.getToken()).resolves.toEqual('token');
   });

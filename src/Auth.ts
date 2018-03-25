@@ -7,12 +7,10 @@ export default class Auth {
   private key: string;
   private secret: string;
   private token: Token;
-  private localStorage: Storage;
 
   constructor(key: string, secret: string) {
     this.key = key;
     this.secret = secret;
-    this.localStorage = window && window.localStorage ? window.localStorage : {} as any;
   }
 
   getToken(): Promise<string> {
@@ -38,8 +36,8 @@ export default class Auth {
 
   getStoredToken(): Token {
     return {
-      token: this.localStorage.getItem('token') as string,
-      expiryDate: Number(this.localStorage.getItem('tokenExpiryDate')),
+      token: localStorage.getItem('token') as string,
+      expiryDate: Number(localStorage.getItem('tokenExpiryDate')),
     };
   }
 
@@ -57,10 +55,10 @@ export default class Auth {
   }
 
   scope(): string {
-    let scope = this.localStorage.getItem('scope');
+    let scope = localStorage.getItem('scope');
     if (!scope) {
       scope = this.generateScope();
-      this.localStorage.setItem('scope', scope);
+      localStorage.setItem('scope', scope);
     }
     return scope;
   }
@@ -70,7 +68,7 @@ export default class Auth {
   }
 
   storeToken(): void {
-    this.localStorage.setItem('token', this.token.token);
-    this.localStorage.setItem('tokenExpiryDate', String(this.token.expiryDate));
+    localStorage.setItem('token', this.token.token);
+    localStorage.setItem('tokenExpiryDate', String(this.token.expiryDate));
   }
 }

@@ -4,11 +4,9 @@ interface Item {
 
 export default class MruCache<T extends Item> {
   private limit: number;
-  private localStorage: Storage;
 
   constructor(limit: number) {
     this.limit = limit;
-    this.localStorage = window.localStorage;
   }
 
   add(item: T): void {
@@ -20,12 +18,12 @@ export default class MruCache<T extends Item> {
   }
 
   getMostRecentlyUsed(): T[] {
-    const mru = this.localStorage.getItem('mru');
+    const mru = localStorage.getItem('mru');
     return mru ? JSON.parse(mru) : [];
   }
 
   setMostRecentlyUsed(mru: T[]): void {
-    this.localStorage.setItem('mru', JSON.stringify(mru));
+    localStorage.setItem('mru', JSON.stringify(mru));
   }
 
   removeExistingItem(item: T, mru: T[]): void {
