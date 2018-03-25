@@ -46,8 +46,8 @@ export default class SearchBar extends React.Component<Props, State> {
       <div className="search-bar">
         <div className="search-bar__locations">
           <div className={'locations__inputs' + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
-            <LocationInput onSelection={this.onOriginSelected} />
-            <LocationInput onSelection={this.onDestinationSelected} />
+            <LocationInput selected={this.state.originName} onSelect={this.onOriginSelected} />
+            <LocationInput selected={this.state.destName} onSelect={this.onDestinationSelected} />
           </div>
           <button className="locations__switch-locations" onClick={this.switchLocations}>
             <FontAwesome name="exchange" rotate={90} />
