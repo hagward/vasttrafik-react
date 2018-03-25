@@ -96,7 +96,11 @@ export default class LocationInput extends React.Component<Props, State> {
   }
 
   handleFocus = () => {
-    this.setState({ overlay: true }, () => {
+    this.setState({
+      locations: this.mruCache.getMostRecentlyUsed(),
+      overlay: true,
+      value: '',
+    }, () => {
       if (this.textInput) {
         this.textInput.focus();
       }
