@@ -52,15 +52,25 @@ export default class TripOverview extends React.Component<Props, any> {
   }
 
   totalTravelTime() {
-    return Util.timeDiff(this.originTime(), this.destinationTime());
+    const origin = Util.first(this.props.trip.Leg).Origin;
+    const destination = Util.last(this.props.trip.Leg).Destination;
+    const originDateTime = Util.toDateTime(origin.date, origin.time);
+    const destinationDateTime = Util.toDateTime(destination.date, destination.time);
+    const duration = destinationDateTime.diff(originDateTime).shiftTo('hours', 'minutes');
+    return Util.padNumber(duration.hours) + ':' + Util.padNumber(duration.minutes);
   }
 
   delay() {
     const origin = Util.first(this.props.trip.Leg).Origin;
-    if (origin.rtTime === origin.time) {
-      return '';
+    const dateTime = Util.toDateTime(origin.date, origin.time);
+    const realDateTime = Util.toDateTime(origin.rtDate, origin.rtTime);
+
+    if (realDateTime < dateTime) {
+      return ' (-' + dateTime.diff(realDateTime).shiftTo('minutes').minutes + ')';
+    } else if (realDateTime > dateTime) {
+      return ' (+' + realDateTime.diff(dateTime).shiftTo('minutes').minutes + ')';
     } else {
-      return ' (+' + Util.timeDiff(origin.time, origin.rtTime) + ')';
+      return '';
     }
   }
 }

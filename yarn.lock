@@ -6,6 +6,10 @@
   version "22.2.0"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.0.tgz#55ce83139f7ad1b48b414c3927746614c6963c0f"
 
+"@types/luxon@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-0.5.0.tgz#0bee06a95f6ab1ee82a490af24de60449eb93dc8"
+
 "@types/node@*", "@types/node@^9.4.7":
   version "9.4.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.7.tgz#57d81cd98719df2c9de118f2d5f3b1120dcd7275"
@@ -3665,6 +3669,10 @@ lru-cache@^4.0.1:
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
+
+luxon@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.0.0.tgz#ec1cba8cf53be14d2375c2f17e3468eb195c20bb"
 
 macaddress@^0.2.8:
   version "0.2.8"
