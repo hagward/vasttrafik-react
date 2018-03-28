@@ -17,7 +17,6 @@ interface State {
   destName: string;
   date: string;
   time: string;
-  locationsSwitched: boolean;
 }
 
 export default class SearchBar extends React.Component<Props, State> {
@@ -33,7 +32,6 @@ export default class SearchBar extends React.Component<Props, State> {
       destName: localStorage.getItem('destName') || '',
       date: date,
       time: time,
-      locationsSwitched: false
     };
   }
 
@@ -41,7 +39,7 @@ export default class SearchBar extends React.Component<Props, State> {
     return (
       <div className="search-bar">
         <div className="search-bar__locations">
-          <div className={'locations__inputs' + (this.state.locationsSwitched ? ' locations__inputs--switched' : '')}>
+          <div className="locations__inputs">
             <LocationInput selected={this.state.originName} onSelect={this.onOriginSelected} />
             <LocationInput selected={this.state.destName} onSelect={this.onDestinationSelected} />
           </div>
@@ -66,27 +64,24 @@ export default class SearchBar extends React.Component<Props, State> {
     return new Date().toLocaleString('sv-SE').substr(0, 16).split(' ');
   }
 
-  onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, true);
-  onDestinationSelected = (id: string, name: string) => this.onLocationSelected(id, name, false);
+  onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'origin');
+  onDestinationSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'dest');
 
-  onLocationSelected(id: string, name: string, origin: boolean) {
+  onLocationSelected(id: string, name: string, location: string) {
     this.setState(prevState => {
-      origin = (origin && !prevState.locationsSwitched) || (!origin && prevState.locationsSwitched);
-      const locationType = origin ? 'origin' : 'dest';
       const newState = {};
-      newState[locationType + 'Id'] = id;
-      newState[locationType + 'Name'] = name;
+      newState[location + 'Id'] = id;
+      newState[location + 'Name'] = name;
       return newState;
     });
   }
 
   switchLocations = () => {
     this.setState(prevState => ({
-      locationsSwitched: !prevState.locationsSwitched,
       originId: prevState.destId,
       originName: prevState.destName,
       destId: prevState.originId,
-      destName: prevState.originName
+      destName: prevState.originName,
     }));
   }
 

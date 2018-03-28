@@ -13,10 +13,6 @@
   flex-grow: 1;
 }
 
-.locations__inputs--switched {
-  flex-direction: column-reverse;
-}
-
 .locations__switch-locations {
   cursor: pointer;
   border: none;
