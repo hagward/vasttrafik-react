@@ -1,7 +1,7 @@
 {
   "name": "vt-react",
   "version": "0.1.0",
-  "homepage": "https://hagward.github.io/vt",
+  "homepage": "https://hagward.github.io/vasttrafik-react/",
   "private": true,
   "dependencies": {
     "luxon": "^1.0.0",
