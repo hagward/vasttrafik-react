@@ -1,8 +1,16 @@
 .trip-details {
-  color: #EE1844;
-  padding: .8rem .8rem 0 .8rem;
+  list-style: none;
+  margin: .4rem 0 0 0;
+  padding: 0;
 }
 
-.trip-details__leg span {
-  color: black;
+.trip-details__leg {
+  background-color: #eee;
+  border-radius: .1rem;
+  margin-bottom: .4rem;
+  padding: .4rem;
+}
+
+.trip-details__leg:last-child {
+  margin: 0;
 }

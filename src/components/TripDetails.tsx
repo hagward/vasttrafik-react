@@ -10,24 +10,21 @@ export default class TripDetails extends React.Component<Props, any> {
   render() {
     return (
       <ul className="trip-details">
-        {this.props.trip.Leg.map((leg, legIndex) =>
-          <li className="trip-details__leg" key={legIndex}>
-            {this.renderLeg(leg, legIndex)}
-          </li>
-        )}
+        {this.props.trip.Leg.map((leg, legIndex) => this.renderLeg(leg, legIndex))}
       </ul>
     );
   }
 
   renderLeg(leg: Leg, index: number) {
-    if (index === this.props.trip.Leg.length - 1) {
-      return this.renderLocation(leg.Destination);
-    } else {
-      return this.renderLocation(leg.Origin);
-    }
+    return (
+      <li className="trip-details__leg" key={index}>
+        {this.renderLocation(leg.Origin)}
+        {this.renderLocation(leg.Destination)}
+      </li>
+    );
   }
 
   renderLocation(location: Location) {
-    return <span>{location.time} {location.name}</span>;
+    return <div className="leg__part">{location.time} {location.name}</div>;
   }
 }
