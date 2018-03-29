@@ -24,4 +24,12 @@ export default class Util {
   static toDateTime(date: string, time: string): DateTime {
     return DateTime.fromISO(date + 'T' + time, {locale: 'sv-SE'});
   }
+
+  static debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
+    let timeoutId: number;
+    return (..._args: any[]) => {
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => fn.apply(thisObject, _args), wait);
+    };
+  }
 }

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import * as _ from 'underscore';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import Util from '../Util';
@@ -30,6 +29,23 @@ export default class LocationInput extends React.Component<Props, State> {
   private mruCache: MruCache<Location>;
   private textInput: HTMLInputElement | null;
 
+  private autoComplete = Util.debounce((input: string) => {
+    this.auth.getToken()
+      .then(token => {
+        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
+          '?format=json&input=' + encodeURIComponent(input);
+
+        return fetch(url, {
+          method: 'GET',
+          headers: new Headers({ 'Authorization': 'Bearer ' + token })
+        });
+      })
+      .then(response => response.json())
+      .then(json => this.setState({
+        locations: Util.list(json.LocationList.StopLocation),
+      }));
+  }, 500, this);
+
   constructor(props: Props) {
     super(props);
 
@@ -41,8 +57,6 @@ export default class LocationInput extends React.Component<Props, State> {
       overlay: false,
       value: '',
     };
-
-    this.autoComplete = _.debounce(this.autoComplete, 300);
   }
 
   render() {
@@ -132,23 +146,6 @@ export default class LocationInput extends React.Component<Props, State> {
     this.setState(prevState => ({
       overlay: false,
     }));
-  }
-
-  autoComplete(input: string) {
-    this.auth.getToken()
-      .then(token => {
-        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
-          '?format=json&input=' + encodeURIComponent(input);
-
-        return fetch(url, {
-          method: 'GET',
-          headers: new Headers({'Authorization': 'Bearer ' + token})
-        });
-      })
-      .then(response => response.json())
-      .then(json => this.setState({
-        locations: Util.list(json.LocationList.StopLocation),
-      }));
   }
 
   showMostRecentlyUsed() {
