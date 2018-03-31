@@ -1,14 +1,12 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import Auth from '../Auth';
-import LocationItem from './LocationItem';
+import LocationList from './LocationList';
 import Modal from './Modal';
 import MruCache from '../MruCache';
 import Util from '../Util';
 import settings from '../settings';
 import './LocationInput.css';
-
-// TODO: overlay height, get the icons back
 
 interface Props {
   selected: string;
@@ -21,7 +19,7 @@ interface State {
   value: string;
 }
 
-interface Location {
+export interface Location {
   id: string;
   name: string;
 }
@@ -99,17 +97,11 @@ export default class LocationInput extends React.Component<Props, State> {
             />
             <button className="overlay__cancel" onClick={this.handleCancel}>Avbryt</button>
           </div>
-          <ul className="overlay__suggestions">
-            {this.state.locations.map(location =>
-              <LocationItem
-                highlight={this.state.value}
-                id={location.id}
-                key={location.id}
-                label={location.name}
-                onClick={this.selectLocation}
-              />
-            )}
-          </ul>
+          <LocationList
+            highlight={this.state.value}
+            locations={this.state.locations}
+            onSelect={this.selectLocation}
+          />
         </div>
       </Modal>
     );
