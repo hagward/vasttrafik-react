@@ -1,21 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import './Modal.css';
 
+const body = document.getElementsByTagName('body')[0] as HTMLBodyElement;
 const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 
 export default class Modal extends React.Component<any, any> {
-  private el: HTMLDivElement;
-
-  constructor(props: any) {
-    super(props);
-    this.el = document.createElement('div');
-  }
+  private el: HTMLDivElement = document.createElement('div');
 
   componentDidMount() {
+    body.classList.add('noscroll');
+    this.el.classList.add('modal');
     modalRoot.appendChild(this.el);
   }
 
   componentWillUnmount() {
+    body.classList.remove('noscroll');
     modalRoot.removeChild(this.el);
   }
 

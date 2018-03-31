@@ -10,8 +10,11 @@ html {
 body {
   background-color: #eee;
   margin: 0;
-  overflow-y: hidden;
   padding: 0;
+}
+
+.noscroll {
+  overflow: hidden;
 }
 
 .fa {
