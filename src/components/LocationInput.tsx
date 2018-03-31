@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import Auth from '../Auth';
+import Modal from './Modal';
 import MruCache from '../MruCache';
 import Util from '../Util';
 import settings from '../settings';
@@ -62,35 +63,7 @@ export default class LocationInput extends React.Component<Props, State> {
   render() {
     return (
       <div className="location-input">
-        {this.state.overlay &&
-          <div className="location-input__overlay">
-            <div className="overlay__top-bar">
-              <div className="overlay__icon">
-                <FontAwesome name="map-marker" />
-              </div>
-              <input
-                className="overlay__input"
-                type="text"
-                placeholder="Station"
-                ref={input => this.textInput = input}
-                value={this.state.value}
-                onChange={this.handleChange}
-              />
-              <button className="overlay__cancel" onClick={this.handleCancel}>Avbryt</button>
-            </div>
-            <ul className="overlay__suggestions">
-              {this.state.locations.map(location =>
-                <li
-                  dangerouslySetInnerHTML={{__html: this.highlightSearchValue(location.name)}}
-                  className="overlay__suggestion"
-                  key={location.id}
-                  id={location.id}
-                  onClick={this.selectLocation}
-                />
-              )}
-            </ul>
-          </div>
-        }
+        {this.state.overlay && this.renderOverlay()}
 
         <div className="location-input__icon">
           <FontAwesome name="map-marker" />
@@ -104,6 +77,40 @@ export default class LocationInput extends React.Component<Props, State> {
           readOnly={true}
         />
       </div>
+    );
+  }
+
+  renderOverlay() {
+    return (
+      <Modal>
+        <div className="location-input__overlay">
+          <div className="overlay__top-bar">
+            <div className="overlay__icon">
+              <FontAwesome name="map-marker" />
+            </div>
+            <input
+              className="overlay__input"
+              type="text"
+              placeholder="Station"
+              ref={input => this.textInput = input}
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            <button className="overlay__cancel" onClick={this.handleCancel}>Avbryt</button>
+          </div>
+          <ul className="overlay__suggestions">
+            {this.state.locations.map(location =>
+              <li
+                dangerouslySetInnerHTML={{ __html: this.highlightSearchValue(location.name) }}
+                className="overlay__suggestion"
+                key={location.id}
+                id={location.id}
+                onClick={this.selectLocation}
+              />
+            )}
+          </ul>
+        </div>
+      </Modal>
     );
   }
 
