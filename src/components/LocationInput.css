@@ -66,9 +66,3 @@
   overflow-y: scroll;
   padding: 0;
 }
-
-.overlay__suggestion {
-  cursor: pointer;
-  padding: .8rem;
-  border-bottom: 1px solid #eee;
-}

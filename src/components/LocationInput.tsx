@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import Auth from '../Auth';
+import LocationItem from './LocationItem';
 import Modal from './Modal';
 import MruCache from '../MruCache';
 import Util from '../Util';
@@ -11,7 +12,7 @@ import './LocationInput.css';
 
 interface Props {
   selected: string;
-  onSelect?(id: string, name: string): void;
+  onSelect(id: string, name: string): any;
 }
 
 interface State {
@@ -100,11 +101,11 @@ export default class LocationInput extends React.Component<Props, State> {
           </div>
           <ul className="overlay__suggestions">
             {this.state.locations.map(location =>
-              <li
-                dangerouslySetInnerHTML={{ __html: this.highlightSearchValue(location.name) }}
-                className="overlay__suggestion"
-                key={location.id}
+              <LocationItem
+                highlight={this.state.value}
                 id={location.id}
+                key={location.id}
+                label={location.name}
                 onClick={this.selectLocation}
               />
             )}
@@ -161,20 +162,13 @@ export default class LocationInput extends React.Component<Props, State> {
     });
   }
 
-  selectLocation = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    const id = target.id;
-    const name = target.innerText;
-
+  selectLocation = (id: string, label: string) => {
     this.setState({
       overlay: false,
       value: '',
     }, () => {
-      this.mruCache.add({id: id, name: name});
-
-      if (this.props.onSelect) {
-        this.props.onSelect(id, name);
-      }
+      this.mruCache.add({id: id, name: label});
+      this.props.onSelect(id, label);
     });
   }
 }
