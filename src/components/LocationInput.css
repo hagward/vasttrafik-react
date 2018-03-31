@@ -11,6 +11,7 @@
   -webkit-appearance: none;
   border-radius: 0;
   margin: 0;
+  display: block;
 }
 
 .location-input__overlay {
@@ -42,7 +43,7 @@
 
 .overlay__top-bar {
   background-color: #EE1844;
-  padding: .8rem;
+  padding: .5rem .8rem;
   display: flex;
   flex: 0 0 auto;
 }
