@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './LocationItem.css';
+import './LocationListItem.css';
 
 interface Props {
   highlight: string;
@@ -8,11 +8,11 @@ interface Props {
   onClick(id: string, label: string): any;
 }
 
-export default class LocationItem extends React.Component<Props, any> {
+export default class LocationListItem extends React.Component<Props, any> {
   render() {
     return (
       <li
-        className="location-item"
+        className="location-list-item"
         dangerouslySetInnerHTML={{ __html: this.highlightSearchValue() }}
         key={this.props.id}
         onClick={this.handleClick}

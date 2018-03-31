@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Trip } from '../Api';
-import TripItem from './TripItem';
+import TripListItem from './TripListItem';
 import './TripList.css';
 
 interface Props {
@@ -13,7 +13,7 @@ export default class TripList extends React.Component<Props, any> {
       <ul className="trip-list">
         {this.props.trips.map((trip, tripIndex) =>
           <li key={tripIndex} className="trip-list__trip">
-            <TripItem trip={trip} />
+            <TripListItem trip={trip} />
           </li>
         )}
       </ul>

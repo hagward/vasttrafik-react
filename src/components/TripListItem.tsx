@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Trip } from '../Api';
 import TripDetails from './TripDetails';
 import TripOverview from './TripOverview';
-import './Trip.css';
+import './TripListItem.css';
 
 interface Props {
   trip: Trip;
@@ -12,7 +12,7 @@ interface State {
   expanded: boolean;
 }
 
-export default class TripItem extends React.Component<Props, State> {
+export default class TripListItem extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -23,7 +23,7 @@ export default class TripItem extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="trip" onClick={this.handleClick}>
+      <div className="trip-list-item" onClick={this.handleClick}>
         <TripOverview trip={this.props.trip} />
         {this.state.expanded &&
           <TripDetails trip={this.props.trip} />

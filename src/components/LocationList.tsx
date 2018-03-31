@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Location } from './LocationInput';
-import LocationItem from './LocationItem';
+import LocationListItem from './LocationListItem';
 import './LocationList.css';
 
 interface Props {
@@ -14,7 +14,7 @@ export default class LocationList extends React.Component<Props, any> {
     return (
       <ul className="location-list">
         {this.props.locations.map(location =>
-          <LocationItem
+          <LocationListItem
             highlight={this.props.highlight}
             id={location.id}
             key={location.id}

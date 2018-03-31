@@ -1,9 +1,0 @@
-.trip {
-  margin-top: 1px;
-  background-color: white;
-  padding: .8rem;
-}
-
-.trip:hover {
-  cursor: pointer;
-}
