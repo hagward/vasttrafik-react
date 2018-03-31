@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as FontAwesome from 'react-fontawesome';
 import './LocationListItem.css';
 
 interface Props {
@@ -11,12 +12,13 @@ interface Props {
 export default class LocationListItem extends React.Component<Props, any> {
   render() {
     return (
-      <li
-        className="location-list-item"
-        dangerouslySetInnerHTML={{ __html: this.highlightSearchValue() }}
-        key={this.props.id}
-        onClick={this.handleClick}
-      />
+      <li className="location-list-item" key={this.props.id} onClick={this.handleClick}>
+        <FontAwesome name="h-square" />
+        <div
+          className="location-list-item__label"
+          dangerouslySetInnerHTML={{ __html: this.highlightSearchValue() }}
+        />
+      </li>
     );
   }
 

@@ -1,4 +1,9 @@
 .location-list-item {
   border-bottom: 1px solid #eee;
+  display: flex;
   padding: .8rem;
+}
+
+.location-list-item__label {
+  margin-left: .8rem;
 }
