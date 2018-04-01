@@ -59,15 +59,15 @@ export default class SearchBar extends React.Component<Props, State> {
     );
   }
 
-  currentDateTime() {
+  private currentDateTime() {
     // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
     return new Date().toLocaleString('sv-SE').substr(0, 16).split(' ');
   }
 
-  onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'origin');
-  onDestinationSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'dest');
+  private onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'origin');
+  private onDestinationSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'dest');
 
-  onLocationSelected(id: string, name: string, location: string) {
+  private onLocationSelected(id: string, name: string, location: string) {
     this.setState(prevState => {
       const newState = {};
       newState[location + 'Id'] = id;
@@ -76,7 +76,7 @@ export default class SearchBar extends React.Component<Props, State> {
     });
   }
 
-  switchLocations = () => {
+  private switchLocations = () => {
     this.setState(prevState => ({
       originId: prevState.destId,
       originName: prevState.destName,
@@ -85,22 +85,22 @@ export default class SearchBar extends React.Component<Props, State> {
     }));
   }
 
-  onDateChanged = (event: React.FormEvent<HTMLInputElement>) => {
+  private onDateChanged = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     this.setState({ date: target.value });
   }
 
-  onTimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
+  private onTimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     this.setState({ time: target.value });
   }
 
-  search = () => {
+  private search = () => {
     this.storeLocations();
     this.props.onSearch(this.state.originId, this.state.destId, this.state.date, this.state.time);
   }
 
-  storeLocations() {
+  private storeLocations() {
     localStorage.setItem('originId', this.state.originId);
     localStorage.setItem('originName', this.state.originName);
     localStorage.setItem('destId', this.state.destId);

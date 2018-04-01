@@ -30,7 +30,7 @@ export default class TripOverview extends React.Component<Props, any> {
     );
   }
 
-  renderTime(location: Location) {
+  private renderTime(location: Location) {
     return [
       <span className="trip-overview__time" key={0}>{location.rtTime}</span>,
         location.time !== location.rtTime &&
@@ -38,13 +38,13 @@ export default class TripOverview extends React.Component<Props, any> {
     ];
   }
 
-  renderLegs() {
+  private renderLegs() {
     return this.props.trip.Leg
       .filter(leg => leg.sname)
       .map((leg, index) => this.renderLeg(leg, index));
   }
 
-  renderLeg(leg: Leg, index: number) {
+  private renderLeg(leg: Leg, index: number) {
     return (
       <span
         className="trip-overview__leg"
@@ -60,7 +60,7 @@ export default class TripOverview extends React.Component<Props, any> {
     );
   }
 
-  travelTime(start: Location, end: Location) {
+  private travelTime(start: Location, end: Location) {
     const startDateTime = Util.toDateTime(start.date, start.time);
     const endDateTime = Util.toDateTime(end.date, end.time);
     const duration = endDateTime.diff(startDateTime).shiftTo('hours', 'minutes');

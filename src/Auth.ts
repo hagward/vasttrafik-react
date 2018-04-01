@@ -34,14 +34,14 @@ export default class Auth {
     });
   }
 
-  getStoredToken(): Token {
+  private getStoredToken(): Token {
     return {
       token: localStorage.getItem('token') as string,
       expiryDate: Number(localStorage.getItem('tokenExpiryDate')),
     };
   }
 
-  signIn(): Promise<Response> {
+  private signIn(): Promise<Response> {
     const headers = new Headers({
       'Authorization': 'Basic ' + btoa(this.key + ':' + this.secret),
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -54,7 +54,7 @@ export default class Auth {
     });
   }
 
-  scope(): string {
+  private scope(): string {
     let scope = localStorage.getItem('scope');
     if (!scope) {
       scope = this.generateScope();
@@ -63,11 +63,11 @@ export default class Auth {
     return scope;
   }
 
-  generateScope(): string {
+  private generateScope(): string {
     return Math.random().toString(36).slice(2);
   }
 
-  storeToken(): void {
+  private storeToken(): void {
     localStorage.setItem('token', this.token.token);
     localStorage.setItem('tokenExpiryDate', String(this.token.expiryDate));
   }

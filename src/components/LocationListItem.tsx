@@ -22,7 +22,11 @@ export default class LocationListItem extends React.Component<Props, any> {
     );
   }
 
-  highlightSearchValue(): string {
+  private handleClick = () => {
+    this.props.onClick(this.props.id, this.props.label);
+  }
+
+  private highlightSearchValue(): string {
     const highlight = this.props.highlight;
     const label = this.props.label;
     const i = label.toLowerCase().indexOf(highlight.toLowerCase());
@@ -33,9 +37,5 @@ export default class LocationListItem extends React.Component<Props, any> {
     } else {
       return label;
     }
-  }
-
-  handleClick = () => {
-    this.props.onClick(this.props.id, this.props.label);
   }
 }

@@ -32,7 +32,7 @@ export default class TripListItem extends React.Component<Props, State> {
     );
   }
 
-  handleClick = () => {
+  private handleClick = () => {
     this.setState(prevState => ({
       expanded: !prevState.expanded
     }));

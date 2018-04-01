@@ -39,7 +39,7 @@ export default class LocationInput extends React.Component<Props, State> {
     );
   }
 
-  renderOverlay() {
+  private renderOverlay() {
     return (
       <Modal>
         <LocationSearch onCancel={this.handleCancel} onSelect={this.handleSelect} />
@@ -47,10 +47,10 @@ export default class LocationInput extends React.Component<Props, State> {
     );
   }
 
-  handleFocus = () => this.setState({ overlay: true });
-  handleCancel = () => this.setState({ overlay: false });
+  private handleFocus = () => this.setState({ overlay: true });
+  private handleCancel = () => this.setState({ overlay: false });
 
-  handleSelect = (id: string, label: string) => {
+  private handleSelect = (id: string, label: string) => {
     this.setState({
       overlay: false,
     }, () => this.props.onSelect(id, label));

@@ -26,14 +26,14 @@ export default class MruCache<T extends Item> {
     localStorage.setItem('mru', JSON.stringify(mru));
   }
 
-  removeExistingItem(item: T, mru: T[]): void {
+  private removeExistingItem(item: T, mru: T[]): void {
     const existingIndex = mru.findIndex(existingItem => existingItem.id === item.id);
     if (existingIndex > -1) {
       mru.splice(existingIndex, 1);
     }
   }
 
-  ensureLengthWithinLimit(mru: T[]): void {
+  private ensureLengthWithinLimit(mru: T[]): void {
     if (mru.length > this.limit) {
       mru.splice(this.limit, mru.length - this.limit);
     }

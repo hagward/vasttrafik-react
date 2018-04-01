@@ -81,7 +81,7 @@ export default class LocationSearch extends React.Component<Props, State> {
     );
   }
 
-  focusInput(input: HTMLInputElement) {
+  private focusInput(input: HTMLInputElement) {
     setTimeout(() => {
       if (input) {
         input.focus();
@@ -89,7 +89,7 @@ export default class LocationSearch extends React.Component<Props, State> {
     }, 0);
   }
 
-  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
 
@@ -102,13 +102,13 @@ export default class LocationSearch extends React.Component<Props, State> {
     });
   }
 
-  showMostRecentlyUsed() {
+  private showMostRecentlyUsed() {
     this.setState({
       locations: this.recentLocations.getMostRecentlyUsed(),
     });
   }
 
-  handleSelect = (id: string, name: string) => {
+  private handleSelect = (id: string, name: string) => {
     this.props.onSelect(id, name);
     this.recentLocations.add({ id, name });
   }

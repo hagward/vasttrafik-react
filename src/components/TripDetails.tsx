@@ -15,13 +15,13 @@ export default class TripDetails extends React.Component<Props, any> {
     );
   }
 
-  renderLegs() {
+  private renderLegs() {
     return this.props.trip.Leg
       .filter(leg => leg.type !== 'WALK')
       .map((leg, index) => this.renderLeg(leg, index));
   }
 
-  renderLeg(leg: Leg, index: number) {
+  private renderLeg(leg: Leg, index: number) {
     return (
       <li className="trip-details__leg" key={index}>
         {this.renderLocation(leg.Origin)}
@@ -30,7 +30,7 @@ export default class TripDetails extends React.Component<Props, any> {
     );
   }
 
-  renderLocation(location: Location) {
+  private renderLocation(location: Location) {
     return <div className="leg__part">{location.time} {location.name}</div>;
   }
 }
