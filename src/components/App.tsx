@@ -79,21 +79,22 @@ export default class App extends React.Component<any, State> {
         });
       })
       .then(response => response.json())
-      .then(json => this.parseResponse(json));
+      .then(json => this.parseResponse(json))
+      .catch(error => this.parseError('Någonting gick fel.'));
   }
 
   private parseResponse(response: any): void {
     const tripList = response.TripList;
     if (tripList.error) {
-      this.parseError();
+      this.parseError('Inga resultat funna.');
     } else {
       this.parseTrips(tripList);
     }
   }
 
-  private parseError(): void {
+  private parseError(error: string): void {
     this.setState({
-      error: 'Inga resultat',
+      error,
       searching: false,
     });
   }
