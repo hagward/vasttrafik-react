@@ -4,6 +4,11 @@ html {
   line-height: 1.5;
 }
 
+button, input {
+  font: .8rem sans-serif;
+  line-height: 1.5;
+}
+
 html, input {
   color: #242729;
 }
