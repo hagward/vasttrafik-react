@@ -10,16 +10,15 @@
 }
 
 .locations__switch-locations {
-  cursor: pointer;
   border: none;
   background-color: #fff;
   margin: 0 0 1px 1px;
   padding: .4rem;
 }
 
-.locations__switch-locations .fa-exchange {
+.locations__switch-locations .fa {
   font-size: 1.2rem;
-  color: #666;
+  color: #242729;
 }
 
 .search-bar__datetime {
