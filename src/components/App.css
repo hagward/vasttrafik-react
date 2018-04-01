@@ -1,4 +1,12 @@
 .app {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.app__error {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }

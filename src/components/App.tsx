@@ -8,6 +8,7 @@ import settings from '../settings';
 import './App.css';
 
 export interface State {
+  error: string;
   searching: boolean;
   trips: Trip[];
 }
@@ -21,6 +22,7 @@ export default class App extends React.Component<any, State> {
     this.auth = new Auth(settings.key, settings.secret);
 
     this.state = {
+      error: '',
       searching: false,
       trips: [],
     };
@@ -30,12 +32,27 @@ export default class App extends React.Component<any, State> {
     return (
       <div className="app">
         <SearchBar onSearch={this.onSearch} searching={this.state.searching} />
-        <TripList trips={this.state.trips} />
+        {this.renderError()}
+        {this.renderTrips()}
       </div>
     );
   }
 
-  onSearch = (originId: string, destId: string, date: string, time: string) => {
+  private renderError() {
+    if (!this.state.error) {
+      return null;
+    }
+    return <div className="app__error">{this.state.error}</div>;
+  }
+
+  private renderTrips() {
+    if (!this.state.trips.length) {
+      return null;
+    }
+    return <TripList trips={this.state.trips} />;
+  }
+
+  private onSearch = (originId: string, destId: string, date: string, time: string) => {
     if (originId !== destId) {
       this.search(originId, destId, date, time);
     }
@@ -43,7 +60,9 @@ export default class App extends React.Component<any, State> {
 
   private search(originId: string, destId: string, date: string, time: string) {
     this.setState({
-      searching: true
+      error: '',
+      searching: true,
+      trips: [],
     });
 
     this.auth.getToken()
@@ -60,23 +79,35 @@ export default class App extends React.Component<any, State> {
         });
       })
       .then(response => response.json())
-      .then(json => this.setState({
-        searching: false,
-        trips: this.parseTrips(json),
-      }));
+      .then(json => this.parseResponse(json));
   }
 
-  private parseTrips(json: any) {
-    if (json.TripList.error) {
-      throw json.TripList.errorText;
+  private parseResponse(response: any): void {
+    const tripList = response.TripList;
+    if (tripList.error) {
+      this.parseError();
+    } else {
+      this.parseTrips(tripList);
     }
+  }
 
-    const trips = Util.list(json.TripList.Trip);
+  private parseError(): void {
+    this.setState({
+      error: 'Inga resultat',
+      searching: false,
+    });
+  }
+
+  private parseTrips(tripList: any): void {
+    const trips = Util.list(tripList.Trip);
 
     for (let i = 0; i < trips.length; i++) {
       trips[i].Leg = Util.list(trips[i].Leg);
     }
 
-    return trips;
+    this.setState({
+      trips,
+      searching: false,
+    });
   }
 }
