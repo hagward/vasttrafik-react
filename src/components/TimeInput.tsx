@@ -10,7 +10,7 @@ export default class TimeInput extends React.Component<Props, any> {
   render() {
     return (
       <Input
-        icon="clock-o"
+        icon="clock"
         type="time"
         value={this.props.value}
         onChange={this.props.onChange}

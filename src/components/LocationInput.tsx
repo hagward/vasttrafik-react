@@ -28,7 +28,7 @@ export default class LocationInput extends React.Component<Props, State> {
         {this.state.overlay && this.renderOverlay()}
 
         <Input
-          icon="map-marker"
+          icon="map-marker-alt"
           placeholder="Station"
           readOnly={true}
           type="search"

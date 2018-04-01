@@ -44,7 +44,7 @@ export default class SearchBar extends React.Component<Props, State> {
             <LocationInput selected={this.state.destName} onSelect={this.onDestinationSelected} />
           </div>
           <button className="locations__switch-locations" onClick={this.switchLocations}>
-            <FontAwesome name="exchange" rotate={90} />
+            <FontAwesome name="exchange-alt" rotate={90} size="2x" />
           </button>
         </div>
         <div className="search-bar__datetime">

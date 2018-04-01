@@ -10,7 +10,7 @@ export default class DateInput extends React.Component<Props, any> {
   render() {
     return (
       <Input
-        icon="calendar"
+        icon="calendar-alt"
         type="date"
         value={this.props.value}
         onChange={this.props.onChange}
