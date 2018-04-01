@@ -93,7 +93,7 @@ export default class App extends React.Component<any, State> {
       })
       .then(response => response.json())
       .then(json => this.parseResponse(json))
-      .catch(error => this.parseError('Någonting gick fel.'));
+      .catch(error => this.parseError('Någonting gick snett.'));
   }
 
   private parseResponse(response: any): void {
