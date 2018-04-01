@@ -27,7 +27,7 @@ export interface Location {
 
 export default class LocationInput extends React.Component<Props, State> {
   private auth: Auth;
-  private mruCache: MruCache<Location>;
+  private recentLocations: MruCache<Location>;
   private textInput: HTMLInputElement | null;
 
   private autoComplete = Util.debounce((input: string) => {
@@ -51,7 +51,7 @@ export default class LocationInput extends React.Component<Props, State> {
     super(props);
 
     this.auth = new Auth(settings.key, settings.secret);
-    this.mruCache = new MruCache(10);
+    this.recentLocations = new MruCache(10);
 
     this.state = {
       locations: [],
@@ -117,7 +117,7 @@ export default class LocationInput extends React.Component<Props, State> {
 
   handleFocus = () => {
     this.setState({
-      locations: this.mruCache.getMostRecentlyUsed(),
+      locations: this.recentLocations.getMostRecentlyUsed(),
       overlay: true,
       value: '',
     }, () => {
@@ -148,7 +148,7 @@ export default class LocationInput extends React.Component<Props, State> {
 
   showMostRecentlyUsed() {
     this.setState({
-      locations: this.mruCache.getMostRecentlyUsed(),
+      locations: this.recentLocations.getMostRecentlyUsed(),
     });
   }
 
@@ -157,7 +157,7 @@ export default class LocationInput extends React.Component<Props, State> {
       overlay: false,
       value: '',
     }, () => {
-      this.mruCache.add({id: id, name: label});
+      this.recentLocations.add({id: id, name: label});
       this.props.onSelect(id, label);
     });
   }
