@@ -4,31 +4,37 @@
   align-items: center;
 }
 
-.trip-overview__legs {
-  display: flex;
+.trip-overview__origin,
+.trip-overview__destination {
+  flex: 1 1 0;
+  padding: .8rem;
 }
 
-.legs__leg {
-  padding: .2rem;
+.trip-overview__destination {
+  text-align: right;
+}
+
+.trip-overview__times {
+  margin-bottom: .4rem;
+}
+
+.trip-overview__time--invalid {
+  color: #aaa;
+  margin-left: .4rem;
+}
+
+.trip-overview__legs,
+.trip-overview__travel-time {
+  font-size: .8rem;
+}
+
+.trip-overview__leg {
+  display: inline-block;
+  padding: .1rem;
   margin-right: .4rem;
-  min-width: 1.8rem;
+  min-width: 1.2rem;
   text-align: center;
   border-radius: .1rem;
   border-width: 1px;
   border-style: solid;
-}
-
-.times__start-end {
-  display: flex;
-}
-
-.times__start,
-.times__arrow {
-  margin-right: .8rem;
-}
-
-.times__travel-time {
-  font-size: .8rem;
-  text-align: right;
-  color: #999;
 }
