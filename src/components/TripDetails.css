@@ -1,7 +1,7 @@
 .trip-details {
   list-style: none;
   margin: .4rem 0 0 0;
-  padding: 0;
+  padding: 0 .8rem .8rem .8rem;
 }
 
 .trip-details__leg {
