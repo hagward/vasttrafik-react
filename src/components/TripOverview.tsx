@@ -31,6 +31,10 @@ export default class TripOverview extends React.Component<Props, any> {
   }
 
   private renderTime(location: Location) {
+    if (!location.rtTime) {
+      return <span className="trip-overview__time">{location.time}</span>;
+    }
+
     return [
       <span className="trip-overview__time" key={0}>{location.rtTime}</span>,
         location.time !== location.rtTime &&
