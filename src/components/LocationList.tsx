@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Location } from './LocationInput';
+import { Location } from './LocationSearch';
 import LocationListItem from './LocationListItem';
 import './LocationList.css';
 
 interface Props {
   highlight: string;
   locations: Location[];
-  onSelect(id: string, label: string): any;
+  onSelect(id: string, name: string): any;
 }
 
 export default class LocationList extends React.Component<Props, any> {

@@ -1,0 +1,38 @@
+.location-search {
+  background-color: #fff;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.location-search__icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.location-search__icon .fa {
+  color: white;
+}
+
+.location-search__top-bar {
+  background-color: #EE1844;
+  display: flex;
+  flex: 0 0 auto;
+  padding: .5rem .8rem;
+}
+
+.location-search__input {
+  border: none;
+  border-radius: .1rem;
+  padding: .4rem;
+  flex-grow: 1;
+  margin: 0 .8rem;
+}
+
+.location-search__cancel {
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0;
+}

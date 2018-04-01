@@ -6,7 +6,7 @@ interface Props {
   highlight: string;
   id: string;
   label: string;
-  onClick(id: string, label: string): any;
+  onClick(id: string, name: string): any;
 }
 
 export default class LocationListItem extends React.Component<Props, any> {
