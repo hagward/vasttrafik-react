@@ -1,7 +1,10 @@
 .input {
   position: relative;
-  border-right: 1px solid #eee;
   width: 100%;
+}
+
+.input:not(:last-child) {
+  margin-right: 1px;
 }
 
 .input .fa {

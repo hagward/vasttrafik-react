@@ -12,7 +12,7 @@
 }
 
 .location-search__icon .fa {
-  color: white;
+  color: #fff;
 }
 
 .location-search__top-bar {
@@ -33,6 +33,6 @@
 .location-search__cancel {
   border: none;
   background-color: transparent;
-  color: white;
+  color: #fff;
   padding: 0;
 }

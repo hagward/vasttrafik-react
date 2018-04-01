@@ -4,12 +4,16 @@ html {
   line-height: 1.4;
 }
 
+html, input {
+  color: #242729;
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
-  background-color: #eee;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
