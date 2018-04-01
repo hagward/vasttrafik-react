@@ -61,7 +61,7 @@ export default class SearchBar extends React.Component<Props, State> {
 
   private currentDateTime() {
     // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
-    return new Date().toLocaleString('sv-SE').substr(0, 16).split(' ');
+    return new Date().toISOString().substr(0, 16).split('T');
   }
 
   private onOriginSelected = (id: string, name: string) => this.onLocationSelected(id, name, 'origin');
