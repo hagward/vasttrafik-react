@@ -1,17 +1,17 @@
-.date-picker {
+.input {
   position: relative;
   border-right: 1px solid #eee;
-  width: 50%;
+  width: 100%;
 }
 
-.date-picker .fa-calendar {
+.input .fa {
   position: absolute;
   top: 50%;
   left: .8rem;
   transform: translateY(-50%);
 }
 
-.date-picker__input {
+.input__input {
   padding: .8rem;
   padding-left: 2.4rem;
   -webkit-appearance: none;

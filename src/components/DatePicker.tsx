@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as FontAwesome from 'react-fontawesome';
-import './DatePicker.css';
+import Input from './Input';
 
 interface Props {
   value: string;
@@ -10,10 +9,12 @@ interface Props {
 export default class DatePicker extends React.Component<Props, any> {
   render() {
     return (
-      <div className="date-picker">
-        <FontAwesome name="calendar" />
-        <input className="date-picker__input" type="date" value={this.props.value} onChange={this.props.onChange} />
-      </div>
+      <Input
+        icon="calendar"
+        type="date"
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
     );
   }
 }

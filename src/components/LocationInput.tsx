@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import Auth from '../Auth';
+import Input from './Input';
 import LocationList from './LocationList';
 import Modal from './Modal';
 import MruCache from '../MruCache';
@@ -64,16 +65,13 @@ export default class LocationInput extends React.Component<Props, State> {
       <div className="location-input">
         {this.state.overlay && this.renderOverlay()}
 
-        <div className="location-input__icon">
-          <FontAwesome name="map-marker" />
-        </div>
-
-        <input
-          className="location-input__input"
+        <Input
+          icon="map-marker"
           placeholder="Station"
+          readOnly={true}
+          type="search"
           value={this.props.selected}
           onFocus={this.handleFocus}
-          readOnly={true}
         />
       </div>
     );
