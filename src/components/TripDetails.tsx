@@ -10,9 +10,15 @@ export default class TripDetails extends React.Component<Props, any> {
   render() {
     return (
       <ul className="trip-details">
-        {this.props.trip.Leg.map((leg, legIndex) => this.renderLeg(leg, legIndex))}
+        {this.renderLegs()}
       </ul>
     );
+  }
+
+  renderLegs() {
+    return this.props.trip.Leg
+      .filter(leg => leg.type !== 'WALK')
+      .map((leg, index) => this.renderLeg(leg, index));
   }
 
   renderLeg(leg: Leg, index: number) {

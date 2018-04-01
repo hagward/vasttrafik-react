@@ -8,6 +8,7 @@ export interface Leg {
   sname: string;
   fgColor: string;
   bgColor: string;
+  type: string;
 }
 
 export interface Location {
