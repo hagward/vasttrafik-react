@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import DatePicker from './DatePicker';
+import DateInput from './DateInput';
 import LocationInput from './LocationInput';
-import TimePicker from './TimePicker';
+import TimeInput from './TimeInput';
 import './SearchBar.css';
 
 interface Props {
@@ -48,8 +48,8 @@ export default class SearchBar extends React.Component<Props, State> {
           </button>
         </div>
         <div className="search-bar__datetime">
-          <DatePicker value={this.state.date} onChange={this.onDateChanged} />
-          <TimePicker value={this.state.time} onChange={this.onTimeChanged} />
+          <DateInput value={this.state.date} onChange={this.onDateChanged} />
+          <TimeInput value={this.state.time} onChange={this.onTimeChanged} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching && <span>Söker...</span>}

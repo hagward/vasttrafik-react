@@ -6,12 +6,12 @@ interface Props {
   onChange(event: React.FormEvent<HTMLInputElement>): void;
 }
 
-export default class TimePicker extends React.Component<Props, any> {
+export default class DateInput extends React.Component<Props, any> {
   render() {
     return (
       <Input
-        icon="clock-o"
-        type="time"
+        icon="calendar"
+        type="date"
         value={this.props.value}
         onChange={this.props.onChange}
       />
