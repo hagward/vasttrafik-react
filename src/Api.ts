@@ -5,6 +5,8 @@ export interface Trip {
 export interface Leg {
   Origin: Location;
   Destination: Location;
+  direction: string;
+  name: string;
   sname: string;
   fgColor: string;
   bgColor: string;
@@ -17,4 +19,5 @@ export interface Location {
   rtDate?: string;
   rtTime?: string;
   time: string;
+  track?: string;
 }

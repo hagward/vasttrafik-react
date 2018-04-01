@@ -25,12 +25,19 @@ export default class TripDetails extends React.Component<Props, any> {
     return (
       <li className="trip-details__leg" key={index}>
         {this.renderLocation(leg.Origin)}
+        <div className="trip-details__direction">{leg.name} mot {leg.direction}</div>
         {this.renderLocation(leg.Destination)}
       </li>
     );
   }
 
   private renderLocation(location: Location) {
-    return <div className="leg__part">{location.time} {location.name}</div>;
+    return (
+      <div className="trip-details__location">
+        <div className="location__time">{location.time}</div>
+        <div className="location__name">{location.name}</div>
+        <div className="location__track">{location.track && 'Läge ' + location.track}</div>
+      </div>
+    );
   }
 }
