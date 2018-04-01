@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as FontAwesome from 'react-fontawesome';
 import { Trip } from '../Api';
 import Auth from '../Auth';
 import SearchBar from './SearchBar';
@@ -33,6 +34,7 @@ export default class App extends React.Component<any, State> {
       <div className="app">
         <SearchBar onSearch={this.onSearch} searching={this.state.searching} />
         {this.renderError()}
+        {this.renderSpinner()}
         {this.renderTrips()}
       </div>
     );
@@ -43,6 +45,17 @@ export default class App extends React.Component<any, State> {
       return null;
     }
     return <div className="app__error">{this.state.error}</div>;
+  }
+
+  private renderSpinner() {
+    if (!this.state.searching) {
+      return null;
+    }
+    return (
+      <div className="app__spinner">
+        <FontAwesome name="spinner" size="3x" spin={true} />
+      </div>
+    );
   }
 
   private renderTrips() {

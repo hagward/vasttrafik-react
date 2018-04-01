@@ -4,7 +4,8 @@
   height: 100%;
 }
 
-.app__error {
+.app__error,
+.app__spinner {
   align-items: center;
   display: flex;
   flex: 1;
