@@ -1,0 +1,8 @@
+.search-result__earlier-later {
+  display: flex;
+  justify-content: space-between;
+}
+
+.earlier-later__button {
+  padding: .4rem .8rem;
+}

@@ -3,15 +3,22 @@ import * as FontAwesome from 'react-fontawesome';
 import { Trip } from '../Api';
 import Auth from '../Auth';
 import SearchBar from './SearchBar';
-import TripList from './TripList';
+import SearchResult from './SearchResult';
 import Util from '../Util';
 import settings from '../settings';
 import './App.css';
+import { DateTime } from 'luxon';
 
-export interface State {
+interface State {
   error: string;
   searching: boolean;
   trips: Trip[];
+  originId: string;
+  originName: string;
+  destId: string;
+  destName: string;
+  date: string;
+  time: string;
 }
 
 export default class App extends React.Component<any, State> {
@@ -22,22 +29,69 @@ export default class App extends React.Component<any, State> {
 
     this.auth = new Auth(settings.key, settings.secret);
 
+    const [date, time] = this.currentDateTime();
+
     this.state = {
       error: '',
       searching: false,
       trips: [],
+      originId: localStorage.getItem('originId') || '',
+      originName: localStorage.getItem('originName') || '',
+      destId: localStorage.getItem('destId') || '',
+      destName: localStorage.getItem('destName') || '',
+      date,
+      time,
     };
   }
 
   render() {
     return (
       <div className="app">
-        <SearchBar onSearch={this.onSearch} searching={this.state.searching} />
+        <SearchBar
+          originId={this.state.originId}
+          originName={this.state.originName}
+          destId={this.state.destId}
+          destName={this.state.destName}
+          date={this.state.date}
+          time={this.state.time}
+          searching={this.state.searching}
+          onDateChange={this.handleDateChange}
+          onTimeChange={this.handleTimeChange}
+          onLocationChange={this.handleLocationChange}
+          onLocationSwitch={this.switchLocations}
+          onSearch={this.search}
+        />
         {this.renderError()}
         {this.renderSpinner()}
         {this.renderTrips()}
       </div>
     );
+  }
+
+  private currentDateTime() {
+    // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
+    return new Date().toISOString().substr(0, 16).split('T');
+  }
+
+  private handleDateChange = (date: string) => this.setState({ date });
+  private handleTimeChange = (time: string) => this.setState({ time });
+
+  private handleLocationChange = (id: string, name: string, location: string) => {
+    this.setState(prevState => {
+      const newState = {};
+      newState[location + 'Id'] = id;
+      newState[location + 'Name'] = name;
+      return newState;
+    });
+  }
+
+  private switchLocations = () => {
+    this.setState(prevState => ({
+      originId: prevState.destId,
+      originName: prevState.destName,
+      destId: prevState.originId,
+      destName: prevState.originName,
+    }));
   }
 
   private renderError() {
@@ -62,16 +116,20 @@ export default class App extends React.Component<any, State> {
     if (!this.state.trips.length) {
       return null;
     }
-    return <TripList trips={this.state.trips} />;
+    return (
+      <SearchResult
+        trips={this.state.trips}
+        onShowEarlier={this.findEarlierTrips}
+        onShowLater={this.findLaterTrips}
+      />
+    );
   }
 
-  private onSearch = (originId: string, destId: string, date: string, time: string) => {
-    if (originId !== destId) {
-      this.search(originId, destId, date, time);
+  private search = () => {
+    if (this.state.originId === this.state.destId) {
+      return;
     }
-  }
 
-  private search(originId: string, destId: string, date: string, time: string) {
     this.setState({
       error: '',
       searching: true,
@@ -81,10 +139,10 @@ export default class App extends React.Component<any, State> {
     this.auth.getToken()
       .then(token => {
         const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-          '&originId=' + encodeURIComponent(originId) +
-          '&destId=' + encodeURIComponent(destId) +
-          '&date=' + encodeURIComponent(date) +
-          '&time=' + encodeURIComponent(time);
+          '&originId=' + encodeURIComponent(this.state.originId) +
+          '&destId=' + encodeURIComponent(this.state.destId) +
+          '&date=' + encodeURIComponent(this.state.date) +
+          '&time=' + encodeURIComponent(this.state.time);
 
         return fetch(url, {
           method: 'GET',
@@ -123,5 +181,17 @@ export default class App extends React.Component<any, State> {
       trips,
       searching: false,
     });
+  }
+
+  private findEarlierTrips = () => {
+    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).minus({ hours: 3 }).toISO();
+    const [date, time] = dateTime.substr(0, 16).split('T');
+    this.setState({ date, time }, this.search);
+  }
+
+  private findLaterTrips = () => {
+    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).plus({ hours: 3 }).toISO();
+    const [date, time] = dateTime.substr(0, 16).split('T');
+    this.setState({ date, time }, this.search);
   }
 }
