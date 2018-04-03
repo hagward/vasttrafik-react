@@ -4,5 +4,7 @@
 }
 
 .earlier-later__button {
+  background-color: transparent;
+  border: none;
   padding: .4rem .8rem;
 }
