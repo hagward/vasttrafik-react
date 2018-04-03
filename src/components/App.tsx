@@ -70,7 +70,7 @@ export default class App extends React.Component<any, State> {
 
   private currentDateTime() {
     // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
-    return new Date().toISOString().substr(0, 16).split('T');
+    return DateTime.local().toISO().substr(0, 16).split('T');
   }
 
   private handleDateChange = (date: string) => this.setState({ date });
