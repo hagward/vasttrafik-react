@@ -184,13 +184,13 @@ export default class App extends React.Component<any, State> {
   }
 
   private findEarlierTrips = () => {
-    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).minus({ hours: 3 }).toISO();
+    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).minus({ minutes: 30 }).toISO();
     const [date, time] = dateTime.substr(0, 16).split('T');
     this.setState({ date, time }, this.search);
   }
 
   private findLaterTrips = () => {
-    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).plus({ hours: 3 }).toISO();
+    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).plus({ minutes: 30 }).toISO();
     const [date, time] = dateTime.substr(0, 16).split('T');
     this.setState({ date, time }, this.search);
   }
