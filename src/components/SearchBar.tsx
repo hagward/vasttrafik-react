@@ -35,7 +35,7 @@ export default class SearchBar extends React.Component<Props, any> {
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching && <span>Söker...</span>}
-          {!this.props.searching && <span>Sök</span>}
+          {!this.props.searching && <span>Sök resa</span>}
         </button>
       </div>
     );
