@@ -17,8 +17,7 @@ interface State {
   originName: string;
   destId: string;
   destName: string;
-  date: string;
-  time: string;
+  datetime: string;
 }
 
 export default class App extends React.Component<any, State> {
@@ -29,8 +28,6 @@ export default class App extends React.Component<any, State> {
 
     this.auth = new Auth(settings.key, settings.secret);
 
-    const [date, time] = this.currentDateTime();
-
     this.state = {
       error: '',
       searching: false,
@@ -39,8 +36,7 @@ export default class App extends React.Component<any, State> {
       originName: localStorage.getItem('originName') || '',
       destId: localStorage.getItem('destId') || '',
       destName: localStorage.getItem('destName') || '',
-      date,
-      time,
+      datetime: this.currentDatetime(),
     };
   }
 
@@ -52,11 +48,9 @@ export default class App extends React.Component<any, State> {
           originName={this.state.originName}
           destId={this.state.destId}
           destName={this.state.destName}
-          date={this.state.date}
-          time={this.state.time}
+          datetime={this.state.datetime}
           searching={this.state.searching}
-          onDateChange={this.handleDateChange}
-          onTimeChange={this.handleTimeChange}
+          onDatetimeChange={this.handleDatetimeChange}
           onLocationChange={this.handleLocationChange}
           onLocationSwitch={this.switchLocations}
           onSearch={this.search}
@@ -68,13 +62,11 @@ export default class App extends React.Component<any, State> {
     );
   }
 
-  private currentDateTime() {
-    // Remove seconds from 'yyyy-mm-dd hh:mm:ss' and split between date and time.
-    return DateTime.local().toISO().substr(0, 16).split('T');
+  private currentDatetime() {
+    return DateTime.local().toISO().substr(0, 16);
   }
 
-  private handleDateChange = (date: string) => this.setState({ date });
-  private handleTimeChange = (time: string) => this.setState({ time });
+  private handleDatetimeChange = (datetime: string) => this.setState({ datetime });
 
   private handleLocationChange = (id: string, name: string, location: string) => {
     this.setState(prevState => {
@@ -136,13 +128,15 @@ export default class App extends React.Component<any, State> {
       trips: [],
     });
 
+    const [date, time] = this.state.datetime.split('T');
+
     this.auth.getToken()
       .then(token => {
         const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
           '&originId=' + encodeURIComponent(this.state.originId) +
           '&destId=' + encodeURIComponent(this.state.destId) +
-          '&date=' + encodeURIComponent(this.state.date) +
-          '&time=' + encodeURIComponent(this.state.time);
+          '&date=' + encodeURIComponent(date) +
+          '&time=' + encodeURIComponent(time);
 
         return fetch(url, {
           method: 'GET',
@@ -184,14 +178,12 @@ export default class App extends React.Component<any, State> {
   }
 
   private findEarlierTrips = () => {
-    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).minus({ minutes: 30 }).toISO();
-    const [date, time] = dateTime.substr(0, 16).split('T');
-    this.setState({ date, time }, this.search);
+    const datetime = DateTime.fromISO(this.state.datetime).minus({ minutes: 30 }).toISO().substr(0, 16);
+    this.setState({ datetime }, this.search);
   }
 
   private findLaterTrips = () => {
-    const dateTime = DateTime.fromISO(this.state.date + 'T' + this.state.time).plus({ minutes: 30 }).toISO();
-    const [date, time] = dateTime.substr(0, 16).split('T');
-    this.setState({ date, time }, this.search);
+    const datetime = DateTime.fromISO(this.state.datetime).plus({ minutes: 30 }).toISO().substr(0, 16);
+    this.setState({ datetime }, this.search);
   }
 }

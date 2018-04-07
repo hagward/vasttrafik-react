@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import DateInput from './DateInput';
+import DatetimeInput from './DatetimeInput';
 import LocationInput from './LocationInput';
-import TimeInput from './TimeInput';
 import './SearchBar.css';
 
 interface Props {
@@ -10,11 +9,9 @@ interface Props {
   originName: string;
   destId: string;
   destName: string;
-  date: string;
-  time: string;
+  datetime: string;
   searching: boolean;
-  onDateChange(date: string): any;
-  onTimeChange(time: string): any;
+  onDatetimeChange(datetime: string): any;
   onLocationChange(id: string, name: string, location: string): any;
   onLocationSwitch(): any;
   onSearch(): any;
@@ -34,8 +31,7 @@ export default class SearchBar extends React.Component<Props, any> {
           </button>
         </div>
         <div className="search-bar__datetime">
-          <DateInput value={this.props.date} onChange={this.onDateChanged} />
-          <TimeInput value={this.props.time} onChange={this.onTimeChanged} />
+          <DatetimeInput value={this.props.datetime} onChange={this.onDatetimeChanged} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching && <span>Söker...</span>}
@@ -48,14 +44,9 @@ export default class SearchBar extends React.Component<Props, any> {
   private onOriginSelected = (id: string, name: string) => this.props.onLocationChange(id, name, 'origin');
   private onDestinationSelected = (id: string, name: string) => this.props.onLocationChange(id, name, 'dest');
 
-  private onDateChanged = (event: React.FormEvent<HTMLInputElement>) => {
+  private onDatetimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
-    this.props.onDateChange(target.value);
-  }
-
-  private onTimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
-    this.props.onTimeChange(target.value);
+    this.props.onDatetimeChange(target.value);
   }
 
   private search = () => {

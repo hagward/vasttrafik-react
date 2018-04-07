@@ -3,6 +3,7 @@ import * as FontAwesome from 'react-fontawesome';
 import './Input.css';
 
 interface Props {
+  className?: string;
   icon: string;
   placeholder?: string;
   readOnly?: boolean;

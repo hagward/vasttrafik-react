@@ -1,17 +1,19 @@
 import * as React from 'react';
 import Input from './Input';
+import './DatetimeInput.css';
 
 interface Props {
   value: string;
   onChange(event: React.FormEvent<HTMLInputElement>): void;
 }
 
-export default class DateInput extends React.Component<Props, any> {
+export default class DatetimeInput extends React.Component<Props, any> {
   render() {
     return (
       <Input
+        className="input__input datetime-input"
         icon="calendar-alt"
-        type="date"
+        type="datetime-local"
         value={this.props.value}
         onChange={this.props.onChange}
       />
