@@ -6,8 +6,8 @@
 
 .trip-details__leg {
   background-color: #f4f4f4;
-  margin-bottom: .4rem;
-  padding: .4rem;
+  margin-bottom: 1px;
+  padding: .8rem;
 }
 
 .trip-details__leg:last-child {
