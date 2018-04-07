@@ -4,6 +4,7 @@
   margin-bottom: 1px;
   display: flex;
   padding: .8rem;
+  position: relative;
 }
 
 .location-input:first-child {
@@ -12,4 +13,18 @@
 
 .location-input:last-child {
   border-radius: 0 0 .4rem .4rem;
+}
+
+.location-input__fake-input {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.location-input__fake-input--static {
+  position: static;
 }

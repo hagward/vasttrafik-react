@@ -24,9 +24,15 @@ export default class LocationInput extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="location-input" onClick={this.handleClick}>
+      <div className="location-input">
         {this.state.overlay && this.renderOverlay()}
-        <Location name={this.props.selected} />
+        {this.props.selected && <Location name={this.props.selected} />}
+        <input
+          type="text"
+          className={'location-input__fake-input' + (!this.props.selected ? ' location-input__fake-input--static' : '')}
+          onFocus={this.handleFocus}
+          placeholder={!this.props.selected ? 'Hållplats' : ''}
+        />
       </div>
     );
   }
@@ -39,7 +45,7 @@ export default class LocationInput extends React.Component<Props, State> {
     );
   }
 
-  private handleClick = () => this.setState({ overlay: true });
+  private handleFocus = () => this.setState({ overlay: true });
   private handleCancel = () => this.setState({ overlay: false });
 
   private handleSelect = (id: string, label: string) => {
