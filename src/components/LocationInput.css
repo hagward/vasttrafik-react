@@ -1,4 +1,14 @@
 .location-input {
+  background-color: #fff;
+  border: 1px solid #fff;
   margin-bottom: 1px;
   display: flex;
+}
+
+.location-input:first-child {
+  border-radius: .4rem .4rem 0 0;
+}
+
+.location-input:last-child {
+  border-radius: 0 0 .4rem .4rem;
 }

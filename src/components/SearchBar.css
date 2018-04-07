@@ -1,5 +1,6 @@
 .search-bar__locations {
-  display: flex;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
+  position: relative;
 }
 
 .locations__inputs {
@@ -12,13 +13,15 @@
 .locations__switch-locations {
   border: none;
   background-color: #fff;
-  margin: 0 0 1px 1px;
-  padding: .4rem;
+  position: absolute;
+  right: .8rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .locations__switch-locations .fa {
   font-size: 1.2rem;
-  color: #242729;
+  color: #757575;
 }
 
 .search-bar__datetime {
