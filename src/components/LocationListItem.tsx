@@ -18,7 +18,8 @@ export default class LocationListItem extends React.Component<Props, any> {
     );
   }
 
-  private handleClick = () => {
+  private handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     this.props.onClick(this.props.id, this.props.label);
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Input from './Input';
+import Location from './Location';
 import LocationSearch from './LocationSearch';
 import Modal from './Modal';
 import './LocationInput.css';
@@ -24,17 +24,9 @@ export default class LocationInput extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="location-input">
+      <div className="location-input" onClick={this.handleClick}>
         {this.state.overlay && this.renderOverlay()}
-
-        <Input
-          icon="map-marker-alt"
-          placeholder="Station"
-          readOnly={true}
-          type="search"
-          value={this.props.selected}
-          onFocus={this.handleFocus}
-        />
+        <Location name={this.props.selected} />
       </div>
     );
   }
@@ -47,7 +39,7 @@ export default class LocationInput extends React.Component<Props, State> {
     );
   }
 
-  private handleFocus = () => this.setState({ overlay: true });
+  private handleClick = () => this.setState({ overlay: true });
   private handleCancel = () => this.setState({ overlay: false });
 
   private handleSelect = (id: string, label: string) => {

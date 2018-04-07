@@ -70,7 +70,7 @@ export default class LocationSearch extends React.Component<Props, State> {
             value={this.state.value}
             onChange={this.handleChange}
           />
-          <button className="location-search__cancel" onClick={this.props.onCancel}>Avbryt</button>
+          <button className="location-search__cancel" onClick={this.handleCancel}>Avbryt</button>
         </div>
         <div className="location-search__results">
           <LocationList
@@ -108,6 +108,11 @@ export default class LocationSearch extends React.Component<Props, State> {
     this.setState({
       locations: this.recentLocations.getMostRecentlyUsed(),
     });
+  }
+
+  private handleCancel = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    this.props.onCancel();
   }
 
   private handleSelect = (id: string, name: string) => {
