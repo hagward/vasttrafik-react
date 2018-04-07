@@ -1,8 +1,9 @@
 .location-search {
-  background-color: #fff;
+  background-color: #f4f4f4;
   display: flex;
   flex: 1;
   flex-direction: column;
+  padding: .8rem;
 }
 
 .location-search__icon {
@@ -11,15 +12,14 @@
   justify-content: center;
 }
 
-.location-search__icon .fa {
-  color: #fff;
-}
-
 .location-search__top-bar {
-  background-color: #EE1844;
+  background-color: #fff;
+  border-radius: .4rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
   display: flex;
   flex: 0 0 auto;
   padding: .5rem .8rem;
+  margin-bottom: .8rem;
 }
 
 .location-search__input {
@@ -33,6 +33,11 @@
 .location-search__cancel {
   border: none;
   background-color: transparent;
-  color: #fff;
+  color: #EE1844;
   padding: 0;
+}
+
+.location-search__results {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
 }

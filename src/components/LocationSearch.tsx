@@ -60,7 +60,7 @@ export default class LocationSearch extends React.Component<Props, State> {
       <div className="location-search">
         <div className="location-search__top-bar">
           <div className="location-search__icon">
-            <FontAwesome name="map-marker" />
+            <FontAwesome name="map-marker-alt" />
           </div>
           <input
             className="location-search__input"
@@ -72,11 +72,13 @@ export default class LocationSearch extends React.Component<Props, State> {
           />
           <button className="location-search__cancel" onClick={this.props.onCancel}>Avbryt</button>
         </div>
-        <LocationList
-          highlight={this.state.value}
-          locations={this.state.locations}
-          onSelect={this.handleSelect}
-        />
+        <div className="location-search__results">
+          <LocationList
+            highlight={this.state.value}
+            locations={this.state.locations}
+            onSelect={this.handleSelect}
+          />
+        </div>
       </div>
     );
   }
