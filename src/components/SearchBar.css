@@ -32,10 +32,7 @@
   background-color: #EE1844;
   border: none;
   color: #fff;
-  cursor: pointer;
   padding: .8rem;
-  flex-grow: 1;
-  margin: 0;
   width: 100%;
 }
 
