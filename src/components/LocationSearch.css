@@ -1,5 +1,5 @@
 .location-search {
-  background-color: #f4f4f4;
+  background: linear-gradient(#fff, #f4f4f4);
   display: flex;
   flex: 1;
   flex-direction: column;
