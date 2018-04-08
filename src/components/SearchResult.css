@@ -1,3 +1,7 @@
+.search-result {
+  margin-top: .8rem;
+}
+
 .search-result__earlier-later {
   display: flex;
   justify-content: space-between;

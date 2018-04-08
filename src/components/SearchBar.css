@@ -3,8 +3,15 @@
 .search-bar__search {
   border-radius: .4rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
-  position: relative;
+}
+
+.search-bar__locations,
+.search-bar__datetime {
   margin-bottom: .8rem;
+}
+
+.search-bar__locations {
+  position: relative;
 }
 
 .locations__inputs {
