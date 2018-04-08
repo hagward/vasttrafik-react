@@ -13,8 +13,11 @@ html, input {
   color: #242729;
 }
 
-html, body, #app-root {
-  height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 *, *:before, *:after {

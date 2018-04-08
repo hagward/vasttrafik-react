@@ -1,7 +1,6 @@
 .app {
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: center;
   margin-top: env(safe-area-inset-top);
   padding: .8rem;
