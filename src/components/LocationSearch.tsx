@@ -38,9 +38,14 @@ export default class LocationSearch extends React.Component<Props, State> {
         });
       })
       .then(response => response.json())
-      .then(json => this.setState({
-        locations: Util.list(json.LocationList.StopLocation),
-      }));
+      .then(json => {
+        if (this.state.value !== input) {
+          return;
+        }
+        this.setState({
+          locations: Util.list(json.LocationList.StopLocation),
+        });
+      });
   }, 500, this);
 
   constructor(props: Props) {
