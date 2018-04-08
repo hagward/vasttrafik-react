@@ -73,15 +73,19 @@ export default class LocationSearch extends React.Component<Props, State> {
           <button className="location-search__cancel" onClick={this.handleCancel}>Avbryt</button>
         </div>
         <div className="location-search__results">
-          <LocationList
-            highlight={this.state.value}
-            locations={this.state.locations}
-            onSelect={this.handleSelect}
-          />
+          {this.state.locations.length > 0 && this.renderResults()}
         </div>
       </div>
     );
   }
+
+  private renderResults = () => (
+    <LocationList
+      highlight={this.state.value}
+      locations={this.state.locations}
+      onSelect={this.handleSelect}
+    />
+  )
 
   private focusInput(input: HTMLInputElement) {
     setTimeout(() => {
