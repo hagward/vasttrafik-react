@@ -43,7 +43,7 @@ export default class App extends React.Component<any, State> {
 
   render() {
     return (
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename="/vasttrafik-react">
         <div className="app">
           <nav className="app__nav-bar">
             <Link to="/">
