@@ -1,16 +1,9 @@
 .app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-top: env(safe-area-inset-top);
   padding: .8rem;
 }
 
 .app__nav-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   padding: 1.6rem;
   text-align: center;
 }
