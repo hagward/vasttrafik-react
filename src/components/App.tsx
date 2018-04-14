@@ -8,6 +8,7 @@ import Util from '../Util';
 import settings from '../settings';
 import './App.css';
 import { DateTime } from 'luxon';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 interface State {
   error: string;
@@ -42,25 +43,44 @@ export default class App extends React.Component<any, State> {
 
   render() {
     return (
-      <div className="app">
-        <SearchBar
-          originId={this.state.originId}
-          originName={this.state.originName}
-          destId={this.state.destId}
-          destName={this.state.destName}
-          datetime={this.state.datetime}
-          searching={this.state.searching}
-          onDatetimeChange={this.handleDatetimeChange}
-          onLocationChange={this.handleLocationChange}
-          onLocationSwitch={this.switchLocations}
-          onSearch={this.search}
-        />
-        {this.renderError()}
-        {this.renderSpinner()}
-        {this.renderTrips()}
-      </div>
+      <Router>
+        <div className="app">
+          <nav className="app__nav-bar">
+            <Link to="/">
+              <FontAwesome name="bus" />
+              Reaktiv Västtrafik
+            </Link>
+          </nav>
+          <Route exact={true} path="/" render={this.renderSearchBar} />
+          <Route path="/search" render={this.renderSearchResult} />
+        </div>
+      </Router>
     );
   }
+
+  private renderSearchBar = () => (
+    <SearchBar
+      originId={this.state.originId}
+      originName={this.state.originName}
+      destId={this.state.destId}
+      destName={this.state.destName}
+      datetime={this.state.datetime}
+      searching={this.state.searching}
+      onDatetimeChange={this.handleDatetimeChange}
+      onLocationChange={this.handleLocationChange}
+      onLocationSwitch={this.switchLocations}
+      onSearch={this.search}
+    />
+  )
+
+  private renderSearchResult = () => (
+    <SearchResult
+      error={this.state.error}
+      trips={this.state.trips}
+      onShowEarlier={this.findEarlierTrips}
+      onShowLater={this.findLaterTrips}
+    />
+  )
 
   private currentDatetime() {
     return DateTime.local().toISO().substr(0, 16);
@@ -84,37 +104,6 @@ export default class App extends React.Component<any, State> {
       destId: prevState.originId,
       destName: prevState.originName,
     }));
-  }
-
-  private renderError() {
-    if (!this.state.error) {
-      return null;
-    }
-    return <div className="app__error">{this.state.error}</div>;
-  }
-
-  private renderSpinner() {
-    if (!this.state.searching) {
-      return null;
-    }
-    return (
-      <div className="app__spinner">
-        <FontAwesome name="spinner" size="3x" spin={true} />
-      </div>
-    );
-  }
-
-  private renderTrips() {
-    if (!this.state.trips.length) {
-      return null;
-    }
-    return (
-      <SearchResult
-        trips={this.state.trips}
-        onShowEarlier={this.findEarlierTrips}
-        onShowLater={this.findLaterTrips}
-      />
-    );
   }
 
   private search = () => {

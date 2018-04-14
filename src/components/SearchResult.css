@@ -12,3 +12,11 @@
   border: none;
   padding: .8rem;
 }
+
+.search-result__error,
+.search-result__spinner {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}

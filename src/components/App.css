@@ -6,10 +6,23 @@
   padding: .8rem;
 }
 
-.app__error,
-.app__spinner {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  justify-content: center;
+.app__nav-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.6rem;
+  text-align: center;
+}
+
+.app__nav-bar a {
+  color: #242729;
+  font-size: 1.2rem;
+  font-weight: 200;
+  text-decoration: none;
+}
+
+.app__nav-bar .fa {
+  font-size: 1.2rem;
+  margin-right: .4rem;
 }
