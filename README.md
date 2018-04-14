@@ -1,3 +1,3 @@
-# VästtrafikReact
+# Reaktiv Västtrafik
 
-A reactive web app for finding trips with Västtrafik.
+A progressive web app for finding trips in Gothenburg.
