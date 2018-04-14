@@ -43,7 +43,7 @@ export default class App extends React.Component<any, State> {
 
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="app">
           <nav className="app__nav-bar">
             <Link to="/">
