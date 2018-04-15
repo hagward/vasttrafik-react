@@ -9,22 +9,29 @@ import './LocationSearch.css';
 
 interface Props {
   onCancel(): any;
-  onSelect(id: string, name: string): any;
+  onSelect(location: CoordLocation): any;
 }
 
 interface State {
-  locations: Location[];
+  locations: CoordLocation[];
   value: string;
 }
 
-export interface Location {
-  id: string;
+export interface CoordLocation {
+  id?: string;
+  idx?: string;
+  lat?: string;
+  lon?: string;
   name: string;
+}
+
+interface StopLocation extends CoordLocation {
+  id: string;
 }
 
 export default class LocationSearch extends React.Component<Props, State> {
   private auth: Auth;
-  private recentLocations: MruCache<Location>;
+  private recentLocations: MruCache<StopLocation>;
 
   private autoComplete = Util.debounce((input: string) => {
     this.auth.getToken()
@@ -42,9 +49,10 @@ export default class LocationSearch extends React.Component<Props, State> {
         if (this.state.value !== input) {
           return;
         }
-        this.setState({
-          locations: Util.list(json.LocationList.StopLocation),
-        });
+        const locations = Util.list(json.LocationList.CoordLocation)
+          .concat(Util.list(json.LocationList.StopLocation))
+          .sort((a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
+        this.setState({ locations });
       });
   }, 500, this);
 
@@ -86,7 +94,6 @@ export default class LocationSearch extends React.Component<Props, State> {
 
   private renderResults = () => (
     <LocationList
-      highlight={this.state.value}
       locations={this.state.locations}
       onSelect={this.handleSelect}
     />
@@ -124,8 +131,10 @@ export default class LocationSearch extends React.Component<Props, State> {
     this.props.onCancel();
   }
 
-  private handleSelect = (id: string, name: string) => {
-    this.props.onSelect(id, name);
-    this.recentLocations.add({ id, name });
+  private handleSelect = (location: CoordLocation) => {
+    this.props.onSelect(location);
+    if (location.id) {
+      this.recentLocations.add(location as StopLocation);
+    }
   }
 }

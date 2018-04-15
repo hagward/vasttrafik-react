@@ -6,19 +6,19 @@ import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 import Util from '../Util';
 import settings from '../settings';
-import './App.css';
 import { DateTime } from 'luxon';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { CoordLocation } from './LocationSearch';
+import './App.css';
 
 interface State {
   error: string;
   searching: boolean;
   trips: Trip[];
-  originId: string;
-  originName: string;
-  destId: string;
-  destName: string;
+  origin: CoordLocation;
+  dest: CoordLocation;
   datetime: string;
+  [key: string]: any;
 }
 
 export default class App extends React.Component<any, State> {
@@ -29,14 +29,15 @@ export default class App extends React.Component<any, State> {
 
     this.auth = new Auth(settings.key, settings.secret);
 
+    const origin = localStorage.getItem('origin');
+    const dest = localStorage.getItem('dest');
+
     this.state = {
       error: '',
       searching: false,
       trips: [],
-      originId: localStorage.getItem('originId') || '',
-      originName: localStorage.getItem('originName') || '',
-      destId: localStorage.getItem('destId') || '',
-      destName: localStorage.getItem('destName') || '',
+      origin: origin ? JSON.parse(origin) : { name: '' },
+      dest: dest ? JSON.parse(dest) : { name: '' },
       datetime: this.currentDatetime(),
     };
   }
@@ -60,10 +61,8 @@ export default class App extends React.Component<any, State> {
 
   private renderSearchBar = () => (
     <SearchBar
-      originId={this.state.originId}
-      originName={this.state.originName}
-      destId={this.state.destId}
-      destName={this.state.destName}
+      origin={this.state.origin}
+      dest={this.state.dest}
       datetime={this.state.datetime}
       searching={this.state.searching}
       onDatetimeChange={this.handleDatetimeChange}
@@ -88,29 +87,18 @@ export default class App extends React.Component<any, State> {
 
   private handleDatetimeChange = (datetime: string) => this.setState({ datetime });
 
-  private handleLocationChange = (id: string, name: string, location: string) => {
-    this.setState(prevState => {
-      const newState = {};
-      newState[location + 'Id'] = id;
-      newState[location + 'Name'] = name;
-      return newState;
-    });
-  }
+  private handleLocationChange = (inputName: string, location: CoordLocation) => this.setState({
+    [inputName]: location,
+  })
 
   private switchLocations = () => {
     this.setState(prevState => ({
-      originId: prevState.destId,
-      originName: prevState.destName,
-      destId: prevState.originId,
-      destName: prevState.originName,
+      origin: prevState.dest,
+      dest: prevState.origin,
     }));
   }
 
   private search = () => {
-    if (this.state.originId === this.state.destId) {
-      return;
-    }
-
     this.setState({
       error: '',
       searching: true,
@@ -122,8 +110,8 @@ export default class App extends React.Component<any, State> {
     this.auth.getToken()
       .then(token => {
         const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-          '&originId=' + encodeURIComponent(this.state.originId) +
-          '&destId=' + encodeURIComponent(this.state.destId) +
+          this.getLocationParameter('origin', this.state.origin) +
+          this.getLocationParameter('dest', this.state.dest) +
           '&date=' + encodeURIComponent(date) +
           '&time=' + encodeURIComponent(time);
 
@@ -135,6 +123,18 @@ export default class App extends React.Component<any, State> {
       .then(response => response.json())
       .then(json => this.parseResponse(json))
       .catch(error => this.parseError('Någonting gick snett.'));
+  }
+
+  private getLocationParameter(inputName: string, location: CoordLocation): string {
+    if (location.id) {
+      return '&' + inputName + 'Id=' + encodeURIComponent(location.id);
+    } else if (location.lat && location.lon) {
+      return '&' + inputName + 'CoordName=' + encodeURIComponent(location.name) +
+             '&' + inputName + 'CoordLat=' + encodeURIComponent(location.lat) +
+             '&' + inputName + 'CoordLong=' + encodeURIComponent(location.lon);
+    } else {
+      return '';
+    }
   }
 
   private parseResponse(response: any): void {

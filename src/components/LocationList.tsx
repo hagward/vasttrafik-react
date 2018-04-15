@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Location } from './LocationSearch';
+import { CoordLocation } from './LocationSearch';
 import LocationListItem from './LocationListItem';
 import './LocationList.css';
 
 interface Props {
-  highlight: string;
-  locations: Location[];
-  onSelect(id: string, name: string): any;
+  locations: CoordLocation[];
+  onSelect(location: CoordLocation): any;
 }
 
 export default class LocationList extends React.Component<Props, any> {
@@ -15,10 +14,8 @@ export default class LocationList extends React.Component<Props, any> {
       <ul className="location-list">
         {this.props.locations.map(location =>
           <LocationListItem
-            highlight={this.props.highlight}
-            id={location.id}
-            key={location.id}
-            label={location.name}
+            location={location}
+            key={location.id || location.name}
             onClick={this.props.onSelect}
           />
         )}

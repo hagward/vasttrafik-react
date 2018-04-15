@@ -1,25 +1,24 @@
 import * as React from 'react';
 import Location from './Location';
+import { CoordLocation } from './LocationSearch';
 import './LocationListItem.css';
 
 interface Props {
-  highlight: string;
-  id: string;
-  label: string;
-  onClick(id: string, name: string): any;
+  location: CoordLocation;
+  onClick(location: CoordLocation): any;
 }
 
 export default class LocationListItem extends React.Component<Props, any> {
   render() {
     return (
-      <li className="location-list-item" key={this.props.id} onClick={this.handleClick}>
-        <Location name={this.props.label} />
+      <li className="location-list-item" onClick={this.handleClick}>
+        <Location name={this.props.location.name} />
       </li>
     );
   }
 
   private handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    this.props.onClick(this.props.id, this.props.label);
+    this.props.onClick(this.props.location);
   }
 }

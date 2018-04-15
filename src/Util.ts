@@ -2,6 +2,9 @@ import { DateTime } from 'luxon';
 
 export default class Util {
   static list<T>(object: T): T[] {
+    if (!object) {
+      return [];
+    }
     return Array.isArray(object) ? object : [object];
   }
 

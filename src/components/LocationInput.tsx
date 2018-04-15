@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Location from './Location';
-import LocationSearch from './LocationSearch';
+import LocationSearch, { CoordLocation } from './LocationSearch';
 import Modal from './Modal';
 import './LocationInput.css';
 
 interface Props {
-  selected: string;
-  onSelect(id: string, name: string): any;
+  selected: CoordLocation;
+  onSelect(location: CoordLocation): any;
 }
 
 interface State {
@@ -23,15 +23,18 @@ export default class LocationInput extends React.Component<Props, State> {
   }
 
   render() {
+    const overlay = this.state.overlay;
+    const name = this.props.selected.name;
+
     return (
       <div className="location-input">
-        {this.state.overlay && this.renderOverlay()}
-        {this.props.selected && <Location name={this.props.selected} />}
+        {overlay && this.renderOverlay()}
+        {name && <Location name={name} />}
         <input
           type="text"
-          className={'location-input__fake-input' + (!this.props.selected ? ' location-input__fake-input--static' : '')}
+          className={'location-input__fake-input' + (!name ? ' location-input__fake-input--static' : '')}
           onFocus={this.handleFocus}
-          placeholder={!this.props.selected ? 'Hållplats' : ''}
+          placeholder={!name ? 'Hållplats' : ''}
         />
       </div>
     );
@@ -48,9 +51,9 @@ export default class LocationInput extends React.Component<Props, State> {
   private handleFocus = () => this.setState({ overlay: true });
   private handleCancel = () => this.setState({ overlay: false });
 
-  private handleSelect = (id: string, label: string) => {
+  private handleSelect = (location: CoordLocation) => {
     this.setState({
       overlay: false,
-    }, () => this.props.onSelect(id, label));
+    }, () => this.props.onSelect(location));
   }
 }
