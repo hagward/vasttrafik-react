@@ -1,9 +1,10 @@
 .location-search {
-  background: linear-gradient(#fff, #f4f4f4);
   display: flex;
   flex: 1;
   flex-direction: column;
   padding: .8rem;
+  max-width: 30rem;
+  width: 100%;
 }
 
 .location-search__icon {

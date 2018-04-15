@@ -1,6 +1,8 @@
 .app {
   margin-top: env(safe-area-inset-top);
+  max-width: 30rem;
   padding: .8rem;
+  width: 100%;
 }
 
 .app__nav-bar {
