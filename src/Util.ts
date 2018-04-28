@@ -16,6 +16,22 @@ export default class Util {
     return array[array.length - 1];
   }
 
+  static merge<T>(a: T[], b: T[], compare: (e1: T, e2: T) => number): T[] {
+    const result = [];
+    let i = 0;
+    let j = 0;
+    while (i < a.length && j < b.length) {
+      result.push((compare(a[i], b[j]) <= 0) ? a[i++] : b[j++]);
+    }
+    while (i < a.length) {
+      result.push(a[i++]);
+    }
+    while (j < b.length) {
+      result.push(b[j++]);
+    }
+    return result;
+  }
+
   static shortLocation(locationName: string): string {
     return locationName.split(',')[0];
   }

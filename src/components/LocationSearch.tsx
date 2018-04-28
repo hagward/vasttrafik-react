@@ -49,9 +49,10 @@ export default class LocationSearch extends React.Component<Props, State> {
         if (this.state.value !== input) {
           return;
         }
-        const locations = Util.list(json.LocationList.CoordLocation)
-          .concat(Util.list(json.LocationList.StopLocation))
-          .sort((a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
+        const coordLocations = Util.list(json.LocationList.CoordLocation);
+        const stopLocations = Util.list(json.LocationList.StopLocation);
+        const locations = Util.merge(coordLocations, stopLocations,
+          (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
         this.setState({ locations });
       });
   }, 500, this);
