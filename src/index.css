@@ -5,6 +5,7 @@ html {
 }
 
 button, input {
+  cursor: pointer;
   font: 1rem sans-serif;
   line-height: 1.2;
 }

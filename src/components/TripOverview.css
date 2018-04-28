@@ -1,7 +1,12 @@
 .trip-overview {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.trip-overview:hover {
+  background-color: #eee;
 }
 
 .trip-overview__origin,

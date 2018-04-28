@@ -2,3 +2,7 @@
   background-color: #fff;
   margin-bottom: 1px;
 }
+
+.trip-list-item:last-child {
+  margin: 0;
+}
