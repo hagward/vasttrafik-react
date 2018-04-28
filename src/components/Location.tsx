@@ -7,11 +7,11 @@ interface Props {
 
 export default class Location extends React.PureComponent<Props, any> {
   render() {
-    const [name, city] = this.props.name.split(', ');
+    const [name, address] = this.props.name.split(', ');
     return (
       <div className="location">
         <div className="location__name">{name}</div>
-        {city && <div className="location__city">{city}</div>}
+        {address && <div className="location__address">{address}</div>}
       </div>
     );
   }
