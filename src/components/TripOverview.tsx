@@ -6,6 +6,7 @@ import './TripOverview.css';
 
 interface Props {
   trip: Trip;
+  onClick(): any;
 }
 
 export default class TripOverview extends React.PureComponent<Props, any> {
@@ -14,7 +15,7 @@ export default class TripOverview extends React.PureComponent<Props, any> {
     const destination = Util.last(this.props.trip.Leg).Destination;
 
     return (
-      <div className="trip-overview">
+      <div className="trip-overview" onClick={this.props.onClick}>
         <div className="trip-overview__origin">
           <div className="trip-overview__times">{this.renderTime(origin)}</div>
           <div className="trip-overview__legs">{this.renderLegs()}</div>

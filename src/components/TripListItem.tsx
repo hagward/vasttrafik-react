@@ -23,8 +23,8 @@ export default class TripListItem extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <div className="trip-list-item" onClick={this.handleClick}>
-        <TripOverview trip={this.props.trip} />
+      <div className="trip-list-item">
+        <TripOverview trip={this.props.trip} onClick={this.handleClick} />
         {this.state.expanded &&
           <TripDetails trip={this.props.trip} />
         }
