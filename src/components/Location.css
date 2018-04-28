@@ -1,8 +1,5 @@
-.location__name {
-  margin-bottom: .2rem;
-}
-
 .location__city {
   color: #777;
   font-size: .8rem;
+  margin-top: .2rem;
 }

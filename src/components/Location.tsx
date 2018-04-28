@@ -11,7 +11,7 @@ export default class Location extends React.PureComponent<Props, any> {
     return (
       <div className="location">
         <div className="location__name">{name}</div>
-        <div className="location__city">{city}</div>
+        {city && <div className="location__city">{city}</div>}
       </div>
     );
   }
