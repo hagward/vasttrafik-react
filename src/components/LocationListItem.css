@@ -4,8 +4,10 @@
   padding: .8rem;
 }
 
-.location-list-item:hover {
-  background-color: #eee;
+@media (hover: hover) {
+  .location-list-item:hover {
+    background-color: #eee;
+  }
 }
 
 .location-list-item:last-child {
