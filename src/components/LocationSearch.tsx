@@ -55,7 +55,7 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
           (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
         this.setState({ locations });
       });
-  }, 500, this);
+  }, 250, this);
 
   constructor(props: Props) {
     super(props);
