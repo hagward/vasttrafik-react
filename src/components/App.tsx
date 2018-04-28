@@ -21,7 +21,7 @@ interface State {
   [key: string]: any;
 }
 
-export default class App extends React.Component<any, State> {
+export default class App extends React.PureComponent<any, State> {
   private auth: Auth;
 
   constructor(props: any) {

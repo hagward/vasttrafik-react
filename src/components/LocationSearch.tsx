@@ -29,7 +29,7 @@ interface StopLocation extends CoordLocation {
   id: string;
 }
 
-export default class LocationSearch extends React.Component<Props, State> {
+export default class LocationSearch extends React.PureComponent<Props, State> {
   private auth: Auth;
   private recentLocations: MruCache<StopLocation>;
 

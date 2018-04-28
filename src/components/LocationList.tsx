@@ -8,7 +8,7 @@ interface Props {
   onSelect(location: CoordLocation): any;
 }
 
-export default class LocationList extends React.Component<Props, any> {
+export default class LocationList extends React.PureComponent<Props, any> {
   render() {
     return (
       <ul className="location-list">

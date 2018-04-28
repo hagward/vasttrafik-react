@@ -5,7 +5,7 @@ interface Props {
   name: string;
 }
 
-export default class Location extends React.Component<Props, any> {
+export default class Location extends React.PureComponent<Props, any> {
   render() {
     const [name, city] = this.props.name.split(', ');
     return (

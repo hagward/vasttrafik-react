@@ -8,7 +8,7 @@ interface Props {
   trip: Trip;
 }
 
-export default class TripOverview extends React.Component<Props, any> {
+export default class TripOverview extends React.PureComponent<Props, any> {
   render() {
     const origin = Util.first(this.props.trip.Leg).Origin;
     const destination = Util.last(this.props.trip.Leg).Destination;

@@ -12,7 +12,7 @@ interface State {
   expanded: boolean;
 }
 
-export default class TripListItem extends React.Component<Props, State> {
+export default class TripListItem extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

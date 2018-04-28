@@ -8,7 +8,7 @@ interface Props {
   onClick(location: CoordLocation): any;
 }
 
-export default class LocationListItem extends React.Component<Props, any> {
+export default class LocationListItem extends React.PureComponent<Props, any> {
   render() {
     return (
       <li className="location-list-item" onClick={this.handleClick}>

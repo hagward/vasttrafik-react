@@ -17,7 +17,7 @@ interface Props extends RouteComponentProps<any> {
   onSearch(): any;
 }
 
-class SearchBar extends React.Component<Props, any> {
+class SearchBar extends React.PureComponent<Props, any> {
   render() {
     return (
       <div className="search-bar">

@@ -7,7 +7,7 @@ interface Props {
   onChange(event: React.FormEvent<HTMLInputElement>): void;
 }
 
-export default class DatetimeInput extends React.Component<Props, any> {
+export default class DatetimeInput extends React.PureComponent<Props, any> {
   render() {
     return (
       <Input

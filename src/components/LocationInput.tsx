@@ -13,7 +13,7 @@ interface State {
   overlay: boolean;
 }
 
-export default class LocationInput extends React.Component<Props, State> {
+export default class LocationInput extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
