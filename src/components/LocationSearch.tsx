@@ -1,11 +1,11 @@
 import * as React from 'react';
-import * as FontAwesome from 'react-fontawesome';
 import Auth from '../Auth';
 import LocationList from './LocationList';
 import MruCache from '../MruCache';
 import Util from '../Util';
 import settings from '../settings';
 import './LocationSearch.css';
+import LocationSearchInput from './LocationSearchInput';
 
 interface Props {
   onCancel(): any;
@@ -72,20 +72,7 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
   render() {
     return (
       <div className="location-search">
-        <div className="location-search__top-bar">
-          <div className="location-search__icon">
-            <FontAwesome name="map-marker-alt" />
-          </div>
-          <input
-            className="location-search__input"
-            placeholder="Station"
-            ref={this.focusInput}
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button className="location-search__cancel" onClick={this.handleCancel}>Avbryt</button>
-        </div>
+        <LocationSearchInput value={this.state.value} onChange={this.handleChange} onCancel={this.handleCancel} />
         <div className="location-search__results">
           {this.state.locations.length > 0 && this.renderResults()}
         </div>
@@ -99,14 +86,6 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
       onSelect={this.handleSelect}
     />
   )
-
-  private focusInput(input: HTMLInputElement) {
-    setTimeout(() => {
-      if (input) {
-        input.focus();
-      }
-    }, 0);
-  }
 
   private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;

@@ -7,37 +7,6 @@
   width: 100%;
 }
 
-.location-search__icon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.location-search__top-bar {
-  background-color: #fff;
-  border-radius: .4rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
-  display: flex;
-  flex: 0 0 auto;
-  padding: .5rem .8rem;
-  margin-bottom: .8rem;
-}
-
-.location-search__input {
-  border: none;
-  border-radius: .1rem;
-  padding: .4rem;
-  flex-grow: 1;
-  margin: 0 .8rem;
-}
-
-.location-search__cancel {
-  border: none;
-  background-color: transparent;
-  color: #EE1844;
-  padding: 0;
-}
-
 .location-search__results {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
