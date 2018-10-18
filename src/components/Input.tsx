@@ -13,7 +13,7 @@ interface Props {
   onFocus?(event: React.FocusEvent<HTMLInputElement>): any;
 }
 
-export default class Input extends React.PureComponent<Props, any> {
+export default class Input extends React.PureComponent<Props> {
   render() {
     return (
       <div className="input">

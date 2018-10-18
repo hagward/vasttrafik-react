@@ -16,7 +16,7 @@ interface Props {
   onSearch(): any;
 }
 
-export default class SearchBar extends React.PureComponent<Props, any> {
+export default class SearchBar extends React.PureComponent<Props> {
   render() {
     return (
       <div className="search-bar">

@@ -7,7 +7,7 @@ interface Props {
   trips: Trip[];
 }
 
-export default class TripList extends React.PureComponent<Props, any> {
+export default class TripList extends React.PureComponent<Props> {
   render() {
     return (
       <ul className="trip-list">

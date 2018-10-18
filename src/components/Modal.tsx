@@ -5,7 +5,7 @@ import './Modal.css';
 const body = document.getElementsByTagName('body')[0] as HTMLBodyElement;
 const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 
-export default class Modal extends React.PureComponent<any, any> {
+export default class Modal extends React.PureComponent<any> {
   private el: HTMLDivElement = document.createElement('div');
 
   componentDidMount() {

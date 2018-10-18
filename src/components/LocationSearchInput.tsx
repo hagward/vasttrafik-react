@@ -8,7 +8,7 @@ interface Props {
   onCancel(event: React.MouseEvent<HTMLElement>): any;
 }
 
-export default class LocationSearchInput extends React.PureComponent<Props, any> {
+export default class LocationSearchInput extends React.PureComponent<Props> {
   render() {
     return (
       <div className="location-search-input">

@@ -6,7 +6,7 @@ interface Props {
   trip: Trip;
 }
 
-export default class TripDetails extends React.PureComponent<Props, any> {
+export default class TripDetails extends React.PureComponent<Props> {
   render() {
     return (
       <ul className="trip-details">

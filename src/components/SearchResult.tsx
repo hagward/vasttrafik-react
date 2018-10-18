@@ -29,7 +29,7 @@ interface Props {
   onShowLater(): any;
 }
 
-export default class SearchResult extends React.PureComponent<Props, any> {
+export default class SearchResult extends React.PureComponent<Props> {
   render() {
     const props = this.props;
     return (
