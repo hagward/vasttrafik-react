@@ -7,7 +7,6 @@ import SearchResult from './SearchResult';
 import Util from '../Util';
 import settings from '../settings';
 import { DateTime } from 'luxon';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { CoordLocation } from './LocationSearch';
 import './App.css';
 
@@ -20,6 +19,12 @@ interface State {
   datetime: string;
   [key: string]: any;
 }
+
+const Spinner = () => (
+  <div className="search-result__spinner">
+    <FontAwesome name="spinner" size="3x" spin={true} />
+  </div>
+);
 
 export default class App extends React.PureComponent<any, State> {
   private auth: Auth;
@@ -44,19 +49,26 @@ export default class App extends React.PureComponent<any, State> {
 
   render() {
     return (
-      <Router basename={process.env.PUBLIC_URL}>
-        <div className="app">
-          <nav className="app__nav-bar">
-            <Link to="/">
-              <FontAwesome name="bus" />
-              Reaktiv Västtrafik
-            </Link>
-          </nav>
-          <Route exact={true} path="/" render={this.renderSearchBar} />
-          <Route path="/search" render={this.renderSearchResult} />
-        </div>
-      </Router>
+      <div className="app">
+        <nav className="app__nav-bar">
+          <a href="/">
+            <FontAwesome name="bus" />
+            Reaktiv Västtrafik
+          </a>
+        </nav>
+        {this.renderMainContent()}
+      </div>
     );
+  }
+
+  private renderMainContent = () => {
+    if (this.state.searching) {
+      return <Spinner />;
+    } else if (this.state.trips.length) {
+      return this.renderSearchResult();
+    } else {
+      return this.renderSearchBar();
+    }
   }
 
   private renderSearchBar = () => (

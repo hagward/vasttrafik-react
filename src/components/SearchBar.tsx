@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import DatetimeInput from './DatetimeInput';
 import LocationInput from './LocationInput';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { CoordLocation } from './LocationSearch';
 import './SearchBar.css';
 
-interface Props extends RouteComponentProps<any> {
+interface Props {
   origin: CoordLocation;
   dest: CoordLocation;
   datetime: string;
@@ -17,7 +16,7 @@ interface Props extends RouteComponentProps<any> {
   onSearch(): any;
 }
 
-class SearchBar extends React.PureComponent<Props, any> {
+export default class SearchBar extends React.PureComponent<Props, any> {
   render() {
     return (
       <div className="search-bar">
@@ -51,7 +50,6 @@ class SearchBar extends React.PureComponent<Props, any> {
 
   private search = () => {
     this.storeLocations();
-    this.props.history.push('/search');
     this.props.onSearch();
   }
 
@@ -60,5 +58,3 @@ class SearchBar extends React.PureComponent<Props, any> {
     localStorage.setItem('dest', JSON.stringify(this.props.dest));
   }
 }
-
-export default withRouter<Props>(SearchBar);
