@@ -34,13 +34,14 @@ export default class App extends React.PureComponent<any, State> {
 
     this.auth = new Auth(settings.key, settings.secret);
 
+    const trips = localStorage.getItem('trips');
     const origin = localStorage.getItem('origin');
     const dest = localStorage.getItem('dest');
 
     this.state = {
       error: '',
       searching: false,
-      trips: [],
+      trips: trips ? JSON.parse(trips) : [],
       origin: origin ? JSON.parse(origin) : { name: '' },
       dest: dest ? JSON.parse(dest) : { name: '' },
       datetime: this.currentDatetime(),
@@ -65,6 +66,8 @@ export default class App extends React.PureComponent<any, State> {
     this.setState({
       trips: [],
     });
+
+    localStorage.setItem('trips', JSON.stringify([]));
   }
 
   private renderMainContent = () => {
@@ -122,6 +125,8 @@ export default class App extends React.PureComponent<any, State> {
       searching: true,
       trips: [],
     });
+
+    localStorage.setItem('trips', JSON.stringify([]));
 
     const [date, time] = this.state.datetime.split('T');
 
@@ -182,6 +187,8 @@ export default class App extends React.PureComponent<any, State> {
       trips,
       searching: false,
     });
+
+    localStorage.setItem('trips', JSON.stringify(trips));
   }
 
   private findEarlierTrips = () => {
