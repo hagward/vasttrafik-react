@@ -51,7 +51,7 @@ export default class App extends React.PureComponent<any, State> {
     return (
       <div className="app">
         <nav className="app__nav-bar">
-          <a href="/">
+          <a href="#" onClick={this.handleNavBarClick}>
             <FontAwesome name="bus" />
             Reaktiv Västtrafik
           </a>
@@ -59,6 +59,12 @@ export default class App extends React.PureComponent<any, State> {
         {this.renderMainContent()}
       </div>
     );
+  }
+
+  private handleNavBarClick = () => {
+    this.setState({
+      trips: [],
+    });
   }
 
   private renderMainContent = () => {
