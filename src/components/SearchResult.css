@@ -13,8 +13,7 @@
   padding: .8rem;
 }
 
-.search-result__error,
-.search-result__spinner {
+.search-result__error {
   align-items: center;
   display: flex;
   flex: 1;

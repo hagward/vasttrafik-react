@@ -21,7 +21,7 @@ interface State {
 }
 
 const Spinner = () => (
-  <div className="search-result__spinner">
+  <div className="app__spinner">
     <FontAwesome name="spinner" size="3x" spin={true} />
   </div>
 );

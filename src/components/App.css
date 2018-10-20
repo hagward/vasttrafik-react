@@ -21,3 +21,10 @@
   font-size: 1.2rem;
   margin-right: .4rem;
 }
+
+.app__spinner {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
