@@ -21,3 +21,15 @@ export interface ILocation {
   time: string;
   track?: string;
 }
+
+export interface ICoordLocation {
+  id?: string;
+  idx?: string;
+  lat?: string;
+  lon?: string;
+  name: string;
+}
+
+export interface IStopLocation extends ICoordLocation {
+  id: string;
+}

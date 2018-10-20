@@ -1,12 +1,11 @@
 import { DateTime } from 'luxon';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { ITrip } from '../Api';
+import { ICoordLocation, ITrip } from '../Api';
 import Auth from '../Auth';
 import settings from '../settings';
 import Util from '../Util';
 import './App.css';
-import { ICoordLocation } from './LocationSearch';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 

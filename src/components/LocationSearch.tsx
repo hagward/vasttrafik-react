@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ICoordLocation, IStopLocation } from '../Api';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import settings from '../settings';
@@ -16,18 +17,6 @@ interface IState {
   locations: ICoordLocation[];
   value: string;
   quickLocation?: ICoordLocation;
-}
-
-export interface ICoordLocation {
-  id?: string;
-  idx?: string;
-  lat?: string;
-  lon?: string;
-  name: string;
-}
-
-interface IStopLocation extends ICoordLocation {
-  id: string;
 }
 
 export default class LocationSearch extends React.PureComponent<IProps, IState> {

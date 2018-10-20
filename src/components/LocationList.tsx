@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { ICoordLocation } from '../Api';
 import './LocationList.css';
 import LocationListItem from './LocationListItem';
-import { ICoordLocation } from './LocationSearch';
 
 interface IProps {
   locations: ICoordLocation[];

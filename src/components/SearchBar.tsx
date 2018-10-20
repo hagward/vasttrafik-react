@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
+import { ICoordLocation } from '../Api';
 import DatetimeInput from './DatetimeInput';
 import LocationInput from './LocationInput';
-import { ICoordLocation } from './LocationSearch';
 import './SearchBar.css';
 
 interface IProps {

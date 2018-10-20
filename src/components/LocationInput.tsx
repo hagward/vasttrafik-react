@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { ICoordLocation } from '../Api';
 import Location from './Location';
 import './LocationInput.css';
-import LocationSearch, { ICoordLocation } from './LocationSearch';
+import LocationSearch from './LocationSearch';
 import Modal from './Modal';
 
 interface IProps {
