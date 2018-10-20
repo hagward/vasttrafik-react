@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import './Input.css';
 
-interface Props {
+interface IProps {
   className?: string;
   icon: string;
   placeholder?: string;
@@ -13,8 +13,8 @@ interface Props {
   onFocus?(event: React.FocusEvent<HTMLInputElement>): any;
 }
 
-export default class Input extends React.PureComponent<Props> {
-  render() {
+export default class Input extends React.PureComponent<IProps> {
+  public render() {
     return (
       <div className="input">
         <FontAwesome name={this.props.icon} />

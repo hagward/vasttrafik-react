@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Input from './Input';
 import './DatetimeInput.css';
+import Input from './Input';
 
-interface Props {
+interface IProps {
   value: string;
   onChange(event: React.FormEvent<HTMLInputElement>): void;
 }
 
-export default class DatetimeInput extends React.PureComponent<Props> {
-  render() {
+export default class DatetimeInput extends React.PureComponent<IProps> {
+  public render() {
     return (
       <Input
         className="input__input datetime-input"

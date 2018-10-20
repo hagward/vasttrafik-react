@@ -1,15 +1,15 @@
 import * as React from 'react';
 import Location from './Location';
-import { CoordLocation } from './LocationSearch';
 import './LocationListItem.css';
+import { ICoordLocation } from './LocationSearch';
 
-interface Props {
-  location: CoordLocation;
-  onClick(location: CoordLocation): any;
+interface IProps {
+  location: ICoordLocation;
+  onClick(location: ICoordLocation): any;
 }
 
-export default class LocationListItem extends React.PureComponent<Props> {
-  render() {
+export default class LocationListItem extends React.PureComponent<IProps> {
+  public render() {
     return (
       <li className="location-list-item" onClick={this.handleClick}>
         <Location name={this.props.location.name} />

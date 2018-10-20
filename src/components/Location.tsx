@@ -1,12 +1,12 @@
 import * as React from 'react';
 import './Location.css';
 
-interface Props {
+interface IProps {
   name: string;
 }
 
-export default class Location extends React.PureComponent<Props> {
-  render() {
+export default class Location extends React.PureComponent<IProps> {
+  public render() {
     const [name, address] = this.props.name.split(', ');
     return (
       <div className="location">

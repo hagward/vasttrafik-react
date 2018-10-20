@@ -1,9 +1,9 @@
 import * as React from 'react';
-import TripList from './TripList';
-import { Trip } from '../Api';
+import { ITrip } from '../Api';
 import './SearchResult.css';
+import TripList from './TripList';
 
-const TripListWithButtons = (props: Props) => (
+const TripListWithButtons = (props: IProps) => (
   <div className="search-result__trips">
     <TripList trips={props.trips} />
     <div className="search-result__earlier-later">
@@ -13,14 +13,14 @@ const TripListWithButtons = (props: Props) => (
   </div>
 );
 
-interface Props {
-  trips: Trip[];
+interface IProps {
+  trips: ITrip[];
   onShowEarlier(): any;
   onShowLater(): any;
 }
 
-export default class SearchResult extends React.PureComponent<Props> {
-  render() {
+export default class SearchResult extends React.PureComponent<IProps> {
+  public render() {
     return (
       <div className="search-result">
         <TripListWithButtons {...this.props} />

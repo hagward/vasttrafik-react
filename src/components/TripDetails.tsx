@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Leg, Location, Trip } from '../Api';
+import { ILeg, ILocation, ITrip } from '../Api';
 import './TripDetails.css';
 
-interface Props {
-  trip: Trip;
+interface IProps {
+  trip: ITrip;
 }
 
-export default class TripDetails extends React.PureComponent<Props> {
-  render() {
+export default class TripDetails extends React.PureComponent<IProps> {
+  public render() {
     return (
       <ul className="trip-details">
         {this.renderLegs()}
@@ -21,7 +21,7 @@ export default class TripDetails extends React.PureComponent<Props> {
       .map((leg, index) => this.renderLeg(leg, index));
   }
 
-  private renderLeg(leg: Leg, index: number) {
+  private renderLeg(leg: ILeg, index: number) {
     return (
       <li className="trip-details__leg" key={index}>
         {this.renderLocation(leg.Origin)}
@@ -31,7 +31,7 @@ export default class TripDetails extends React.PureComponent<Props> {
     );
   }
 
-  private renderLocation(location: Location) {
+  private renderLocation(location: ILocation) {
     return (
       <div className="trip-details__location">
         <div className="location__time">{location.time}</div>

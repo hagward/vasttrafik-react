@@ -1,10 +1,10 @@
-export interface Trip {
-  Leg: Leg[];
+export interface ITrip {
+  Leg: ILeg[];
 }
 
-export interface Leg {
-  Origin: Location;
-  Destination: Location;
+export interface ILeg {
+  Origin: ILocation;
+  Destination: ILocation;
   direction: string;
   name: string;
   sname: string;
@@ -13,7 +13,7 @@ export interface Leg {
   type: string;
 }
 
-export interface Location {
+export interface ILocation {
   date: string;
   name: string;
   rtDate?: string;

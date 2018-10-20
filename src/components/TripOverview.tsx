@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { Trip, Leg, Location } from '../Api';
+import { ILeg, ILocation, ITrip } from '../Api';
 import Util from '../Util';
 import './TripOverview.css';
 
-interface Props {
-  trip: Trip;
+interface IProps {
+  trip: ITrip;
   onClick(): any;
 }
 
-export default class TripOverview extends React.PureComponent<Props> {
-  render() {
+export default class TripOverview extends React.PureComponent<IProps> {
+  public render() {
     const origin = Util.first(this.props.trip.Leg).Origin;
     const destination = Util.last(this.props.trip.Leg).Destination;
 
@@ -31,7 +31,7 @@ export default class TripOverview extends React.PureComponent<Props> {
     );
   }
 
-  private renderTime(location: Location) {
+  private renderTime(location: ILocation) {
     if (!location.rtTime) {
       return <span className="trip-overview__time">{location.time}</span>;
     }
@@ -49,15 +49,15 @@ export default class TripOverview extends React.PureComponent<Props> {
       .map((leg, index) => this.renderLeg(leg, index));
   }
 
-  private renderLeg(leg: Leg, index: number) {
+  private renderLeg(leg: ILeg, index: number) {
     return (
       <span
         className="trip-overview__leg"
         key={index}
         style={{
           backgroundColor: leg.fgColor,
+          borderColor: leg.fgColor === '#ffffff' ? '#EE1844' : 'transparent',
           color: leg.bgColor,
-          borderColor: leg.fgColor === '#ffffff' ? '#EE1844' : 'transparent'
         }}
       >
         {leg.sname}
@@ -65,7 +65,7 @@ export default class TripOverview extends React.PureComponent<Props> {
     );
   }
 
-  private travelTime(start: Location, end: Location) {
+  private travelTime(start: ILocation, end: ILocation) {
     const startDateTime = Util.toDateTime(start.date, start.time);
     const endDateTime = Util.toDateTime(end.date, end.time);
     const duration = endDateTime.diff(startDateTime).shiftTo('hours', 'minutes');

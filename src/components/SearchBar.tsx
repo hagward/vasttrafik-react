@@ -2,22 +2,22 @@ import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import DatetimeInput from './DatetimeInput';
 import LocationInput from './LocationInput';
-import { CoordLocation } from './LocationSearch';
+import { ICoordLocation } from './LocationSearch';
 import './SearchBar.css';
 
-interface Props {
-  origin: CoordLocation;
-  dest: CoordLocation;
+interface IProps {
+  origin: ICoordLocation;
+  dest: ICoordLocation;
   datetime: string;
   searching: boolean;
   onDatetimeChange(datetime: string): any;
-  onLocationChange(inputName: string, location: CoordLocation): any;
+  onLocationChange(inputName: string, location: ICoordLocation): any;
   onLocationSwitch(): any;
   onSearch(): any;
 }
 
-export default class SearchBar extends React.PureComponent<Props> {
-  render() {
+export default class SearchBar extends React.PureComponent<IProps> {
+  public render() {
     return (
       <div className="search-bar">
         <div className="search-bar__locations">
@@ -40,8 +40,8 @@ export default class SearchBar extends React.PureComponent<Props> {
     );
   }
 
-  private onOriginSelected = (location: CoordLocation) => this.props.onLocationChange('origin', location);
-  private onDestinationSelected = (location: CoordLocation) => this.props.onLocationChange('dest', location);
+  private onOriginSelected = (location: ICoordLocation) => this.props.onLocationChange('origin', location);
+  private onDestinationSelected = (location: ICoordLocation) => this.props.onLocationChange('dest', location);
 
   private onDatetimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;

@@ -1,21 +1,21 @@
+import { DateTime } from 'luxon';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { Trip } from '../Api';
+import { ITrip } from '../Api';
 import Auth from '../Auth';
+import settings from '../settings';
+import Util from '../Util';
+import './App.css';
+import { ICoordLocation } from './LocationSearch';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
-import Util from '../Util';
-import settings from '../settings';
-import { DateTime } from 'luxon';
-import { CoordLocation } from './LocationSearch';
-import './App.css';
 
-interface State {
+interface IState {
   error: string;
   searching: boolean;
-  trips: Trip[];
-  origin: CoordLocation;
-  dest: CoordLocation;
+  trips: ITrip[];
+  origin: ICoordLocation;
+  dest: ICoordLocation;
   datetime: string;
   [key: string]: any;
 }
@@ -28,7 +28,7 @@ const Spinner = () => (
   </div>
 );
 
-export default class App extends React.PureComponent<any, State> {
+export default class App extends React.PureComponent<any, IState> {
   private auth: Auth;
 
   constructor(props: any) {
@@ -41,16 +41,16 @@ export default class App extends React.PureComponent<any, State> {
     const dest = localStorage.getItem('dest');
 
     this.state = {
+      datetime: this.currentDatetime(),
+      dest: dest ? JSON.parse(dest) : { name: '' },
       error: '',
+      origin: origin ? JSON.parse(origin) : { name: '' },
       searching: false,
       trips: trips ? JSON.parse(trips) : [],
-      origin: origin ? JSON.parse(origin) : { name: '' },
-      dest: dest ? JSON.parse(dest) : { name: '' },
-      datetime: this.currentDatetime(),
     };
   }
 
-  render() {
+  public render() {
     return (
       <div className="app">
         <nav className="app__nav-bar">
@@ -111,14 +111,14 @@ export default class App extends React.PureComponent<any, State> {
 
   private handleDatetimeChange = (datetime: string) => this.setState({ datetime });
 
-  private handleLocationChange = (inputName: string, location: CoordLocation) => this.setState({
+  private handleLocationChange = (inputName: string, location: ICoordLocation) => this.setState({
     [inputName]: location,
   })
 
   private switchLocations = () => {
     this.setState(prevState => ({
-      origin: prevState.dest,
       dest: prevState.origin,
+      origin: prevState.dest,
     }));
   }
 
@@ -142,8 +142,8 @@ export default class App extends React.PureComponent<any, State> {
 
     try {
       const response = await fetch(url, {
+        headers: new Headers({'Authorization': 'Bearer ' + token}),
         method: 'GET',
-        headers: new Headers({'Authorization': 'Bearer ' + token})
       });
       this.parseResponse(await response.json());
     } catch {
@@ -151,7 +151,7 @@ export default class App extends React.PureComponent<any, State> {
     }
   }
 
-  private getLocationParameter(inputName: string, location: CoordLocation): string {
+  private getLocationParameter(inputName: string, location: ICoordLocation): string {
     if (location.id) {
       return '&' + inputName + 'Id=' + encodeURIComponent(location.id);
     } else if (location.lat && location.lon) {
@@ -182,13 +182,13 @@ export default class App extends React.PureComponent<any, State> {
   private parseTrips(tripList: any): void {
     const trips = Util.list(tripList.Trip);
 
-    for (let i = 0; i < trips.length; i++) {
-      trips[i].Leg = Util.list(trips[i].Leg);
+    for (const trip of trips) {
+      trip.Leg = Util.list(trip.Leg);
     }
 
     this.setState({
-      trips,
       searching: false,
+      trips,
     });
 
     localStorage.setItem('trips', JSON.stringify(trips));

@@ -1,22 +1,22 @@
 import { DateTime } from 'luxon';
 
 export default class Util {
-  static list<T>(object: T): T[] {
+  public static list<T>(object: T): T[] {
     if (!object) {
       return [];
     }
     return Array.isArray(object) ? object : [object];
   }
 
-  static first<T>(array: T[]): T {
+  public static first<T>(array: T[]): T {
     return array[0];
   }
 
-  static last<T>(array: T[]): T {
+  public static last<T>(array: T[]): T {
     return array[array.length - 1];
   }
 
-  static merge<T>(a: T[], b: T[], compare: (e1: T, e2: T) => number): T[] {
+  public static merge<T>(a: T[], b: T[], compare: (e1: T, e2: T) => number): T[] {
     const result = [];
     let i = 0;
     let j = 0;
@@ -32,10 +32,10 @@ export default class Util {
     return result;
   }
 
-  static removeDuplicates<T>(array: T[], id: (e: T) => string): T[] {
+  public static removeDuplicates<T>(array: T[], id: (e: T) => string): T[] {
     const result: T[] = [];
     const set = new Set<string>();
-    for (let item of array) {
+    for (const item of array) {
       const itemId = id(item);
       if (!set.has(itemId)) {
         result.push(item);
@@ -45,23 +45,23 @@ export default class Util {
     return result;
   }
 
-  static shortLocation(locationName: string): string {
+  public static shortLocation(locationName: string): string {
     return locationName.split(',')[0];
   }
 
-  static padNumber(n: number): string {
+  public static padNumber(n: number): string {
     return n < 10 ? '0' + n : '' + n;
   }
 
-  static toDateTime(date: string, time: string): DateTime {
+  public static toDateTime(date: string, time: string): DateTime {
     return DateTime.fromISO(date + 'T' + time, {locale: 'sv-SE'});
   }
 
-  static debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
+  public static debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
     let timeoutId: number;
-    const debouncedFunction = (..._args: any[]) => {
+    const debouncedFunction = (...innerArgs: any[]) => {
       window.clearTimeout(timeoutId);
-      timeoutId = window.setTimeout(() => fn.apply(thisObject, _args), wait);
+      timeoutId = window.setTimeout(() => fn.apply(thisObject, innerArgs), wait);
     };
     debouncedFunction.cancel = () => window.clearTimeout(timeoutId);
     return debouncedFunction;

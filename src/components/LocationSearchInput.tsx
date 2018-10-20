@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import './LocationSearchInput.css';
 
-interface Props {
+interface IProps {
   value: string;
   onChange(event: React.FormEvent<HTMLInputElement>): any;
   onCancel(event: React.MouseEvent<HTMLElement>): any;
 }
 
-export default class LocationSearchInput extends React.PureComponent<Props> {
-  render() {
+export default class LocationSearchInput extends React.PureComponent<IProps> {
+  public render() {
     return (
       <div className="location-search-input">
         <div className="location-search-input__icon">

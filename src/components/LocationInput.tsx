@@ -1,20 +1,20 @@
 import * as React from 'react';
 import Location from './Location';
-import LocationSearch, { CoordLocation } from './LocationSearch';
-import Modal from './Modal';
 import './LocationInput.css';
+import LocationSearch, { ICoordLocation } from './LocationSearch';
+import Modal from './Modal';
 
-interface Props {
-  selected: CoordLocation;
-  onSelect(location: CoordLocation): any;
+interface IProps {
+  selected: ICoordLocation;
+  onSelect(location: ICoordLocation): any;
 }
 
-interface State {
+interface IState {
   overlay: boolean;
 }
 
-export default class LocationInput extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
+export default class LocationInput extends React.PureComponent<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -22,7 +22,7 @@ export default class LocationInput extends React.PureComponent<Props, State> {
     };
   }
 
-  render() {
+  public render() {
     const overlay = this.state.overlay;
     const name = this.props.selected.name;
 
@@ -51,7 +51,7 @@ export default class LocationInput extends React.PureComponent<Props, State> {
   private handleFocus = () => this.setState({ overlay: true });
   private handleCancel = () => this.setState({ overlay: false });
 
-  private handleSelect = (location: CoordLocation) => {
+  private handleSelect = (location: ICoordLocation) => {
     this.setState({
       overlay: false,
     }, () => this.props.onSelect(location));

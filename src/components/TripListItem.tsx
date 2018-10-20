@@ -1,19 +1,19 @@
 import * as React from 'react';
-import { Trip } from '../Api';
+import { ITrip } from '../Api';
 import TripDetails from './TripDetails';
-import TripOverview from './TripOverview';
 import './TripListItem.css';
+import TripOverview from './TripOverview';
 
-interface Props {
-  trip: Trip;
+interface IProps {
+  trip: ITrip;
 }
 
-interface State {
+interface IState {
   expanded: boolean;
 }
 
-export default class TripListItem extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
+export default class TripListItem extends React.PureComponent<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -21,7 +21,7 @@ export default class TripListItem extends React.PureComponent<Props, State> {
     };
   }
 
-  render() {
+  public render() {
     return (
       <div className="trip-list-item">
         <TripOverview trip={this.props.trip} onClick={this.handleClick} />

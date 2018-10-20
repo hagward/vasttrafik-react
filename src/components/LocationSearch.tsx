@@ -1,24 +1,24 @@
 import * as React from 'react';
 import Auth from '../Auth';
-import LocationList from './LocationList';
 import MruCache from '../MruCache';
-import Util from '../Util';
 import settings from '../settings';
+import Util from '../Util';
+import LocationList from './LocationList';
 import './LocationSearch.css';
 import LocationSearchInput from './LocationSearchInput';
 
-interface Props {
+interface IProps {
   onCancel(): any;
-  onSelect(location: CoordLocation): any;
+  onSelect(location: ICoordLocation): any;
 }
 
-interface State {
-  locations: CoordLocation[];
+interface IState {
+  locations: ICoordLocation[];
   value: string;
-  quickLocation?: CoordLocation;
+  quickLocation?: ICoordLocation;
 }
 
-export interface CoordLocation {
+export interface ICoordLocation {
   id?: string;
   idx?: string;
   lat?: string;
@@ -26,13 +26,13 @@ export interface CoordLocation {
   name: string;
 }
 
-interface StopLocation extends CoordLocation {
+interface IStopLocation extends ICoordLocation {
   id: string;
 }
 
-export default class LocationSearch extends React.PureComponent<Props, State> {
+export default class LocationSearch extends React.PureComponent<IProps, IState> {
   private auth: Auth;
-  private recentLocations: MruCache<StopLocation>;
+  private recentLocations: MruCache<IStopLocation>;
 
   private autoComplete = Util.debounce(async (input: string) => {
     const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
@@ -40,20 +40,20 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
 
     const token = await this.auth.getToken();
     const response = await fetch(url, {
+      headers: new Headers({ 'Authorization': 'Bearer ' + token }),
       method: 'GET',
-      headers: new Headers({ 'Authorization': 'Bearer ' + token })
     });
     const json = await response.json();
 
     const coordLocations = Util.list(json.LocationList.CoordLocation);
     const stopLocations = Util.list(json.LocationList.StopLocation);
     const locations = Util.merge(coordLocations, stopLocations,
-      (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
+      (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx));
 
     this.setState({ locations });
   }, 250, this);
 
-  constructor(props: Props) {
+  constructor(props: IProps) {
     super(props);
 
     this.auth = new Auth(settings.key, settings.secret);
@@ -65,7 +65,7 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
     };
   }
 
-  render() {
+  public render() {
     return (
       <div className="location-search">
         <LocationSearchInput value={this.state.value} onChange={this.handleChange} onCancel={this.handleCancel} />
@@ -124,10 +124,10 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
     this.props.onCancel();
   }
 
-  private handleSelect = (location: CoordLocation) => {
+  private handleSelect = (location: ICoordLocation) => {
     this.props.onSelect(location);
     if (location.id) {
-      this.recentLocations.add(location as StopLocation);
+      this.recentLocations.add(location as IStopLocation);
     }
   }
 }

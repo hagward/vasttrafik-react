@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { CoordLocation } from './LocationSearch';
-import LocationListItem from './LocationListItem';
 import './LocationList.css';
+import LocationListItem from './LocationListItem';
+import { ICoordLocation } from './LocationSearch';
 
-interface Props {
-  locations: CoordLocation[];
-  onSelect(location: CoordLocation): any;
+interface IProps {
+  locations: ICoordLocation[];
+  onSelect(location: ICoordLocation): any;
 }
 
-export default class LocationList extends React.PureComponent<Props> {
-  render() {
+export default class LocationList extends React.PureComponent<IProps> {
+  public render() {
     return (
       <ul className="location-list">
         {this.props.locations.map(location =>

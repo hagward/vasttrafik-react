@@ -1,19 +1,19 @@
-interface Token {
-  token: string;
+interface IToken {
   expiryDate: number;
+  token: string;
 }
 
 export default class Auth {
   private key: string;
   private secret: string;
-  private token: Token;
+  private token: IToken;
 
   constructor(key: string, secret: string) {
     this.key = key;
     this.secret = secret;
   }
 
-  getToken(): Promise<string> {
+  public getToken(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       const storedToken = this.getStoredToken();
       if (Date.now() < storedToken.expiryDate) {
@@ -23,8 +23,8 @@ export default class Auth {
           .then(response => response.json())
           .then(json => {
             this.token = {
-              token: json.access_token,
               expiryDate: Date.now() + Number(json.expires_in) * 1000,
+              token: json.access_token,
             };
             this.storeToken();
 
@@ -34,10 +34,10 @@ export default class Auth {
     });
   }
 
-  private getStoredToken(): Token {
+  private getStoredToken(): IToken {
     return {
-      token: localStorage.getItem('token') as string,
       expiryDate: Number(localStorage.getItem('tokenExpiryDate')),
+      token: localStorage.getItem('token') as string,
     };
   }
 
@@ -48,9 +48,9 @@ export default class Auth {
     });
 
     return fetch('https://api.vasttrafik.se:443/token', {
+      body: 'grant_type=client_credentials&scope=' + this.scope(),
+      headers,
       method: 'POST',
-      headers: headers,
-      body: 'grant_type=client_credentials&scope=' + this.scope()
     });
   }
 

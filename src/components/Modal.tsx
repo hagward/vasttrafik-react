@@ -8,18 +8,18 @@ const modalRoot = document.getElementById('modal-root') as HTMLDivElement;
 export default class Modal extends React.PureComponent<any> {
   private el: HTMLDivElement = document.createElement('div');
 
-  componentDidMount() {
+  public componentDidMount() {
     body.classList.add('noscroll');
     this.el.classList.add('modal');
     modalRoot.appendChild(this.el);
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     body.classList.remove('noscroll');
     modalRoot.removeChild(this.el);
   }
 
-  render() {
+  public render() {
     return ReactDOM.createPortal(
       this.props.children,
       this.el,

@@ -14,22 +14,22 @@ export default class MruCache<T extends Item> {
     this.items = mru ? JSON.parse(mru) : [];
   }
 
-  add(item: T): void {
+  public add(item: T): void {
     this.removeExistingItem(item);
     this.items.unshift(item);
     this.ensureLengthWithinLimit();
     this.setMostRecentlyUsed();
   }
 
-  getMostRecentlyUsed(): T[] {
+  public getMostRecentlyUsed(): T[] {
     return this.items;
   }
 
-  setMostRecentlyUsed(): void {
+  public setMostRecentlyUsed(): void {
     localStorage.setItem('mru', JSON.stringify(this.items));
   }
 
-  getFirstMatch(searchString: string): T | undefined {
+  public getFirstMatch(searchString: string): T | undefined {
     return this.items.find(item => item.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
   }
 

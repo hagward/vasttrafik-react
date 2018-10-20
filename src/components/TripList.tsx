@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Trip } from '../Api';
-import TripListItem from './TripListItem';
+import { ITrip } from '../Api';
 import './TripList.css';
+import TripListItem from './TripListItem';
 
-interface Props {
-  trips: Trip[];
+interface IProps {
+  trips: ITrip[];
 }
 
-export default class TripList extends React.PureComponent<Props> {
-  render() {
+export default class TripList extends React.PureComponent<IProps> {
+  public render() {
     return (
       <ul className="trip-list">
         {this.props.trips.map((trip, tripIndex) =>
