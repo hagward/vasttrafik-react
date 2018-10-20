@@ -22,6 +22,7 @@
   margin-right: .4rem;
 }
 
+.app__error,
 .app__spinner {
   align-items: center;
   display: flex;

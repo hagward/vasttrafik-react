@@ -20,6 +20,8 @@ interface State {
   [key: string]: any;
 }
 
+const Error = (props: { error: string }) => <div className="app__error">{props.error}</div>;
+
 const Spinner = () => (
   <div className="app__spinner">
     <FontAwesome name="spinner" size="3x" spin={true} />
@@ -73,6 +75,8 @@ export default class App extends React.PureComponent<any, State> {
   private renderMainContent = () => {
     if (this.state.searching) {
       return <Spinner />;
+    } else if (this.state.error) {
+      return <Error error={this.state.error} />;
     } else if (this.state.trips.length) {
       return this.renderSearchResult();
     } else {
@@ -95,7 +99,6 @@ export default class App extends React.PureComponent<any, State> {
 
   private renderSearchResult = () => (
     <SearchResult
-      error={this.state.error}
       trips={this.state.trips}
       onShowEarlier={this.findEarlierTrips}
       onShowLater={this.findLaterTrips}
