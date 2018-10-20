@@ -33,28 +33,27 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
   private auth: Auth;
   private recentLocations: MruCache<StopLocation>;
 
-  private autoComplete = Util.debounce((input: string) => {
-    this.auth.getToken()
-      .then(token => {
-        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
-          '?format=json&input=' + encodeURIComponent(input);
+  private autoComplete = Util.debounce(async (input: string) => {
+    const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
+      '?format=json&input=' + encodeURIComponent(input);
 
-        return fetch(url, {
-          method: 'GET',
-          headers: new Headers({ 'Authorization': 'Bearer ' + token })
-        });
-      })
-      .then(response => response.json())
-      .then(json => {
-        if (this.state.value !== input) {
-          return;
-        }
-        const coordLocations = Util.list(json.LocationList.CoordLocation);
-        const stopLocations = Util.list(json.LocationList.StopLocation);
-        const locations = Util.merge(coordLocations, stopLocations,
-          (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
-        this.setState({ locations });
-      });
+    const token = await this.auth.getToken();
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: new Headers({ 'Authorization': 'Bearer ' + token })
+    });
+    const json = await response.json();
+
+    if (this.state.value !== input) {
+      return;
+    }
+
+    const coordLocations = Util.list(json.LocationList.CoordLocation);
+    const stopLocations = Util.list(json.LocationList.StopLocation);
+    const locations = Util.merge(coordLocations, stopLocations,
+      (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx));
+
+    this.setState({ locations });
   }, 250, this);
 
   constructor(props: Props) {

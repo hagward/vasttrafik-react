@@ -119,7 +119,7 @@ export default class App extends React.PureComponent<any, State> {
     }));
   }
 
-  private search = () => {
+  private search = async () => {
     this.setState({
       error: '',
       searching: true,
@@ -130,22 +130,22 @@ export default class App extends React.PureComponent<any, State> {
 
     const [date, time] = this.state.datetime.split('T');
 
-    this.auth.getToken()
-      .then(token => {
-        const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-          this.getLocationParameter('origin', this.state.origin) +
-          this.getLocationParameter('dest', this.state.dest) +
-          '&date=' + encodeURIComponent(date) +
-          '&time=' + encodeURIComponent(time);
+    const token = await this.auth.getToken();
+    const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
+      this.getLocationParameter('origin', this.state.origin) +
+      this.getLocationParameter('dest', this.state.dest) +
+      '&date=' + encodeURIComponent(date) +
+      '&time=' + encodeURIComponent(time);
 
-        return fetch(url, {
-          method: 'GET',
-          headers: new Headers({'Authorization': 'Bearer ' + token})
-        });
-      })
-      .then(response => response.json())
-      .then(json => this.parseResponse(json))
-      .catch(error => this.parseError('Någonting gick snett.'));
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: new Headers({'Authorization': 'Bearer ' + token})
+      });
+      this.parseResponse(await response.json());
+    } catch {
+      this.parseError('Någonting gick snett.');
+    }
   }
 
   private getLocationParameter(inputName: string, location: CoordLocation): string {
