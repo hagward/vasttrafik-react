@@ -30,7 +30,7 @@ export default class MruCache<T extends Item> {
   }
 
   public getFirstMatch(searchString: string): T | undefined {
-    return this.items.find(item => item.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
+    return this.items.find(item => item.name.toLowerCase().startsWith(searchString.toLowerCase()));
   }
 
   private removeExistingItem(item: T): void {
