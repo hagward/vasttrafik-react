@@ -1,3 +1,5 @@
+import { toDateAndTime } from './util';
+
 export interface ITrip {
   Leg: ILeg[];
 }
@@ -32,4 +34,31 @@ export interface ICoordLocation {
 
 export interface IStopLocation extends ICoordLocation {
   id: string;
+}
+
+export async function searchTrip(token: string, origin: ICoordLocation, dest: ICoordLocation, date: Date) {
+  const { dateString, timeString } = toDateAndTime(date);
+  const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
+    getLocationParameter('origin', origin) +
+    getLocationParameter('dest', dest) +
+    '&date=' + encodeURIComponent(dateString) +
+    '&time=' + encodeURIComponent(timeString);
+
+    const response = await fetch(url, {
+      headers: new Headers({'Authorization': 'Bearer ' + token}),
+      method: 'GET',
+    });
+    return response.json();
+}
+
+function getLocationParameter(inputName: string, location: ICoordLocation): string {
+  if (location.id) {
+    return '&' + inputName + 'Id=' + encodeURIComponent(location.id);
+  } else if (location.lat && location.lon) {
+    return '&' + inputName + 'CoordName=' + encodeURIComponent(location.name) +
+            '&' + inputName + 'CoordLat=' + encodeURIComponent(location.lat) +
+            '&' + inputName + 'CoordLong=' + encodeURIComponent(location.lon);
+  } else {
+    return '';
+  }
 }

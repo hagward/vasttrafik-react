@@ -1,10 +1,10 @@
 import { addMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { ICoordLocation, ITrip } from '../api';
+import { ICoordLocation, ITrip, searchTrip } from '../api';
 import Auth from '../Auth';
 import settings from '../settings';
-import { list, toDateAndTime } from '../util';
+import { list } from '../util';
 import './App.css';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
@@ -126,35 +126,11 @@ export default class App extends React.PureComponent<any, IState> {
 
     localStorage.setItem('trips', JSON.stringify([]));
 
-    const { dateString, timeString } = toDateAndTime(this.state.date);
-
-    const token = await this.auth.getToken();
-    const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
-      this.getLocationParameter('origin', this.state.origin) +
-      this.getLocationParameter('dest', this.state.dest) +
-      '&date=' + encodeURIComponent(dateString) +
-      '&time=' + encodeURIComponent(timeString);
-
     try {
-      const response = await fetch(url, {
-        headers: new Headers({'Authorization': 'Bearer ' + token}),
-        method: 'GET',
-      });
-      this.parseResponse(await response.json());
+      const token = await this.auth.getToken();
+      this.parseResponse(await searchTrip(token, this.state.origin, this.state.dest, this.state.date));
     } catch {
       this.parseError('Någonting gick snett.');
-    }
-  }
-
-  private getLocationParameter(inputName: string, location: ICoordLocation): string {
-    if (location.id) {
-      return '&' + inputName + 'Id=' + encodeURIComponent(location.id);
-    } else if (location.lat && location.lon) {
-      return '&' + inputName + 'CoordName=' + encodeURIComponent(location.name) +
-             '&' + inputName + 'CoordLat=' + encodeURIComponent(location.lat) +
-             '&' + inputName + 'CoordLong=' + encodeURIComponent(location.lon);
-    } else {
-      return '';
     }
   }
 
