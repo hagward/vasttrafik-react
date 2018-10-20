@@ -60,7 +60,7 @@ export function toDateAndTime(date: Date): { dateString: string, timeString: str
 }
 
 export function toDatetimeLocalString(date: Date): string {
-  return date.toISOString().substr(0, 16);
+  return date.toLocaleString('sv-SE').substr(0, 16).replace(' ', 'T');
 }
 
 export function debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
