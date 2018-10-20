@@ -22,7 +22,7 @@ export default class DatetimeInput extends React.PureComponent<IProps> {
     );
   }
 
-  private handleChange(event: React.FormEvent<HTMLInputElement>) {
+  private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     this.props.onChange(new Date(target.value));
   }
