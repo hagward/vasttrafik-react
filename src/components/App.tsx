@@ -4,7 +4,7 @@ import * as FontAwesome from 'react-fontawesome';
 import { ICoordLocation, ITrip } from '../Api';
 import Auth from '../Auth';
 import settings from '../settings';
-import { list, toDateAndTime } from '../Util';
+import { list, toDateAndTime } from '../util';
 import './App.css';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';

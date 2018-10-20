@@ -1,4 +1,4 @@
-import { first, last, list, shortLocation } from './Util';
+import { first, last, list, shortLocation } from './util';
 
 describe('Util', () => {
   describe('list', () => {

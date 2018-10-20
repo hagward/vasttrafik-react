@@ -2,7 +2,7 @@ import { differenceInHours, differenceInMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import { ILeg, ILocation, ITrip } from '../Api';
-import { first, last, padNumber, toDate } from '../Util';
+import { first, last, padNumber, toDate } from '../util';
 import './TripOverview.css';
 
 interface IProps {

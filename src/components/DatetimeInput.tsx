@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { toDatetimeLocalString } from '../Util';
+import { toDatetimeLocalString } from '../util';
 import './DatetimeInput.css';
 import Input from './Input';
 

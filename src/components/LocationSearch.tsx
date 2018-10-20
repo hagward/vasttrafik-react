@@ -3,7 +3,7 @@ import { ICoordLocation, IStopLocation } from '../Api';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import settings from '../settings';
-import { debounce, list, merge, removeDuplicates } from '../Util';
+import { debounce, list, merge, removeDuplicates } from '../util';
 import LocationList from './LocationList';
 import './LocationSearch.css';
 import LocationSearchInput from './LocationSearchInput';
