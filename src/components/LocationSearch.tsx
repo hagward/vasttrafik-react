@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ICoordLocation, IStopLocation } from '../api';
+import { ICoordLocation, IStopLocation, searchLocation } from '../api';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import settings from '../settings';
@@ -24,18 +24,11 @@ export default class LocationSearch extends React.PureComponent<IProps, IState> 
   private recentLocations: MruCache<IStopLocation>;
 
   private autoComplete = debounce(async (input: string) => {
-    const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
-      '?format=json&input=' + encodeURIComponent(input);
-
     const token = await this.auth.getToken();
-    const response = await fetch(url, {
-      headers: new Headers({ 'Authorization': 'Bearer ' + token }),
-      method: 'GET',
-    });
-    const json = await response.json();
+    const response = await searchLocation(token, input);
 
-    const coordLocations = list(json.LocationList.CoordLocation);
-    const stopLocations = list(json.LocationList.StopLocation);
+    const coordLocations = list(response.LocationList.CoordLocation);
+    const stopLocations = list(response.LocationList.StopLocation);
     const locations = merge(coordLocations, stopLocations,
       (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx));
 

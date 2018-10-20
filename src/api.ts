@@ -36,6 +36,17 @@ export interface IStopLocation extends ICoordLocation {
   id: string;
 }
 
+export async function searchLocation(token: string, searchString: string) {
+  const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
+    '?format=json&input=' + encodeURIComponent(searchString);
+
+  const response = await fetch(url, {
+    headers: new Headers({ 'Authorization': 'Bearer ' + token }),
+    method: 'GET',
+  });
+  return response.json();
+}
+
 export async function searchTrip(token: string, origin: ICoordLocation, dest: ICoordLocation, date: Date) {
   const { dateString, timeString } = toDateAndTime(date);
   const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
