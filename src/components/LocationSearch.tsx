@@ -44,10 +44,6 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
     });
     const json = await response.json();
 
-    if (this.state.value !== input) {
-      return;
-    }
-
     const coordLocations = Util.list(json.LocationList.CoordLocation);
     const stopLocations = Util.list(json.LocationList.StopLocation);
     const locations = Util.merge(coordLocations, stopLocations,
@@ -91,6 +87,8 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
     const value = target.value;
 
     this.setState({ value }, () => {
+      this.autoComplete.cancel();
+
       if (value) {
         this.autoComplete(value);
       } else {

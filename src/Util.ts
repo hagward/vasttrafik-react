@@ -46,9 +46,11 @@ export default class Util {
 
   static debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
     let timeoutId: number;
-    return (..._args: any[]) => {
-        window.clearTimeout(timeoutId);
-        timeoutId = window.setTimeout(() => fn.apply(thisObject, _args), wait);
+    const debouncedFunction = (..._args: any[]) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => fn.apply(thisObject, _args), wait);
     };
+    debouncedFunction.cancel = () => window.clearTimeout(timeoutId);
+    return debouncedFunction;
   }
 }
