@@ -32,6 +32,19 @@ export default class Util {
     return result;
   }
 
+  static removeDuplicates<T>(array: T[], id: (e: T) => string): T[] {
+    const result: T[] = [];
+    const set = new Set<string>();
+    for (let item of array) {
+      const itemId = id(item);
+      if (!set.has(itemId)) {
+        result.push(item);
+      }
+      set.add(itemId);
+    }
+    return result;
+  }
+
   static shortLocation(locationName: string): string {
     return locationName.split(',')[0];
   }

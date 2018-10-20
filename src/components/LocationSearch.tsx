@@ -15,6 +15,7 @@ interface Props {
 interface State {
   locations: CoordLocation[];
   value: string;
+  quickLocation?: CoordLocation;
 }
 
 export interface CoordLocation {
@@ -68,19 +69,30 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
     return (
       <div className="location-search">
         <LocationSearchInput value={this.state.value} onChange={this.handleChange} onCancel={this.handleCancel} />
-        <div className="location-search__results">
-          {this.state.locations.length > 0 && this.renderResults()}
-        </div>
+        {this.renderResults()}
       </div>
     );
   }
 
-  private renderResults = () => (
-    <LocationList
-      locations={this.state.locations}
-      onSelect={this.handleSelect}
-    />
-  )
+  private renderResults = () => {
+    const { locations, quickLocation } = this.state;
+    if (!locations.length && !quickLocation) {
+      return null;
+    }
+
+    const allLocations = quickLocation ?
+      Util.removeDuplicates([quickLocation, ...locations], location => location.id || location.name) :
+      locations;
+
+    return (
+      <div className="location-search__results">
+        <LocationList
+          locations={allLocations}
+          onSelect={this.handleSelect}
+        />
+      </div>
+    );
+  }
 
   private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
@@ -88,6 +100,10 @@ export default class LocationSearch extends React.PureComponent<Props, State> {
 
     this.setState({ value }, () => {
       this.autoComplete.cancel();
+
+      this.setState({
+        quickLocation: this.recentLocations.getFirstMatch(value),
+      });
 
       if (value) {
         this.autoComplete(value);

@@ -1,5 +1,6 @@
 interface Item {
   id: string;
+  name: string;
 }
 
 export default class MruCache<T extends Item> {
@@ -26,6 +27,10 @@ export default class MruCache<T extends Item> {
 
   setMostRecentlyUsed(): void {
     localStorage.setItem('mru', JSON.stringify(this.items));
+  }
+
+  getFirstMatch(searchString: string): T | undefined {
+    return this.items.find(item => item.name.toLowerCase().indexOf(searchString.toLowerCase()) > -1);
   }
 
   private removeExistingItem(item: T): void {
