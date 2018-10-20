@@ -8,9 +8,9 @@ import './SearchBar.css';
 interface IProps {
   origin: ICoordLocation;
   dest: ICoordLocation;
-  datetime: Date;
+  date: Date;
   searching: boolean;
-  onDatetimeChange(datetime: Date): any;
+  onDatetimeChange(date: Date): any;
   onLocationChange(inputName: string, location: ICoordLocation): any;
   onLocationSwitch(): any;
   onSearch(): any;
@@ -30,7 +30,7 @@ export default class SearchBar extends React.PureComponent<IProps> {
           </button>
         </div>
         <div className="search-bar__datetime">
-          <DatetimeInput date={this.props.datetime} onChange={this.props.onDatetimeChange} />
+          <DatetimeInput date={this.props.date} onChange={this.props.onDatetimeChange} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching && <span>Söker...</span>}

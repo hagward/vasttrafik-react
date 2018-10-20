@@ -15,7 +15,7 @@ interface IState {
   trips: ITrip[];
   origin: ICoordLocation;
   dest: ICoordLocation;
-  datetime: Date;
+  date: Date;
   [key: string]: any;
 }
 
@@ -40,7 +40,7 @@ export default class App extends React.PureComponent<any, IState> {
     const dest = localStorage.getItem('dest');
 
     this.state = {
-      datetime: new Date(),
+      date: new Date(),
       dest: dest ? JSON.parse(dest) : { name: '' },
       error: '',
       origin: origin ? JSON.parse(origin) : { name: '' },
@@ -87,7 +87,7 @@ export default class App extends React.PureComponent<any, IState> {
     <SearchBar
       origin={this.state.origin}
       dest={this.state.dest}
-      datetime={this.state.datetime}
+      date={this.state.date}
       searching={this.state.searching}
       onDatetimeChange={this.handleDatetimeChange}
       onLocationChange={this.handleLocationChange}
@@ -104,7 +104,7 @@ export default class App extends React.PureComponent<any, IState> {
     />
   )
 
-  private handleDatetimeChange = (datetime: Date) => this.setState({ datetime });
+  private handleDatetimeChange = (date: Date) => this.setState({ date });
 
   private handleLocationChange = (inputName: string, location: ICoordLocation) => this.setState({
     [inputName]: location,
@@ -126,7 +126,7 @@ export default class App extends React.PureComponent<any, IState> {
 
     localStorage.setItem('trips', JSON.stringify([]));
 
-    const { dateString, timeString } = Util.toDateAndTime(this.state.datetime);
+    const { dateString, timeString } = Util.toDateAndTime(this.state.date);
 
     const token = await this.auth.getToken();
     const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
@@ -189,13 +189,6 @@ export default class App extends React.PureComponent<any, IState> {
     localStorage.setItem('trips', JSON.stringify(trips));
   }
 
-  private findEarlierTrips = () => {
-    const datetime = addMinutes(this.state.datetime, -30);
-    this.setState({ datetime }, this.search);
-  }
-
-  private findLaterTrips = () => {
-    const datetime = addMinutes(this.state.datetime, 30);
-    this.setState({ datetime }, this.search);
-  }
+  private findEarlierTrips = () => this.setState({ date: addMinutes(this.state.date, -30) }, this.search);
+  private findLaterTrips = () => this.setState({ date: addMinutes(this.state.date, 30) }, this.search);
 }
