@@ -67,8 +67,8 @@ export default class TripOverview extends React.PureComponent<IProps> {
   }
 
   private travelTime(start: ILocation, end: ILocation) {
-    const startDate = Util.toDate(start.date, start.time);
-    const endDate = Util.toDate(end.date, end.time);
+    const startDate = Util.toDate(start.rtDate || start.date, start.rtTime || start.time);
+    const endDate = Util.toDate(end.rtDate || end.date, end.rtTime || end.time);
     const hourDiff = differenceInHours(endDate, startDate);
     const minuteDiff = differenceInMinutes(endDate, startDate) % 60;
     return Util.padNumber(hourDiff) + ':' + Util.padNumber(minuteDiff);
