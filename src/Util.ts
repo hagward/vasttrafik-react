@@ -1,5 +1,3 @@
-import { DateTime } from 'luxon';
-
 export default class Util {
   public static list<T>(object: T): T[] {
     if (!object) {
@@ -53,8 +51,17 @@ export default class Util {
     return n < 10 ? '0' + n : '' + n;
   }
 
-  public static toDateTime(date: string, time: string): DateTime {
-    return DateTime.fromISO(date + 'T' + time, {locale: 'sv-SE'});
+  public static toDate(date: string, time: string): Date {
+    return new Date(date + 'T' + time);
+  }
+
+  public static toDateAndTime(date: Date): { dateString: string, timeString: string } {
+    const [dateString, timeString] = this.toDatetimeLocalString(date).split('T');
+    return { dateString, timeString };
+  }
+
+  public static toDatetimeLocalString(date: Date): string {
+    return date.toISOString().substr(0, 16);
   }
 
   public static debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {

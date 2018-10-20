@@ -1,3 +1,4 @@
+import { differenceInHours, differenceInMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import { ILeg, ILocation, ITrip } from '../Api';
@@ -66,9 +67,10 @@ export default class TripOverview extends React.PureComponent<IProps> {
   }
 
   private travelTime(start: ILocation, end: ILocation) {
-    const startDateTime = Util.toDateTime(start.date, start.time);
-    const endDateTime = Util.toDateTime(end.date, end.time);
-    const duration = endDateTime.diff(startDateTime).shiftTo('hours', 'minutes');
-    return Util.padNumber(duration.hours) + ':' + Util.padNumber(duration.minutes);
+    const startDate = Util.toDate(start.date, start.time);
+    const endDate = Util.toDate(end.date, end.time);
+    const hourDiff = differenceInHours(endDate, startDate);
+    const minuteDiff = differenceInMinutes(endDate, startDate) % 60;
+    return Util.padNumber(hourDiff) + ':' + Util.padNumber(minuteDiff);
   }
 }

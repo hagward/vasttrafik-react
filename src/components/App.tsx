@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { addMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import { ICoordLocation, ITrip } from '../Api';
@@ -15,7 +15,7 @@ interface IState {
   trips: ITrip[];
   origin: ICoordLocation;
   dest: ICoordLocation;
-  datetime: string;
+  datetime: Date;
   [key: string]: any;
 }
 
@@ -40,7 +40,7 @@ export default class App extends React.PureComponent<any, IState> {
     const dest = localStorage.getItem('dest');
 
     this.state = {
-      datetime: this.currentDatetime(),
+      datetime: new Date(),
       dest: dest ? JSON.parse(dest) : { name: '' },
       error: '',
       origin: origin ? JSON.parse(origin) : { name: '' },
@@ -104,11 +104,7 @@ export default class App extends React.PureComponent<any, IState> {
     />
   )
 
-  private currentDatetime() {
-    return DateTime.local().toISO().substr(0, 16);
-  }
-
-  private handleDatetimeChange = (datetime: string) => this.setState({ datetime });
+  private handleDatetimeChange = (datetime: Date) => this.setState({ datetime });
 
   private handleLocationChange = (inputName: string, location: ICoordLocation) => this.setState({
     [inputName]: location,
@@ -130,14 +126,14 @@ export default class App extends React.PureComponent<any, IState> {
 
     localStorage.setItem('trips', JSON.stringify([]));
 
-    const [date, time] = this.state.datetime.split('T');
+    const { dateString, timeString } = Util.toDateAndTime(this.state.datetime);
 
     const token = await this.auth.getToken();
     const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
       this.getLocationParameter('origin', this.state.origin) +
       this.getLocationParameter('dest', this.state.dest) +
-      '&date=' + encodeURIComponent(date) +
-      '&time=' + encodeURIComponent(time);
+      '&date=' + encodeURIComponent(dateString) +
+      '&time=' + encodeURIComponent(timeString);
 
     try {
       const response = await fetch(url, {
@@ -194,12 +190,12 @@ export default class App extends React.PureComponent<any, IState> {
   }
 
   private findEarlierTrips = () => {
-    const datetime = DateTime.fromISO(this.state.datetime).minus({ minutes: 30 }).toISO().substr(0, 16);
+    const datetime = addMinutes(this.state.datetime, -30);
     this.setState({ datetime }, this.search);
   }
 
   private findLaterTrips = () => {
-    const datetime = DateTime.fromISO(this.state.datetime).plus({ minutes: 30 }).toISO().substr(0, 16);
+    const datetime = addMinutes(this.state.datetime, 30);
     this.setState({ datetime }, this.search);
   }
 }

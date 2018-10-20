@@ -8,9 +8,9 @@ import './SearchBar.css';
 interface IProps {
   origin: ICoordLocation;
   dest: ICoordLocation;
-  datetime: string;
+  datetime: Date;
   searching: boolean;
-  onDatetimeChange(datetime: string): any;
+  onDatetimeChange(datetime: Date): any;
   onLocationChange(inputName: string, location: ICoordLocation): any;
   onLocationSwitch(): any;
   onSearch(): any;
@@ -30,7 +30,7 @@ export default class SearchBar extends React.PureComponent<IProps> {
           </button>
         </div>
         <div className="search-bar__datetime">
-          <DatetimeInput value={this.props.datetime} onChange={this.onDatetimeChanged} />
+          <DatetimeInput date={this.props.datetime} onChange={this.props.onDatetimeChange} />
         </div>
         <button className="search-bar__search" onClick={this.search} disabled={this.props.searching}>
           {this.props.searching && <span>Söker...</span>}
@@ -42,11 +42,6 @@ export default class SearchBar extends React.PureComponent<IProps> {
 
   private onOriginSelected = (location: ICoordLocation) => this.props.onLocationChange('origin', location);
   private onDestinationSelected = (location: ICoordLocation) => this.props.onLocationChange('dest', location);
-
-  private onDatetimeChanged = (event: React.FormEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
-    this.props.onDatetimeChange(target.value);
-  }
 
   private search = () => {
     this.storeLocations();
