@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { ICoordLocation } from '../Api';
+import { ICoordLocation } from '../api';
 import DatetimeInput from './DatetimeInput';
 import LocationInput from './LocationInput';
 import './SearchBar.css';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ICoordLocation } from '../Api';
+import { ICoordLocation } from '../api';
 import './LocationList.css';
 import LocationListItem from './LocationListItem';
 

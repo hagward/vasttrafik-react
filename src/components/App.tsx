@@ -1,7 +1,7 @@
 import { addMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { ICoordLocation, ITrip } from '../Api';
+import { ICoordLocation, ITrip } from '../api';
 import Auth from '../Auth';
 import settings from '../settings';
 import { list, toDateAndTime } from '../util';

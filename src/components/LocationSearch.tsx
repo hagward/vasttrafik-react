@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ICoordLocation, IStopLocation } from '../Api';
+import { ICoordLocation, IStopLocation } from '../api';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import settings from '../settings';

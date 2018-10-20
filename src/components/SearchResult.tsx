@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ITrip } from '../Api';
+import { ITrip } from '../api';
 import './SearchResult.css';
 import TripList from './TripList';
 

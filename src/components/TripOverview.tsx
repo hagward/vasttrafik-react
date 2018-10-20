@@ -1,7 +1,7 @@
 import { differenceInHours, differenceInMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
-import { ILeg, ILocation, ITrip } from '../Api';
+import { ILeg, ILocation, ITrip } from '../api';
 import { first, last, padNumber, toDate } from '../util';
 import './TripOverview.css';
 
