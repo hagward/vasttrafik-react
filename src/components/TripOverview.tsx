@@ -2,7 +2,7 @@ import { differenceInHours, differenceInMinutes } from 'date-fns';
 import * as React from 'react';
 import * as FontAwesome from 'react-fontawesome';
 import { ILeg, ILocation, ITrip } from '../Api';
-import Util from '../Util';
+import { first, last, padNumber, toDate } from '../Util';
 import './TripOverview.css';
 
 interface IProps {
@@ -12,8 +12,8 @@ interface IProps {
 
 export default class TripOverview extends React.PureComponent<IProps> {
   public render() {
-    const origin = Util.first(this.props.trip.Leg).Origin;
-    const destination = Util.last(this.props.trip.Leg).Destination;
+    const origin = first(this.props.trip.Leg).Origin;
+    const destination = last(this.props.trip.Leg).Destination;
 
     return (
       <div className="trip-overview" onClick={this.props.onClick}>
@@ -67,10 +67,10 @@ export default class TripOverview extends React.PureComponent<IProps> {
   }
 
   private travelTime(start: ILocation, end: ILocation) {
-    const startDate = Util.toDate(start.rtDate || start.date, start.rtTime || start.time);
-    const endDate = Util.toDate(end.rtDate || end.date, end.rtTime || end.time);
+    const startDate = toDate(start.rtDate || start.date, start.rtTime || start.time);
+    const endDate = toDate(end.rtDate || end.date, end.rtTime || end.time);
     const hourDiff = differenceInHours(endDate, startDate);
     const minuteDiff = differenceInMinutes(endDate, startDate) % 60;
-    return Util.padNumber(hourDiff) + ':' + Util.padNumber(minuteDiff);
+    return padNumber(hourDiff) + ':' + padNumber(minuteDiff);
   }
 }

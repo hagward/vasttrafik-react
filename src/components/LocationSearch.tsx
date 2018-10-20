@@ -3,7 +3,7 @@ import { ICoordLocation, IStopLocation } from '../Api';
 import Auth from '../Auth';
 import MruCache from '../MruCache';
 import settings from '../settings';
-import Util from '../Util';
+import { debounce, list, merge, removeDuplicates } from '../Util';
 import LocationList from './LocationList';
 import './LocationSearch.css';
 import LocationSearchInput from './LocationSearchInput';
@@ -23,7 +23,7 @@ export default class LocationSearch extends React.PureComponent<IProps, IState> 
   private auth: Auth;
   private recentLocations: MruCache<IStopLocation>;
 
-  private autoComplete = Util.debounce(async (input: string) => {
+  private autoComplete = debounce(async (input: string) => {
     const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/location.name' +
       '?format=json&input=' + encodeURIComponent(input);
 
@@ -34,9 +34,9 @@ export default class LocationSearch extends React.PureComponent<IProps, IState> 
     });
     const json = await response.json();
 
-    const coordLocations = Util.list(json.LocationList.CoordLocation);
-    const stopLocations = Util.list(json.LocationList.StopLocation);
-    const locations = Util.merge(coordLocations, stopLocations,
+    const coordLocations = list(json.LocationList.CoordLocation);
+    const stopLocations = list(json.LocationList.StopLocation);
+    const locations = merge(coordLocations, stopLocations,
       (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx));
 
     this.setState({ locations });
@@ -70,7 +70,7 @@ export default class LocationSearch extends React.PureComponent<IProps, IState> 
     }
 
     const allLocations = quickLocation ?
-      Util.removeDuplicates([quickLocation, ...locations], location => location.id || location.name) :
+      removeDuplicates([quickLocation, ...locations], location => location.id || location.name) :
       locations;
 
     return (

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Util from 'src/Util';
+import { toDatetimeLocalString } from '../Util';
 import './DatetimeInput.css';
 import Input from './Input';
 
@@ -10,7 +10,7 @@ interface IProps {
 
 export default class DatetimeInput extends React.PureComponent<IProps> {
   public render() {
-    const value = Util.toDatetimeLocalString(this.props.date);
+    const value = toDatetimeLocalString(this.props.date);
     return (
       <Input
         className="input__input datetime-input"

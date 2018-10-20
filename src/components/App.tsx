@@ -4,7 +4,7 @@ import * as FontAwesome from 'react-fontawesome';
 import { ICoordLocation, ITrip } from '../Api';
 import Auth from '../Auth';
 import settings from '../settings';
-import Util from '../Util';
+import { list, toDateAndTime } from '../Util';
 import './App.css';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
@@ -126,7 +126,7 @@ export default class App extends React.PureComponent<any, IState> {
 
     localStorage.setItem('trips', JSON.stringify([]));
 
-    const { dateString, timeString } = Util.toDateAndTime(this.state.date);
+    const { dateString, timeString } = toDateAndTime(this.state.date);
 
     const token = await this.auth.getToken();
     const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
@@ -175,10 +175,10 @@ export default class App extends React.PureComponent<any, IState> {
   }
 
   private parseTrips(tripList: any): void {
-    const trips = Util.list(tripList.Trip);
+    const trips = list(tripList.Trip);
 
     for (const trip of trips) {
-      trip.Leg = Util.list(trip.Leg);
+      trip.Leg = list(trip.Leg);
     }
 
     this.setState({
