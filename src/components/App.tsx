@@ -166,6 +166,14 @@ export default class App extends React.PureComponent<any, IState> {
 
     for (const trip of trips) {
       trip.Leg = list(trip.Leg);
+      for (const leg of trip.Leg) {
+        if (leg.Origin.Notes) {
+          leg.Origin.Notes.Note = list(leg.Origin.Notes.Note);
+        }
+        if (leg.Destination.Notes) {
+          leg.Destination.Notes.Note = list(leg.Destination.Notes.Note);
+        }
+      }
     }
 
     this.setState({

@@ -34,9 +34,16 @@ export default class TripDetails extends React.PureComponent<IProps> {
   private renderLocation(location: ILocation) {
     return (
       <div className="trip-details__location">
-        <div className="location__time">{location.time}</div>
-        <div className="location__name">{location.name}</div>
-        <div className="location__track">{location.track && 'Läge ' + location.track}</div>
+        <div className="location__overview">
+          <div className="location__time">{location.time}</div>
+          <div className="location__name">{location.name}</div>
+          <div className="location__track">{location.track && 'Läge ' + location.track}</div>
+        </div>
+        {location.Notes &&
+          <ul className="location__notes">
+            {location.Notes.Note.map((note, index) => <li key={index}>{note.$}</li>)}
+          </ul>
+        }
       </div>
     );
   }

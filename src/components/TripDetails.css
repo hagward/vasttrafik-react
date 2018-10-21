@@ -20,16 +20,17 @@
 }
 
 .trip-details__direction {
-  margin-bottom: .4rem;
+  margin-bottom: .8rem;
 }
 
-.trip-details__location {
+.location__overview {
   display: flex;
+  font-weight: bold;
   justify-content: space-between;
 }
 
 .trip-details__location:first-child {
-  margin-bottom: .4rem;
+  margin-bottom: .8rem;
 }
 
 .location__time {
@@ -38,6 +39,15 @@
 
 .location__track {
   align-self: center;
+  font-weight: normal;
   margin-left: .8rem;
   white-space: nowrap;
+}
+
+.location__notes {
+  background-color: #fffdf5;
+  border: 1px solid #ffdd57;
+  border-radius: .4rem;
+  padding: .8rem .8rem .8rem 2.4rem;
+  margin: .8rem 0 0 0;
 }

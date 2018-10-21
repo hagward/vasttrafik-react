@@ -18,10 +18,18 @@ export interface ILeg {
 export interface ILocation {
   date: string;
   name: string;
+  Notes?: { Note: INote[] };
   rtDate?: string;
   rtTime?: string;
   time: string;
   track?: string;
+}
+
+interface INote {
+  $: string;
+  key: string;
+  priority: string;
+  severity: string;
 }
 
 export interface ICoordLocation {
