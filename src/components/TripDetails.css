@@ -26,7 +26,6 @@
 .location__overview {
   display: flex;
   font-weight: bold;
-  justify-content: space-between;
 }
 
 .trip-details__location:first-child {
@@ -35,6 +34,10 @@
 
 .location__time {
   margin-right: .8rem;
+}
+
+.location__name {
+  flex: 1;
 }
 
 .location__track {
