@@ -1,4 +1,26 @@
 .datetime-input {
   background-color: #fff;
   border-radius: .4rem;
+  display: flex;
+  position: relative;
+}
+
+.datetime-input__now-button {
+  background-color: transparent;
+  border: none;
+  color: #757575;
+  font-weight: bold;
+  padding: 0 .8rem;
+}
+
+.datetime-input__now-overlay {
+  align-items: center;
+  background-color: #fff;
+  bottom: .8rem;
+  display: flex;
+  left: 2.4rem;
+  pointer-events: none;
+  position: absolute;
+  right: .8rem;
+  top: .8rem;
 }

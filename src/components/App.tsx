@@ -16,6 +16,7 @@ interface IState {
   origin: ICoordLocation;
   dest: ICoordLocation;
   date: Date;
+  now: boolean;
   [key: string]: any;
 }
 
@@ -43,6 +44,7 @@ export default class App extends React.PureComponent<any, IState> {
       date: new Date(),
       dest: dest ? JSON.parse(dest) : { name: '' },
       error: '',
+      now: true,
       origin: origin ? JSON.parse(origin) : { name: '' },
       searching: false,
       trips: trips ? JSON.parse(trips) : [],
@@ -88,10 +90,12 @@ export default class App extends React.PureComponent<any, IState> {
       origin={this.state.origin}
       dest={this.state.dest}
       date={this.state.date}
+      now={this.state.now}
       searching={this.state.searching}
       onDatetimeChange={this.handleDatetimeChange}
       onLocationChange={this.handleLocationChange}
       onLocationSwitch={this.switchLocations}
+      onNowButtonClick={this.handleNowButtonClick}
       onSearch={this.search}
     />
   )
@@ -104,11 +108,16 @@ export default class App extends React.PureComponent<any, IState> {
     />
   )
 
-  private handleDatetimeChange = (date: Date) => this.setState({ date });
+  private handleDatetimeChange = (date: Date) => this.setState({
+    date,
+    now: false,
+  });
 
   private handleLocationChange = (inputName: string, location: ICoordLocation) => this.setState({
     [inputName]: location,
-  })
+  });
+
+  private handleNowButtonClick = () => this.setState({ now: true });
 
   private switchLocations = () => {
     this.setState(prevState => ({
@@ -128,7 +137,8 @@ export default class App extends React.PureComponent<any, IState> {
 
     try {
       const token = await this.auth.getToken();
-      this.parseResponse(await searchTrip(token, this.state.origin, this.state.dest, this.state.date));
+      const date = this.state.now ? new Date() : this.state.date;
+      this.parseResponse(await searchTrip(token, this.state.origin, this.state.dest, date));
     } catch {
       this.parseError('Någonting gick snett.');
     }
