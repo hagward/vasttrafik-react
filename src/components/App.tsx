@@ -67,6 +67,7 @@ export default class App extends React.PureComponent<any, IState> {
 
   private handleNavBarClick = () => {
     this.setState({
+      error: '',
       trips: [],
     });
 
