@@ -97,7 +97,7 @@ export default class App extends React.PureComponent<any, IState> {
       onLocationChange={this.handleLocationChange}
       onLocationSwitch={this.switchLocations}
       onNowButtonClick={this.handleNowButtonClick}
-      onSearch={this.search}
+      onSearch={this.handleSearch}
     />
   )
 
@@ -127,7 +127,11 @@ export default class App extends React.PureComponent<any, IState> {
     }));
   }
 
-  private search = async () => {
+  private handleSearch = () => this.search(this.state.now ? new Date() : this.state.date)
+
+  private async search(date?: Date) {
+    date = date || this.state.date;
+
     this.setState({
       error: '',
       searching: true,
@@ -138,7 +142,6 @@ export default class App extends React.PureComponent<any, IState> {
 
     try {
       const token = await this.auth.getToken();
-      const date = this.state.now ? new Date() : this.state.date;
       this.parseResponse(await searchTrip(token, this.state.origin, this.state.dest, date));
     } catch {
       this.parseError('Någonting gick snett.');
