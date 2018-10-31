@@ -187,6 +187,6 @@ export default class App extends React.PureComponent<any, IState> {
     localStorage.setItem('trips', JSON.stringify(trips));
   }
 
-  private findEarlierTrips = () => this.setState({ date: addMinutes(this.state.date, -30) }, this.search);
-  private findLaterTrips = () => this.setState({ date: addMinutes(this.state.date, 30) }, this.search);
+  private findEarlierTrips = () => this.setState({ date: addMinutes(this.state.date, -20) }, this.search);
+  private findLaterTrips = () => this.setState({ date: addMinutes(this.state.date, 20) }, this.search);
 }
