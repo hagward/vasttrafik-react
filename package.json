@@ -5,8 +5,8 @@
   "private": true,
   "dependencies": {
     "date-fns": "^1.29.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "v16.8.0-alpha.1",
+    "react-dom": "v16.8.0-alpha.1",
     "react-fontawesome": "^1.6.1"
   },
   "devDependencies": {
