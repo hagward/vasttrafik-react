@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { toDatetimeLocalString } from '../util';
-import './DatetimeInput.css';
-import Input from './Input';
+import * as React from "react";
+import { toDatetimeLocalString } from "../util";
+import "./DatetimeInput.css";
+import Input from "./Input";
 
 interface IProps {
   date: Date;
@@ -10,37 +10,41 @@ interface IProps {
   onNowButtonClick(): void;
 }
 
-export default class DatetimeInput extends React.PureComponent<IProps> {
-  public render() {
-    const value = toDatetimeLocalString(this.props.date);
+export default function DatetimeInput({
+  date,
+  now,
+  onChange,
+  onNowButtonClick
+}: IProps) {
+  const value = toDatetimeLocalString(date);
+
+  function renderNowOverlay() {
+    return <div className="datetime-input__now-overlay">Avgår nu</div>;
+  }
+
+  function renderNowButton() {
     return (
-      <div className="datetime-input">
-        <Input
-          className="input__input"
-          icon="calendar-alt"
-          type="datetime-local"
-          value={value}
-          onChange={this.handleChange}
-        />
-        {this.props.now ? this.renderNowOverlay() : this.renderNowButton()}
-      </div>
+      <button className="datetime-input__now-button" onClick={onNowButtonClick}>
+        Nu
+      </button>
     );
   }
 
-  private renderNowOverlay() {
-    return (
-      <div className="datetime-input__now-overlay">Avgår nu</div>
-    );
-  }
-
-  private renderNowButton() {
-    return (
-      <button className="datetime-input__now-button" onClick={this.props.onNowButtonClick}>Nu</button>
-    );
-  }
-
-  private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
-    this.props.onChange(new Date(target.value));
+    onChange(new Date(target.value));
   }
+
+  return (
+    <div className="datetime-input">
+      <Input
+        className="input__input"
+        icon="calendar-alt"
+        type="datetime-local"
+        value={value}
+        onChange={handleChange}
+      />
+      {now ? renderNowOverlay() : renderNowButton()}
+    </div>
+  );
 }

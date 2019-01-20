@@ -13,12 +13,16 @@ export function last<T>(array: T[]): T {
   return array[array.length - 1];
 }
 
-export function merge<T>(a: T[], b: T[], compare: (e1: T, e2: T) => number): T[] {
+export function merge<T>(
+  a: T[],
+  b: T[],
+  compare: (e1: T, e2: T) => number
+): T[] {
   const result = [];
   let i = 0;
   let j = 0;
   while (i < a.length && j < b.length) {
-    result.push((compare(a[i], b[j]) <= 0) ? a[i++] : b[j++]);
+    result.push(compare(a[i], b[j]) <= 0 ? a[i++] : b[j++]);
   }
   while (i < a.length) {
     result.push(a[i++]);
@@ -43,27 +47,36 @@ export function removeDuplicates<T>(array: T[], id: (e: T) => string): T[] {
 }
 
 export function shortLocation(locationName: string): string {
-  return locationName.split(',')[0];
+  return locationName.split(",")[0];
 }
 
 export function padNumber(n: number): string {
-  return n < 10 ? '0' + n : '' + n;
+  return n < 10 ? "0" + n : "" + n;
 }
 
 export function toDate(date: string, time: string): Date {
-  return new Date(date + 'T' + time);
+  return new Date(date + "T" + time);
 }
 
-export function toDateAndTime(date: Date): { dateString: string, timeString: string } {
-  const [dateString, timeString] = toDatetimeLocalString(date).split('T');
+export function toDateAndTime(
+  date: Date
+): { dateString: string; timeString: string } {
+  const [dateString, timeString] = toDatetimeLocalString(date).split("T");
   return { dateString, timeString };
 }
 
 export function toDatetimeLocalString(date: Date): string {
-  return date.toLocaleString('sv-SE').substr(0, 16).replace(' ', 'T');
+  return date
+    .toLocaleString("sv-SE")
+    .substr(0, 16)
+    .replace(" ", "T");
 }
 
-export function debounce(fn: (...args: any[]) => any, wait: number, thisObject: any) {
+export function debounce(
+  fn: (...args: any[]) => any,
+  wait: number,
+  thisObject: any = null
+) {
   let timeoutId: number;
   const debouncedFunction = (...innerArgs: any[]) => {
     window.clearTimeout(timeoutId);

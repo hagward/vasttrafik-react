@@ -1,170 +1,159 @@
-import { addMinutes } from 'date-fns';
-import * as React from 'react';
-import * as FontAwesome from 'react-fontawesome';
-import { ICoordLocation, ITrip, searchTrip } from '../api';
-import Auth from '../Auth';
-import settings from '../settings';
-import { list } from '../util';
-import './App.css';
-import SearchBar from './SearchBar';
-import SearchResult from './SearchResult';
+import { addMinutes } from "date-fns";
+import * as React from "react";
+import { useState } from "react";
+import * as FontAwesome from "react-fontawesome";
+import { ICoordLocation, searchTrip } from "../api";
+import Auth from "../Auth";
+import settings from "../settings";
+import { list } from "../util";
+import "./App.css";
+import SearchBar from "./SearchBar";
+import SearchResult from "./SearchResult";
 
-interface IState {
-  error: string;
-  searching: boolean;
-  trips: ITrip[];
-  origin: ICoordLocation;
-  dest: ICoordLocation;
-  date: Date;
-  now: boolean;
-  [key: string]: any;
+function ErrorMessage(props: { error: string }) {
+  return <div className="app__error">{props.error}</div>;
 }
 
-const Error = (props: { error: string }) => <div className="app__error">{props.error}</div>;
+function Spinner() {
+  return (
+    <div className="app__spinner">
+      <FontAwesome name="spinner" size="3x" spin={true} />
+    </div>
+  );
+}
 
-const Spinner = () => (
-  <div className="app__spinner">
-    <FontAwesome name="spinner" size="3x" spin={true} />
-  </div>
-);
+export default function App() {
+  const auth: Auth = new Auth(settings.key, settings.secret);
 
-export default class App extends React.PureComponent<any, IState> {
-  private auth: Auth;
+  const storedTrips = localStorage.getItem("trips");
+  const storedOrigin = localStorage.getItem("origin");
+  const storedDest = localStorage.getItem("dest");
 
-  constructor(props: any) {
-    super(props);
+  const [dateState, setDateState] = useState(new Date());
+  const [destState, setDestState] = useState(
+    storedDest ? JSON.parse(storedDest) : { name: "" }
+  );
+  const [errorState, setErrorState] = useState("");
+  const [nowState, setNowState] = useState(true);
+  const [originState, setOriginState] = useState(
+    storedOrigin ? JSON.parse(storedOrigin) : { name: "" }
+  );
+  const [searchingState, setSearchingState] = useState(false);
+  const [tripsState, setTripsState] = useState(
+    storedTrips ? JSON.parse(storedTrips) : []
+  );
 
-    this.auth = new Auth(settings.key, settings.secret);
+  function handleNavBarClick() {
+    setErrorState("");
+    setTripsState([]);
 
-    const trips = localStorage.getItem('trips');
-    const origin = localStorage.getItem('origin');
-    const dest = localStorage.getItem('dest');
-
-    this.state = {
-      date: new Date(),
-      dest: dest ? JSON.parse(dest) : { name: '' },
-      error: '',
-      now: true,
-      origin: origin ? JSON.parse(origin) : { name: '' },
-      searching: false,
-      trips: trips ? JSON.parse(trips) : [],
-    };
+    localStorage.setItem("trips", JSON.stringify([]));
   }
 
-  public render() {
+  function renderMainContent() {
+    if (searchingState) {
+      return <Spinner />;
+    } else if (errorState) {
+      return <ErrorMessage error={errorState} />;
+    } else if (tripsState.length) {
+      return renderSearchResult();
+    } else {
+      return renderSearchBar();
+    }
+  }
+
+  function renderSearchBar() {
     return (
-      <div className="app">
-        <nav className="app__nav-bar">
-          <a href="#" onClick={this.handleNavBarClick}>
-            <FontAwesome name="bus" />
-            Reaktiv Västtrafik
-          </a>
-        </nav>
-        {this.renderMainContent()}
-      </div>
+      <SearchBar
+        origin={originState}
+        dest={destState}
+        date={dateState}
+        now={nowState}
+        searching={searchingState}
+        onDatetimeChange={handleDatetimeChange}
+        onLocationChange={handleLocationChange}
+        onLocationSwitch={switchLocations}
+        onNowButtonClick={handleNowButtonClick}
+        onSearch={handleSearch}
+      />
     );
   }
 
-  private handleNavBarClick = () => {
-    this.setState({
-      error: '',
-      trips: [],
-    });
-
-    localStorage.setItem('trips', JSON.stringify([]));
+  function renderSearchResult() {
+    return (
+      <SearchResult
+        trips={tripsState}
+        onShowEarlier={findEarlierTrips}
+        onShowLater={findLaterTrips}
+      />
+    );
   }
 
-  private renderMainContent = () => {
-    if (this.state.searching) {
-      return <Spinner />;
-    } else if (this.state.error) {
-      return <Error error={this.state.error} />;
-    } else if (this.state.trips.length) {
-      return this.renderSearchResult();
-    } else {
-      return this.renderSearchBar();
+  function handleDatetimeChange(date: Date) {
+    setDateState(date);
+    setNowState(false);
+  }
+
+  function handleLocationChange(inputName: string, location: ICoordLocation) {
+    switch (inputName) {
+      case "dest":
+        setDestState(location);
+        break;
+      case "origin":
+        setOriginState(location);
+        break;
+      default:
+        throw new Error("Unknown input name: " + inputName);
     }
   }
 
-  private renderSearchBar = () => (
-    <SearchBar
-      origin={this.state.origin}
-      dest={this.state.dest}
-      date={this.state.date}
-      now={this.state.now}
-      searching={this.state.searching}
-      onDatetimeChange={this.handleDatetimeChange}
-      onLocationChange={this.handleLocationChange}
-      onLocationSwitch={this.switchLocations}
-      onNowButtonClick={this.handleNowButtonClick}
-      onSearch={this.handleSearch}
-    />
-  )
-
-  private renderSearchResult = () => (
-    <SearchResult
-      trips={this.state.trips}
-      onShowEarlier={this.findEarlierTrips}
-      onShowLater={this.findLaterTrips}
-    />
-  )
-
-  private handleDatetimeChange = (date: Date) => this.setState({
-    date,
-    now: false,
-  });
-
-  private handleLocationChange = (inputName: string, location: ICoordLocation) => this.setState({
-    [inputName]: location,
-  });
-
-  private handleNowButtonClick = () => this.setState({ now: true });
-
-  private switchLocations = () => {
-    this.setState(prevState => ({
-      dest: prevState.origin,
-      origin: prevState.dest,
-    }));
+  function handleNowButtonClick() {
+    setNowState(true);
   }
 
-  private handleSearch = () => this.search(this.state.now ? new Date() : this.state.date)
+  function switchLocations() {
+    const currentDest = destState;
 
-  private async search(date?: Date) {
-    date = date || this.state.date;
+    setDestState(originState);
+    setOriginState(currentDest);
+  }
 
-    this.setState({
-      error: '',
-      searching: true,
-      trips: [],
-    });
+  function handleSearch() {
+    search(nowState ? new Date() : dateState);
+  }
 
-    localStorage.setItem('trips', JSON.stringify([]));
+  async function search(date?: Date) {
+    date = date || dateState;
+
+    setErrorState("");
+    setSearchingState(true);
+    setTripsState([]);
+
+    localStorage.setItem("trips", JSON.stringify([]));
 
     try {
-      const token = await this.auth.getToken();
-      this.parseResponse(await searchTrip(token, this.state.origin, this.state.dest, date));
+      const token = await auth.getToken();
+      parseResponse(await searchTrip(token, originState, destState, date));
     } catch {
-      this.parseError('Någonting gick snett.');
+      parseError("Någonting gick snett.");
     }
   }
 
-  private parseResponse(response: any): void {
+  function parseResponse(response: any): void {
     const tripList = response.TripList;
     if (tripList.error) {
-      this.parseError('Inga resultat funna.');
+      parseError("Inga resultat funna.");
     } else {
-      this.parseTrips(tripList);
+      parseTrips(tripList);
     }
   }
 
-  private parseError(error: string): void {
-    this.setState({
-      error,
-      searching: false,
-    });
+  function parseError(error: string): void {
+    setErrorState(error);
+    setSearchingState(false);
   }
 
-  private parseTrips(tripList: any): void {
+  function parseTrips(tripList: any): void {
     const trips = list(tripList.Trip);
 
     for (const trip of trips) {
@@ -179,14 +168,31 @@ export default class App extends React.PureComponent<any, IState> {
       }
     }
 
-    this.setState({
-      searching: false,
-      trips,
-    });
+    setSearchingState(false);
+    setTripsState(trips);
 
-    localStorage.setItem('trips', JSON.stringify(trips));
+    localStorage.setItem("trips", JSON.stringify(trips));
   }
 
-  private findEarlierTrips = () => this.setState({ date: addMinutes(this.state.date, -20) }, this.search);
-  private findLaterTrips = () => this.setState({ date: addMinutes(this.state.date, 20) }, this.search);
+  function findEarlierTrips() {
+    setDateState(addMinutes(dateState, -20));
+    search();
+  }
+
+  function findLaterTrips() {
+    setDateState(addMinutes(dateState, 20));
+    search();
+  }
+
+  return (
+    <div className="app">
+      <nav className="app__nav-bar">
+        <a href="#" onClick={handleNavBarClick}>
+          <FontAwesome name="bus" />
+          Reaktiv Västtrafik
+        </a>
+      </nav>
+      {renderMainContent()}
+    </div>
+  );
 }

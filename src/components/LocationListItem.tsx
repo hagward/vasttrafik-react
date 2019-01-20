@@ -1,24 +1,22 @@
-import * as React from 'react';
-import { ICoordLocation } from '../api';
-import Location from './Location';
-import './LocationListItem.css';
+import * as React from "react";
+import { ICoordLocation } from "../api";
+import Location from "./Location";
+import "./LocationListItem.css";
 
 interface IProps {
   location: ICoordLocation;
   onClick(location: ICoordLocation): any;
 }
 
-export default class LocationListItem extends React.PureComponent<IProps> {
-  public render() {
-    return (
-      <li className="location-list-item" onClick={this.handleClick}>
-        <Location name={this.props.location.name} />
-      </li>
-    );
+export default function LocationListItem({ location, onClick }: IProps) {
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
+    onClick(location);
   }
 
-  private handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    this.props.onClick(this.props.location);
-  }
+  return (
+    <li className="location-list-item" onClick={handleClick}>
+      <Location name={location.name} />
+    </li>
+  );
 }

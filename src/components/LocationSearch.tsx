@@ -1,115 +1,102 @@
-import * as React from 'react';
-import { ICoordLocation, IStopLocation, searchLocation } from '../api';
-import Auth from '../Auth';
-import MruCache from '../MruCache';
-import settings from '../settings';
-import { debounce, list, merge, removeDuplicates } from '../util';
-import LocationList from './LocationList';
-import './LocationSearch.css';
-import LocationSearchInput from './LocationSearchInput';
+import * as React from "react";
+import { useState } from "react";
+import { ICoordLocation, IStopLocation, searchLocation } from "../api";
+import Auth from "../Auth";
+import MruCache from "../MruCache";
+import settings from "../settings";
+import { debounce, list, merge, removeDuplicates } from "../util";
+import LocationList from "./LocationList";
+import "./LocationSearch.css";
+import LocationSearchInput from "./LocationSearchInput";
 
 interface IProps {
   onCancel(): any;
   onSelect(location: ICoordLocation): any;
 }
 
-interface IState {
-  locations: ICoordLocation[];
-  value: string;
-  quickLocation?: ICoordLocation;
-}
+export default function LocationSearch({ onCancel, onSelect }: IProps) {
+  const auth: Auth = new Auth(settings.key, settings.secret);
+  const recentLocations: MruCache<IStopLocation> = new MruCache(10);
 
-export default class LocationSearch extends React.PureComponent<IProps, IState> {
-  private auth: Auth;
-  private recentLocations: MruCache<IStopLocation>;
+  const [locationState, setLocationState] = useState(
+    recentLocations.getMostRecentlyUsed()
+  );
+  const [searchValue, setSearchValue] = useState("");
+  const [quickLocation, setQuickLocation] = useState(null);
 
-  private autoComplete = debounce(async (input: string) => {
-    const token = await this.auth.getToken();
+  const autoComplete = debounce(async (input: string) => {
+    const token = await auth.getToken();
     const response = await searchLocation(token, input);
 
     const coordLocations = list(response.LocationList.CoordLocation);
     const stopLocations = list(response.LocationList.StopLocation);
-    const locations = merge(coordLocations, stopLocations,
-      (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx));
-
-    this.setState({ locations });
-  }, 250, this);
-
-  constructor(props: IProps) {
-    super(props);
-
-    this.auth = new Auth(settings.key, settings.secret);
-    this.recentLocations = new MruCache(10);
-
-    this.state = {
-      locations: this.recentLocations.getMostRecentlyUsed(),
-      value: '',
-    };
-  }
-
-  public render() {
-    return (
-      <div className="location-search">
-        <LocationSearchInput value={this.state.value} onChange={this.handleChange} onCancel={this.handleCancel} />
-        {this.renderResults()}
-      </div>
+    const locations = merge(
+      coordLocations,
+      stopLocations,
+      (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx)
     );
-  }
 
-  private renderResults = () => {
-    const { locations, quickLocation } = this.state;
-    if (!locations.length && !quickLocation) {
+    setLocationState(locations);
+  }, 250);
+
+  function renderResults() {
+    if (!locationState.length && !quickLocation) {
       return null;
     }
 
-    const allLocations = quickLocation ?
-      removeDuplicates([quickLocation, ...locations], location => location.id || location.name) :
-      locations;
+    const allLocations = quickLocation
+      ? removeDuplicates(
+          [quickLocation, ...locationState],
+          (location: any) => location.id || location.name
+        )
+      : locationState;
 
     return (
       <div className="location-search__results">
-        <LocationList
-          locations={allLocations}
-          onSelect={this.handleSelect}
-        />
+        <LocationList locations={allLocations} onSelect={handleSelect} />
       </div>
     );
   }
 
-  private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  function handleChange(event: React.FormEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
     const value = target.value;
 
-    this.setState({ value }, () => {
-      this.autoComplete.cancel();
+    setSearchValue(value);
+    autoComplete.cancel();
+    setQuickLocation(recentLocations.getFirstMatch(value) as any);
 
-      this.setState({
-        quickLocation: this.recentLocations.getFirstMatch(value),
-      });
-
-      if (value) {
-        this.autoComplete(value);
-      } else {
-        this.showMostRecentlyUsed();
-      }
-    });
-  }
-
-  private showMostRecentlyUsed() {
-    this.setState({
-      locations: this.recentLocations.getMostRecentlyUsed(),
-    });
-  }
-
-  private handleCancel = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    this.props.onCancel();
-  }
-
-  private handleSelect = (location: ICoordLocation) => {
-    this.props.onSelect(location);
-    if (location.id) {
-      this.recentLocations.add(location as IStopLocation);
+    if (value) {
+      autoComplete(value);
+    } else {
+      showMostRecentlyUsed();
     }
   }
+
+  function showMostRecentlyUsed() {
+    setLocationState(recentLocations.getMostRecentlyUsed());
+  }
+
+  function handleCancel(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
+    onCancel();
+  }
+
+  function handleSelect(location: ICoordLocation) {
+    onSelect(location);
+    if (location.id) {
+      recentLocations.add(location as IStopLocation);
+    }
+  }
+
+  return (
+    <div className="location-search">
+      <LocationSearchInput
+        value={searchValue}
+        onChange={handleChange}
+        onCancel={handleCancel}
+      />
+      {renderResults()}
+    </div>
+  );
 }

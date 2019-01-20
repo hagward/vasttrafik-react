@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as FontAwesome from 'react-fontawesome';
-import './Input.css';
+import * as React from "react";
+import * as FontAwesome from "react-fontawesome";
+import "./Input.css";
 
 interface IProps {
   className?: string;
@@ -13,13 +13,11 @@ interface IProps {
   onFocus?(event: React.FocusEvent<HTMLInputElement>): any;
 }
 
-export default class Input extends React.PureComponent<IProps> {
-  public render() {
-    return (
-      <div className="input">
-        <FontAwesome name={this.props.icon} />
-        <input className="input__input" {...this.props} />
-      </div>
-    );
-  }
+export default function Input(props: IProps) {
+  return (
+    <div className="input">
+      <FontAwesome name={props.icon} />
+      <input className="input__input" {...props} />
+    </div>
+  );
 }

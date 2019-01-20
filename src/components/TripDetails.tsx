@@ -1,50 +1,50 @@
-import * as React from 'react';
-import { ILeg, ILocation, ITrip } from '../api';
-import './TripDetails.css';
+import * as React from "react";
+import { ILeg, ILocation, ITrip } from "../api";
+import "./TripDetails.css";
 
 interface IProps {
   trip: ITrip;
 }
 
-export default class TripDetails extends React.PureComponent<IProps> {
-  public render() {
-    return (
-      <ul className="trip-details">
-        {this.renderLegs()}
-      </ul>
+export default function TripDetails({ trip }: IProps) {
+  function renderLegs() {
+    return trip.Leg.filter(leg => leg.type !== "WALK").map((leg, index) =>
+      renderLeg(leg, index)
     );
   }
 
-  private renderLegs() {
-    return this.props.trip.Leg
-      .filter(leg => leg.type !== 'WALK')
-      .map((leg, index) => this.renderLeg(leg, index));
-  }
-
-  private renderLeg(leg: ILeg, index: number) {
+  function renderLeg(leg: ILeg, index: number) {
     return (
       <li className="trip-details__leg" key={index}>
-        {this.renderLocation(leg.Origin)}
-        <div className="trip-details__direction">{leg.name} mot {leg.direction}</div>
-        {this.renderLocation(leg.Destination)}
+        {renderLocation(leg.Origin)}
+        <div className="trip-details__direction">
+          {leg.name} mot {leg.direction}
+        </div>
+        {renderLocation(leg.Destination)}
       </li>
     );
   }
 
-  private renderLocation(location: ILocation) {
+  function renderLocation(location: ILocation) {
     return (
       <div className="trip-details__location">
         <div className="location__overview">
           <div className="location__time">{location.time}</div>
           <div className="location__name">{location.name}</div>
-          <div className="location__track">{location.track && 'Läge ' + location.track}</div>
+          <div className="location__track">
+            {location.track && "Läge " + location.track}
+          </div>
         </div>
-        {location.Notes &&
+        {location.Notes && (
           <ul className="location__notes">
-            {location.Notes.Note.map((note, index) => <li key={index}>{note.$}</li>)}
+            {location.Notes.Note.map((note, index) => (
+              <li key={index}>{note.$}</li>
+            ))}
           </ul>
-        }
+        )}
       </div>
     );
   }
+
+  return <ul className="trip-details">{renderLegs()}</ul>;
 }
