@@ -39,13 +39,7 @@ export default function SearchBar({
   }
 
   function search() {
-    storeLocations();
     onSearch();
-  }
-
-  function storeLocations() {
-    localStorage.setItem("origin", JSON.stringify(origin));
-    localStorage.setItem("dest", JSON.stringify(dest));
   }
 
   return (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as FontAwesome from "react-fontawesome";
 import { ICoordLocation, searchTrip } from "../api";
 import Auth from "../Auth";
+import { useLocalStorage } from "../hooks";
 import settings from "../settings";
 import { list } from "../util";
 import "./App.css";
@@ -25,29 +26,18 @@ function Spinner() {
 export default function App() {
   const auth: Auth = new Auth(settings.key, settings.secret);
 
-  const storedTrips = localStorage.getItem("trips");
-  const storedOrigin = localStorage.getItem("origin");
-  const storedDest = localStorage.getItem("dest");
+  const [tripsState, setTripsState] = useLocalStorage("trips", []);
+  const [originState, setOriginState] = useLocalStorage("origin", { name: "" });
+  const [destState, setDestState] = useLocalStorage("dest", { name: "" });
 
   const [dateState, setDateState] = useState(new Date());
-  const [destState, setDestState] = useState(
-    storedDest ? JSON.parse(storedDest) : { name: "" }
-  );
   const [errorState, setErrorState] = useState("");
   const [nowState, setNowState] = useState(true);
-  const [originState, setOriginState] = useState(
-    storedOrigin ? JSON.parse(storedOrigin) : { name: "" }
-  );
   const [searchingState, setSearchingState] = useState(false);
-  const [tripsState, setTripsState] = useState(
-    storedTrips ? JSON.parse(storedTrips) : []
-  );
 
   function handleNavBarClick() {
     setErrorState("");
     setTripsState([]);
-
-    localStorage.setItem("trips", JSON.stringify([]));
   }
 
   function renderMainContent() {
@@ -129,8 +119,6 @@ export default function App() {
     setSearchingState(true);
     setTripsState([]);
 
-    localStorage.setItem("trips", JSON.stringify([]));
-
     try {
       const token = await auth.getToken();
       parseResponse(await searchTrip(token, originState, destState, date));
@@ -170,8 +158,6 @@ export default function App() {
 
     setSearchingState(false);
     setTripsState(trips);
-
-    localStorage.setItem("trips", JSON.stringify(trips));
   }
 
   function findEarlierTrips() {
