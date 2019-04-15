@@ -9,7 +9,7 @@ interface IProps {
 
 export default function TripList({ trips }: IProps) {
   return (
-    <ul className="trip-list scale-in-center">
+    <ul className="trip-list">
       {trips.map((trip, tripIndex) => (
         <li key={tripIndex} className="trip-list__trip">
           <TripListItem trip={trip} />
