@@ -52,7 +52,7 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
       : locationState;
 
     return (
-      <div className="location-search__results fade-in">
+      <div className="location-search__results">
         <LocationList locations={allLocations} onSelect={handleSelect} />
       </div>
     );

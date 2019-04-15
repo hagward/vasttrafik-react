@@ -22,7 +22,7 @@ export default function LocationSearchInput({
   }
 
   return (
-    <div className="location-search-input fade-in-bottom">
+    <div className="location-search-input">
       <div className="location-search-input__icon">
         <FontAwesome name="map-marker-alt" />
       </div>
