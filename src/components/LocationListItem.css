@@ -4,12 +4,6 @@
   padding: .8rem;
 }
 
-@media (hover: hover) {
-  .location-list-item:hover {
-    background-color: var(--border-color);
-  }
-}
-
 .location-list-item:last-child {
   border: none;
 }
