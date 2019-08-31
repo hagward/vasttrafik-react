@@ -4,13 +4,13 @@
   --bg-color: #fff;
   --border-color: #eee;
   --disabled-color: #666;
+  --info-bg-color: #00a5dc1a;
+  --info-color: #00a5dc;
   --invalid-color: #aaa;
   --inverted-text-color: #fff;
   --primary-color: #ee1844;
   --secondary-text-color: #757575;
   --text-color: #242729;
-  --warning-color: #ffdd57;
-  --warning-bg-color: #fffdf5;
 }
 
 html {

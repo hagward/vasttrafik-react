@@ -14,13 +14,16 @@ export default function TripOverview({ trip, onClick }: IProps) {
   const origin = first(trip.Leg).Origin;
   const destination = last(trip.Leg).Destination;
 
-  function renderTime(location: ILocation) {
+  function renderTime(location: ILocation, renderInfoIcon = false) {
     if (!location.rtTime) {
       return <span className="trip-overview__time">{location.time}</span>;
     }
     return [
       <span className="trip-overview__time" key={0}>
         {location.rtTime}
+        {renderInfoIcon && (
+          <FontAwesome className="trip-overview__info" name="info-circle" />
+        )}
       </span>,
       location.time !== location.rtTime && (
         <s className="trip-overview__time trip-overview__time--invalid" key={1}>
@@ -63,10 +66,16 @@ export default function TripOverview({ trip, onClick }: IProps) {
     return padNumber(hourDiff) + ":" + padNumber(minuteDiff);
   }
 
+  function showInfoIcon(location: ILocation) {
+    return location.Notes != null;
+  }
+
   return (
     <div className="trip-overview" onClick={onClick}>
       <div className="trip-overview__origin">
-        <div className="trip-overview__times">{renderTime(origin)}</div>
+        <div className="trip-overview__times">
+          {renderTime(origin, showInfoIcon(origin))}
+        </div>
         <div className="trip-overview__legs">{renderLegs()}</div>
       </div>
       <div className="trip-overview__arrow">
