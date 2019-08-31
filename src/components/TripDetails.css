@@ -1,11 +1,11 @@
 .trip-details {
+  border-left: .2rem solid #EE1844;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .trip-details__leg {
-  background-color: #f4f4f4;
   margin-bottom: 1px;
   padding: .8rem;
 }

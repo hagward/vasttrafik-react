@@ -5,12 +5,6 @@
   align-items: center;
 }
 
-@media (hover: hover) {
-  .trip-overview:hover {
-    background-color: #eee;
-  }
-}
-
 .trip-overview__origin,
 .trip-overview__destination {
   flex: 1 1 0;
