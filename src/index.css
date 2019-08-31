@@ -60,3 +60,7 @@ body {
   color: var(--primary-color);
   line-height: 1.2;
 }
+
+.right-icon {
+  margin-left: .4rem;
+}

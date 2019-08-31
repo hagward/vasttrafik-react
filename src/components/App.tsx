@@ -15,14 +15,6 @@ function ErrorMessage(props: { error: string }) {
   return <div className="app__error">{props.error}</div>;
 }
 
-function Spinner() {
-  return (
-    <div className="app__spinner">
-      <FontAwesome name="spinner" size="3x" spin={true} />
-    </div>
-  );
-}
-
 export default function App() {
   const auth: Auth = new Auth(settings.key, settings.secret);
 
@@ -41,9 +33,7 @@ export default function App() {
   }
 
   function renderMainContent() {
-    if (searchingState) {
-      return <Spinner />;
-    } else if (errorState) {
+    if (errorState) {
       return <ErrorMessage error={errorState} />;
     } else if (tripsState.length) {
       return renderSearchResult();

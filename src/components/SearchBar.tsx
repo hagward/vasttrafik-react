@@ -46,8 +46,16 @@ export default function SearchBar({
     <div className="search-bar">
       <div className="search-bar__locations">
         <div className="locations__inputs">
-          <LocationInput selected={origin} onSelect={onOriginSelected} />
-          <LocationInput selected={dest} onSelect={onDestinationSelected} />
+          <LocationInput
+            disabled={searching}
+            selected={origin}
+            onSelect={onOriginSelected}
+          />
+          <LocationInput
+            disabled={searching}
+            selected={dest}
+            onSelect={onDestinationSelected}
+          />
         </div>
         <button
           className="locations__switch-locations"
@@ -69,8 +77,14 @@ export default function SearchBar({
         onClick={search}
         disabled={searching}
       >
-        {searching && <span>Söker...</span>}
-        {!searching && <span>Sök resa</span>}
+        {searching ? (
+          <span>
+            Söker...
+            <FontAwesome className="right-icon" name="spinner" spin={true} />
+          </span>
+        ) : (
+          <span>Sök resa</span>
+        )}
       </button>
     </div>
   );

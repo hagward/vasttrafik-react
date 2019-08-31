@@ -28,10 +28,6 @@
   color: #00a5dc;
 }
 
-.trip-overview__info {
-  margin-left: .4rem;
-}
-
 .trip-overview__legs,
 .trip-overview__travel-time {
   font-size: .8rem;

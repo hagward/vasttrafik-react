@@ -48,6 +48,10 @@
   cursor: default;
 }
 
+.search-bar__search .fa {
+  color: var(--inverted-text-color);
+}
+
 .search-bar__searching {
   height: 1rem;
   vertical-align: middle;

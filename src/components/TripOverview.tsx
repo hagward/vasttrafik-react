@@ -22,7 +22,7 @@ export default function TripOverview({ trip, onClick }: IProps) {
       <span className="trip-overview__time" key={0}>
         {location.rtTime}
         {renderInfoIcon && (
-          <FontAwesome className="trip-overview__info" name="info-circle" />
+          <FontAwesome className="right-icon" name="info-circle" />
         )}
       </span>,
       location.time !== location.rtTime && (

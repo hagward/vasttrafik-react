@@ -7,11 +7,16 @@ import LocationSearch from "./LocationSearch";
 import Modal from "./Modal";
 
 interface IProps {
+  disabled: boolean;
   selected: ICoordLocation;
   onSelect(location: ICoordLocation): any;
 }
 
-export default function LocationInput({ selected, onSelect }: IProps) {
+export default function LocationInput({
+  disabled,
+  selected,
+  onSelect
+}: IProps) {
   const [overlay, setOverlay] = useState(false);
   const name = selected.name;
 
@@ -24,7 +29,7 @@ export default function LocationInput({ selected, onSelect }: IProps) {
   }
 
   function handleFocus() {
-    setOverlay(true);
+    setOverlay(true && !disabled);
   }
 
   function handleCancel() {
