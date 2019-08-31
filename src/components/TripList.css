@@ -1,6 +1,6 @@
 .trip-list {
   background-color: var(--bg-color);
-  border-radius: .4rem;
+  border-radius: var(--border-radius);
   border: 1px solid var(--bg-color);
   box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
   list-style: none;

@@ -1,6 +1,6 @@
 .location-search-input {
   background-color: var(--bg-color);
-  border-radius: .4rem;
+  border-radius: var(--border-radius);
   box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
   display: flex;
   flex: 0 0 auto;
@@ -16,7 +16,7 @@
 
 .location-search-input__input {
   border: none;
-  border-radius: .1rem;
+  border-radius: var(--border-radius);
   padding: .4rem;
   flex-grow: 1;
   margin: 0 .8rem;

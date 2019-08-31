@@ -1,6 +1,6 @@
 .datetime-input {
   background-color: var(--bg-color);
-  border-radius: .4rem;
+  border-radius: var(--border-radius);
   display: flex;
   position: relative;
 }

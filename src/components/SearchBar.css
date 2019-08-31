@@ -1,7 +1,7 @@
 .search-bar__locations,
 .search-bar__datetime,
 .search-bar__search {
-  border-radius: .4rem;
+  border-radius: var(--border-radius);
   box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
 }
 

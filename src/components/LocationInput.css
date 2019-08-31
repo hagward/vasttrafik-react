@@ -8,11 +8,11 @@
 }
 
 .location-input:first-child {
-  border-radius: .4rem .4rem 0 0;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .location-input:last-child {
-  border-radius: 0 0 .4rem .4rem;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .location-input__fake-input {

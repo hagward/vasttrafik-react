@@ -1,5 +1,6 @@
 :root {
   --body-bg: linear-gradient(#fff, #f4f4f4);
+  --border-radius: .2rem;
 
   --bg-color: #fff;
   --border-color: #eee;
