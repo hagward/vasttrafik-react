@@ -1,5 +1,5 @@
 .trip-list-item {
-  background-color: #fff;
+  background-color: var(--bg-color);
   margin-bottom: 1px;
 }
 

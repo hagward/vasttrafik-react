@@ -23,7 +23,7 @@
 
 .locations__switch-locations {
   border: none;
-  background-color: #fff;
+  background-color: var(--bg-color);
   position: absolute;
   right: .8rem;
   top: 50%;
@@ -32,19 +32,19 @@
 
 .locations__switch-locations .fa {
   font-size: 1.2rem;
-  color: #757575;
+  color: var(--secondary-text-color);
 }
 
 .search-bar__search {
-  background-color: #EE1844;
+  background-color: var(--primary-color);
   border: none;
-  color: #fff;
+  color: var(--inverted-text-color);
   padding: .8rem;
   width: 100%;
 }
 
 .search-bar__search:disabled {
-  background-color: #666;
+  background-color: var(--disabled-color);
   cursor: default;
 }
 

@@ -20,7 +20,7 @@
 }
 
 .trip-overview__time--invalid {
-  color: #aaa;
+  color: var(--invalid-color);
   margin-left: .4rem;
 }
 

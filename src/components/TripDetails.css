@@ -1,5 +1,5 @@
 .trip-details {
-  border-left: .2rem solid #EE1844;
+  border-left: .2rem solid var(--primary-color);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -47,8 +47,8 @@
 }
 
 .location__notes {
-  background-color: #fffdf5;
-  border: 1px solid #ffdd57;
+  background-color: var(--warning-bg-color);
+  border: 1px solid var(--warning-color);
   border-radius: .4rem;
   padding: .8rem .8rem .8rem 2rem;
   margin: .8rem 0 0 0;

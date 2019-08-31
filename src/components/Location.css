@@ -1,5 +1,5 @@
 .location__address {
-  color: #777;
+  color: var(--secondary-text-color);
   font-size: .8rem;
   margin-top: .2rem;
 }

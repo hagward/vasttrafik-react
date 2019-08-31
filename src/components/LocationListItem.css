@@ -1,12 +1,12 @@
 .location-list-item {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   cursor: pointer;
   padding: .8rem;
 }
 
 @media (hover: hover) {
   .location-list-item:hover {
-    background-color: #eee;
+    background-color: var(--border-color);
   }
 }
 
