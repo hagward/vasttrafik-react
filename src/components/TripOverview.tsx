@@ -1,8 +1,8 @@
-import { differenceInHours, differenceInMinutes } from "date-fns";
+import * as dayjs from "dayjs";
 import * as React from "react";
 import * as FontAwesome from "react-fontawesome";
 import { ILeg, ILocation, ITrip } from "../api";
-import { first, last, padNumber, toDate } from "../util";
+import { first, last, padNumber } from "../util";
 import "./TripOverview.css";
 
 interface IProps {
@@ -56,13 +56,10 @@ export default function TripOverview({ trip, onClick }: IProps) {
   }
 
   function travelTime(start: ILocation, end: ILocation) {
-    const startDate = toDate(
-      start.rtDate || start.date,
-      start.rtTime || start.time
-    );
-    const endDate = toDate(end.rtDate || end.date, end.rtTime || end.time);
-    const hourDiff = differenceInHours(endDate, startDate);
-    const minuteDiff = differenceInMinutes(endDate, startDate) % 60;
+    const startDate = dayjs(`${start.rtDate || start.date} ${start.rtTime || start.time}`);
+    const endDate = dayjs(`${end.rtDate || end.date} ${end.rtTime || end.time}`);
+    const hourDiff = endDate.diff(startDate, 'hour');
+    const minuteDiff = endDate.diff(startDate, 'minute') % 60;
     return padNumber(hourDiff) + ":" + padNumber(minuteDiff);
   }
 

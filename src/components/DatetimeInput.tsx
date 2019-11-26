@@ -1,5 +1,5 @@
+import * as dayjs from "dayjs";
 import * as React from "react";
-import { toDatetimeLocalString } from "../util";
 import "./DatetimeInput.css";
 import Input from "./Input";
 
@@ -16,7 +16,7 @@ export default function DatetimeInput({
   onChange,
   onNowButtonClick
 }: IProps) {
-  const value = toDatetimeLocalString(date);
+  const value = dayjs(date).format("YYYY-MM-DDTHH:mm:ss");
 
   function renderNowOverlay() {
     return <div className="datetime-input__now-overlay">Avgår nu</div>;
@@ -32,7 +32,7 @@ export default function DatetimeInput({
 
   function handleChange(event: React.FormEvent<HTMLInputElement>) {
     const target = event.target as HTMLInputElement;
-    onChange(new Date(target.value));
+    onChange(dayjs(target.value).toDate());
   }
 
   return (

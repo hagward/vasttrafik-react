@@ -54,24 +54,6 @@ export function padNumber(n: number): string {
   return n < 10 ? "0" + n : "" + n;
 }
 
-export function toDate(date: string, time: string): Date {
-  return new Date(date + "T" + time);
-}
-
-export function toDateAndTime(
-  date: Date
-): { dateString: string; timeString: string } {
-  const [dateString, timeString] = toDatetimeLocalString(date).split("T");
-  return { dateString, timeString };
-}
-
-export function toDatetimeLocalString(date: Date): string {
-  return date
-    .toLocaleString("sv-SE")
-    .substr(0, 16)
-    .replace(" ", "T");
-}
-
 export function debounce(
   fn: (...args: any[]) => any,
   wait: number,

@@ -4,7 +4,7 @@
   "homepage": "https://hagward.github.io/vasttrafik-react/",
   "private": true,
   "dependencies": {
-    "date-fns": "^2.0.1",
+    "dayjs": "^1.8.17",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-fontawesome": "^1.6.1"

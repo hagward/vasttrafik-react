@@ -1,4 +1,4 @@
-import { toDateAndTime } from './util';
+import * as dayjs from "dayjs";
 
 export interface ITrip {
   Leg: ILeg[];
@@ -56,7 +56,8 @@ export async function searchLocation(token: string, searchString: string) {
 }
 
 export async function searchTrip(token: string, origin: ICoordLocation, dest: ICoordLocation, date: Date) {
-  const { dateString, timeString } = toDateAndTime(date);
+  const dateString = dayjs(date).format("YYYY-MM-DD");
+  const timeString = dayjs(date).format("HH:mm");
   const url = 'https://api.vasttrafik.se/bin/rest.exe/v2/trip?format=json' +
     getLocationParameter('origin', origin) +
     getLocationParameter('dest', dest) +

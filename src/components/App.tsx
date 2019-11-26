@@ -1,4 +1,4 @@
-import { addMinutes } from "date-fns";
+import * as dayjs from "dayjs";
 import * as React from "react";
 import { useState } from "react";
 import * as FontAwesome from "react-fontawesome";
@@ -151,12 +151,12 @@ export default function App() {
   }
 
   function findEarlierTrips() {
-    setDateState(addMinutes(dateState, -20));
+    setDateState(dayjs(dateState).subtract(20, 'minute').toDate());
     search();
   }
 
   function findLaterTrips() {
-    setDateState(addMinutes(dateState, 20));
+    setDateState(dayjs(dateState).add(20, 'minute').toDate());
     search();
   }
 
