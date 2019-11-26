@@ -56,10 +56,14 @@ export default function TripOverview({ trip, onClick }: IProps) {
   }
 
   function travelTime(start: ILocation, end: ILocation) {
-    const startDate = dayjs(`${start.rtDate || start.date} ${start.rtTime || start.time}`);
-    const endDate = dayjs(`${end.rtDate || end.date} ${end.rtTime || end.time}`);
-    const hourDiff = endDate.diff(startDate, 'hour');
-    const minuteDiff = endDate.diff(startDate, 'minute') % 60;
+    const startDate = dayjs(
+      `${start.rtDate || start.date} ${start.rtTime || start.time}`
+    );
+    const endDate = dayjs(
+      `${end.rtDate || end.date} ${end.rtTime || end.time}`
+    );
+    const hourDiff = endDate.diff(startDate, "hour");
+    const minuteDiff = endDate.diff(startDate, "minute") % 60;
     return padNumber(hourDiff) + ":" + padNumber(minuteDiff);
   }
 

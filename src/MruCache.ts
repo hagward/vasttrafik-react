@@ -10,7 +10,7 @@ export default class MruCache<T extends ICacheItem> {
   constructor(limit: number) {
     this.limit = limit;
 
-    const mru = localStorage.getItem('mru');
+    const mru = localStorage.getItem("mru");
     this.items = mru ? JSON.parse(mru) : [];
   }
 
@@ -26,15 +26,19 @@ export default class MruCache<T extends ICacheItem> {
   }
 
   public setMostRecentlyUsed(): void {
-    localStorage.setItem('mru', JSON.stringify(this.items));
+    localStorage.setItem("mru", JSON.stringify(this.items));
   }
 
   public getFirstMatch(searchString: string): T | undefined {
-    return this.items.find(item => item.name.toLowerCase().startsWith(searchString.toLowerCase()));
+    return this.items.find(item =>
+      item.name.toLowerCase().startsWith(searchString.toLowerCase())
+    );
   }
 
   private removeExistingItem(item: T): void {
-    const existingIndex = this.items.findIndex(existingItem => existingItem.id === item.id);
+    const existingIndex = this.items.findIndex(
+      existingItem => existingItem.id === item.id
+    );
     if (existingIndex > -1) {
       this.items.splice(existingIndex, 1);
     }
