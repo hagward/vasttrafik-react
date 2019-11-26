@@ -53,17 +53,3 @@ export function shortLocation(locationName: string): string {
 export function padNumber(n: number): string {
   return n < 10 ? "0" + n : "" + n;
 }
-
-export function debounce(
-  fn: (...args: any[]) => any,
-  wait: number,
-  thisObject: any = null
-) {
-  let timeoutId: number;
-  const debouncedFunction = (...innerArgs: any[]) => {
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => fn.apply(thisObject, innerArgs), wait);
-  };
-  debouncedFunction.cancel = () => window.clearTimeout(timeoutId);
-  return debouncedFunction;
-}

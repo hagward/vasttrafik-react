@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // https://usehooks.com/
 export function useLocalStorage(key: string, initialValue: any) {
@@ -14,4 +14,20 @@ export function useLocalStorage(key: string, initialValue: any) {
   };
 
   return [item, setValue];
+}
+
+// https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci
+export default function useDebounce(value: any, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
+
+  return debouncedValue;
 }

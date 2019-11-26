@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ICoordLocation, IStopLocation, searchLocation } from "../api";
 import Auth from "../Auth";
+import useDebounce from "../hooks";
 import MruCache from "../MruCache";
 import settings from "../settings";
-import { debounce, list, merge, removeDuplicates } from "../util";
+import { list, merge, removeDuplicates } from "../util";
 import LocationList from "./LocationList";
 import "./LocationSearch.css";
 import LocationSearchInput from "./LocationSearchInput";
@@ -24,20 +25,27 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
   const [searchValue, setSearchValue] = useState("");
   const [quickLocation, setQuickLocation] = useState(null);
 
-  const autoComplete = debounce(async (input: string) => {
-    const token = await auth.getToken();
-    const response = await searchLocation(token, input);
+  const debouncedSearchValue = useDebounce(searchValue, 250);
 
-    const coordLocations = list(response.LocationList.CoordLocation);
-    const stopLocations = list(response.LocationList.StopLocation);
-    const locations = merge(
-      coordLocations,
-      stopLocations,
-      (a: ICoordLocation, b: ICoordLocation) => Number(a.idx) - Number(b.idx)
-    );
+  useEffect(() => {
+    if (!debouncedSearchValue) {
+      return;
+    }
 
-    setLocationState(locations);
-  }, 250);
+    auth.getToken().then(token => {
+      searchLocation(token, debouncedSearchValue).then(response => {
+        const coordLocations = list(response.LocationList.CoordLocation);
+        const stopLocations = list(response.LocationList.StopLocation);
+        const locations = merge(
+          coordLocations,
+          stopLocations,
+          (a: ICoordLocation, b: ICoordLocation) =>
+            Number(a.idx) - Number(b.idx)
+        );
+        setLocationState(locations);
+      });
+    });
+  }, [debouncedSearchValue]);
 
   function renderResults() {
     if (!locationState.length && !quickLocation) {
@@ -63,12 +71,9 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
     const value = target.value;
 
     setSearchValue(value);
-    autoComplete.cancel();
     setQuickLocation(recentLocations.getFirstMatch(value) as any);
 
-    if (value) {
-      autoComplete(value);
-    } else {
+    if (!value) {
       showMostRecentlyUsed();
     }
   }
