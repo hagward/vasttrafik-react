@@ -15,6 +15,7 @@
 }
 
 .location-search-input__input {
+  background-color: var(--input-bg-color);
   border: none;
   border-radius: var(--border-radius);
   padding: .4rem;

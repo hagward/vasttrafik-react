@@ -7,11 +7,31 @@
   --disabled-color: #666;
   --info-bg-color: #00a5dc1a;
   --info-color: #00a5dc;
+  --input-bg-color: #fff;
   --invalid-color: #aaa;
   --inverted-text-color: #fff;
   --primary-color: #ee1844;
   --secondary-text-color: #757575;
   --text-color: #242729;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: linear-gradient(#000, #111);
+    --border-radius: .2rem;
+
+    --bg-color: #333;
+    --border-color: #333;
+    --disabled-color: #666;
+    --info-bg-color: #00a5dc1a;
+    --info-color: #00a5dc;
+    --input-bg-color: #666;
+    --invalid-color: #aaa;
+    --inverted-text-color: #fff;
+    --primary-color: #ee1844;
+    --secondary-text-color: #bbb;
+    --text-color: #fff;
+  }
 }
 
 html {
@@ -28,6 +48,10 @@ button, input {
 
 html, input {
   color: var(--text-color);
+}
+
+input::placeholder {
+  color: var(--secondary-text-color);
 }
 
 body {
