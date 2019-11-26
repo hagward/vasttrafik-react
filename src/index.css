@@ -12,6 +12,7 @@
   --inverted-text-color: #fff;
   --primary-color: #ee1844;
   --secondary-text-color: #757575;
+  --shadow-color: rgba(0, 0, 0, .1);
   --text-color: #242729;
 }
 
@@ -30,6 +31,7 @@
     --inverted-text-color: #fff;
     --primary-color: #ee1844;
     --secondary-text-color: #bbb;
+    --shadow-color: rgba(255, 255, 255, .05);
     --text-color: #fff;
   }
 }
@@ -38,6 +40,10 @@ html {
   box-sizing: border-box;
   font-family: sans-serif;
   line-height: 1.2;
+}
+
+button {
+  color: var(--primary-color);
 }
 
 button,

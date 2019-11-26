@@ -1,7 +1,7 @@
 .location-search-input {
   background-color: var(--bg-color);
   border-radius: var(--border-radius);
-  box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
+  box-shadow: 0 1px 10px var(--shadow-color);
   display: flex;
   flex: 0 0 auto;
   padding: .5rem .8rem;
@@ -26,6 +26,5 @@
 .location-search-input__cancel {
   border: none;
   background-color: transparent;
-  color: var(--primary-color);
   padding: 0;
 }
