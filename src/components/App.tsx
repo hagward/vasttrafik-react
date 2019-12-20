@@ -151,21 +151,15 @@ export default function App() {
   }
 
   function findEarlierTrips() {
-    setDateState(
-      dayjs(dateState)
-        .subtract(20, "minute")
-        .toDate()
-    );
-    search();
+    const newDate = dayjs(dateState).subtract(20, "minute").toDate();
+    setDateState(newDate);
+    search(newDate);
   }
 
   function findLaterTrips() {
-    setDateState(
-      dayjs(dateState)
-        .add(20, "minute")
-        .toDate()
-    );
-    search();
+    const newDate = dayjs(dateState).add(20, "minute").toDate();
+    setDateState(newDate);
+    search(newDate);
   }
 
   return (
