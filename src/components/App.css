@@ -1,7 +1,7 @@
 .app {
   margin-top: env(safe-area-inset-top);
   max-width: 30rem;
-  overflow: auto;
+  min-height: 0;
   padding: .8rem;
   width: 100%;
 }
