@@ -151,26 +151,32 @@ export default function App() {
   }
 
   function findEarlierTrips() {
-    const newDate = dayjs(dateState).subtract(20, "minute").toDate();
+    const newDate = dayjs(dateState)
+      .subtract(20, "minute")
+      .toDate();
     setDateState(newDate);
     search(newDate);
   }
 
   function findLaterTrips() {
-    const newDate = dayjs(dateState).add(20, "minute").toDate();
+    const newDate = dayjs(dateState)
+      .add(20, "minute")
+      .toDate();
     setDateState(newDate);
     search(newDate);
   }
 
   return (
-    <div className="app">
-      <nav className="app__nav-bar">
-        <a href="#" onClick={handleNavBarClick}>
-          <FontAwesome name="bus" />
-          Reaktiv Västtrafik
-        </a>
-      </nav>
-      {renderMainContent()}
-    </div>
+    <React.StrictMode>
+      <div className="app">
+        <nav className="app__nav-bar">
+          <a href="#" onClick={handleNavBarClick}>
+            <FontAwesome name="bus" />
+            Reaktiv Västtrafik
+          </a>
+        </nav>
+        {renderMainContent()}
+      </div>
+    </React.StrictMode>
   );
 }
