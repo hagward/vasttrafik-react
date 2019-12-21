@@ -21,3 +21,11 @@ jobs:
 
     - name: Test
       run: yarn test
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v2
+      if: github.ref == 'master'
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./build
