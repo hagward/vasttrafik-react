@@ -1,0 +1,14 @@
+.result {
+  margin-top: 0.8rem;
+}
+
+.earlierLaterButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.earlierLaterButton {
+  background-color: transparent;
+  border: none;
+  padding: 0.8rem;
+}

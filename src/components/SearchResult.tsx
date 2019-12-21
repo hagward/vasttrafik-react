@@ -1,6 +1,6 @@
 import React from "react";
 import { Trip } from "../api";
-import "./SearchResult.css";
+import styles from "./SearchResult.module.css";
 import { TripList } from "./TripList";
 
 interface Props {
@@ -11,20 +11,21 @@ interface Props {
 
 export const SearchResult = (props: Props) => {
   return (
-    <div className="search-result">
-      <div className="search-result__trips">
-        <TripList trips={props.trips} />
-        <div className="search-result__earlier-later">
-          <button
-            className="earlier-later__button"
-            onClick={props.onShowEarlier}
-          >
-            Tidigare
-          </button>
-          <button className="earlier-later__button" onClick={props.onShowLater}>
-            Senare
-          </button>
-        </div>
+    <div className={styles.result}>
+      <TripList trips={props.trips} />
+      <div className={styles.earlierLaterButtons}>
+        <button
+          className={styles.earlierLaterButton}
+          onClick={props.onShowEarlier}
+        >
+          Tidigare
+        </button>
+        <button
+          className={styles.earlierLaterButton}
+          onClick={props.onShowLater}
+        >
+          Senare
+        </button>
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
-.location-search {
+.search {
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: .8rem;
+  padding: 0.8rem;
   max-width: 30rem;
   width: 100%;
 }
 
-.location-search__results {
+.results {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
 }

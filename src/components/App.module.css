@@ -2,16 +2,16 @@
   margin-top: env(safe-area-inset-top);
   max-width: 30rem;
   min-height: 0;
-  padding: .8rem;
+  padding: 0.8rem;
   width: 100%;
 }
 
-.app__nav-bar {
+.navbar {
   padding: 1.6rem;
   text-align: center;
 }
 
-.app__nav-bar button {
+.navbar button {
   background: none;
   border: none;
   color: var(--text-color);
@@ -19,13 +19,12 @@
   font-weight: 200;
 }
 
-.app__nav-bar .fa {
+.logo {
   font-size: 1.2rem;
-  margin-right: .4rem;
+  margin-right: 0.4rem;
 }
 
-.app__error,
-.app__spinner {
+.error {
   align-items: center;
   display: flex;
   flex: 1;

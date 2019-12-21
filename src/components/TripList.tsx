@@ -1,6 +1,6 @@
 import React from "react";
 import { Trip } from "../api";
-import "./TripList.css";
+import styles from "./TripList.module.css";
 import { TripListItem } from "./TripListItem";
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 
 export const TripList = ({ trips }: Props) => {
   return (
-    <ul className="trip-list">
+    <ul className={styles.list}>
       {trips.map((trip, tripIndex) => (
-        <li key={tripIndex} className="trip-list__trip">
+        <li key={tripIndex}>
           <TripListItem trip={trip} />
         </li>
       ))}

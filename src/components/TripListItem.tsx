@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Trip } from "../api";
 import { TripDetails } from "./TripDetails";
-import "./TripListItem.css";
+import styles from "./TripListItem.module.css";
 import { TripOverview } from "./TripOverview";
 
 interface Props {
@@ -16,7 +16,7 @@ export const TripListItem = ({ trip }: Props) => {
   }
 
   return (
-    <div className="trip-list-item">
+    <div className={styles.item}>
       <TripOverview trip={trip} onClick={handleClick} />
       {expanded && <TripDetails trip={trip} />}
     </div>

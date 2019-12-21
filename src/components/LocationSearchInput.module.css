@@ -1,29 +1,29 @@
-.location-search-input {
+.wrapper {
   background-color: var(--bg-color);
   border-radius: var(--border-radius);
   box-shadow: 0 1px 10px var(--shadow-color);
   display: flex;
   flex: 0 0 auto;
-  padding: .5rem .8rem;
-  margin-bottom: .8rem;
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
-.location-search-input__icon {
+.icon {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.location-search-input__input {
+.input {
   background-color: var(--input-bg-color);
   border: none;
   border-radius: var(--border-radius);
-  padding: .4rem;
+  padding: 0.4rem;
   flex-grow: 1;
-  margin: 0 .8rem;
+  margin: 0 0.8rem;
 }
 
-.location-search-input__cancel {
+.cancelButton {
   border: none;
   background-color: transparent;
   padding: 0;

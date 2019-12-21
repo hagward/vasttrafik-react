@@ -1,9 +1,10 @@
+import classnames from "classnames";
 import React from "react";
 import FontAwesome from "react-fontawesome";
 import { CoordLocation } from "../api";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
-import "./SearchBar.css";
+import styles from "./SearchBar.module.css";
 
 interface Props {
   origin: CoordLocation;
@@ -43,9 +44,9 @@ export const SearchBar = ({
   }
 
   return (
-    <div className="search-bar">
-      <div className="search-bar__locations">
-        <div className="locations__inputs">
+    <div>
+      <div className={styles.locations}>
+        <div className={styles.inputs}>
           <LocationInput
             disabled={searching}
             selected={origin}
@@ -58,13 +59,17 @@ export const SearchBar = ({
           />
         </div>
         <button
-          className="locations__switch-locations"
+          className={styles.switchLocationsButton}
           onClick={onLocationSwitch}
         >
-          <FontAwesome name="exchange-alt" rotate={90} />
+          <FontAwesome
+            name="exchange-alt"
+            rotate={90}
+            className={styles.switchLocationsIcon}
+          />
         </button>
       </div>
-      <div className="search-bar__datetime">
+      <div className={styles.datetime}>
         <DatetimeInput
           date={date}
           now={now}
@@ -73,14 +78,18 @@ export const SearchBar = ({
         />
       </div>
       <button
-        className="search-bar__search"
+        className={styles.searchButton}
         onClick={search}
         disabled={searching}
       >
         {searching ? (
           <span>
             Söker...
-            <FontAwesome className="right-icon" name="spinner" spin={true} />
+            <FontAwesome
+              className={classnames(styles.spinnerIcon, "right-icon")}
+              name="spinner"
+              spin={true}
+            />
           </span>
         ) : (
           <span>Sök resa</span>

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React from "react";
-import "./DatetimeInput.css";
+import styles from "./DatetimeInput.module.css";
 import { Input } from "./Input";
 
 interface Props {
@@ -19,12 +19,12 @@ export const DatetimeInput = ({
   const value = dayjs(date).format("YYYY-MM-DDTHH:mm:ss");
 
   function renderNowOverlay() {
-    return <div className="datetime-input__now-overlay">Avgår nu</div>;
+    return <div className={styles.nowOverlay}>Avgår nu</div>;
   }
 
   function renderNowButton() {
     return (
-      <button className="datetime-input__now-button" onClick={onNowButtonClick}>
+      <button className={styles.nowButton} onClick={onNowButtonClick}>
         Nu
       </button>
     );
@@ -36,9 +36,8 @@ export const DatetimeInput = ({
   }
 
   return (
-    <div className="datetime-input">
+    <div className={styles.wrapper}>
       <Input
-        className="input__input"
         icon="calendar-alt"
         type="datetime-local"
         value={value}

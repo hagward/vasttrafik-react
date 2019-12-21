@@ -1,6 +1,6 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
-import "./LocationSearchInput.css";
+import styles from "./LocationSearchInput.module.css";
 
 interface Props {
   value: string;
@@ -18,19 +18,19 @@ export const LocationSearchInput = ({ value, onChange, onCancel }: Props) => {
   }
 
   return (
-    <div className="location-search-input">
-      <div className="location-search-input__icon">
+    <div className={styles.wrapper}>
+      <div className={styles.icon}>
         <FontAwesome name="map-marker-alt" />
       </div>
       <input
-        className="location-search-input__input"
+        className={styles.input}
         placeholder="Station"
         ref={focusInput}
         type="text"
         value={value}
         onChange={onChange}
       />
-      <button className="location-search-input__cancel" onClick={onCancel}>
+      <button className={styles.cancelButton} onClick={onCancel}>
         Avbryt
       </button>
     </div>

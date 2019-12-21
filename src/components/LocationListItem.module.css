@@ -1,9 +1,9 @@
-.location-list-item {
+.item {
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
-  padding: .8rem;
+  padding: 0.8rem;
 }
 
-.location-list-item:last-child {
+.item:last-child {
   border: none;
 }
