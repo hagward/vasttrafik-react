@@ -1,6 +1,22 @@
 {
-  "main.css": "static/css/main.e4930674.css",
-  "main.css.map": "static/css/main.e4930674.css.map",
-  "main.js": "static/js/main.feb6a9e4.js",
-  "main.js.map": "static/js/main.feb6a9e4.js.map"
+  "files": {
+    "main.css": "/vasttrafik-react/static/css/main.cdacafa1.chunk.css",
+    "main.js": "/vasttrafik-react/static/js/main.cb35964d.chunk.js",
+    "main.js.map": "/vasttrafik-react/static/js/main.cb35964d.chunk.js.map",
+    "runtime-main.js": "/vasttrafik-react/static/js/runtime-main.3cc248d7.js",
+    "runtime-main.js.map": "/vasttrafik-react/static/js/runtime-main.3cc248d7.js.map",
+    "static/js/2.b811fd32.chunk.js": "/vasttrafik-react/static/js/2.b811fd32.chunk.js",
+    "static/js/2.b811fd32.chunk.js.map": "/vasttrafik-react/static/js/2.b811fd32.chunk.js.map",
+    "index.html": "/vasttrafik-react/index.html",
+    "precache-manifest.1f1697c69628c9da939ee9964b5c0e6a.js": "/vasttrafik-react/precache-manifest.1f1697c69628c9da939ee9964b5c0e6a.js",
+    "service-worker.js": "/vasttrafik-react/service-worker.js",
+    "static/css/main.cdacafa1.chunk.css.map": "/vasttrafik-react/static/css/main.cdacafa1.chunk.css.map",
+    "static/js/2.b811fd32.chunk.js.LICENSE": "/vasttrafik-react/static/js/2.b811fd32.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3cc248d7.js",
+    "static/js/2.b811fd32.chunk.js",
+    "static/css/main.cdacafa1.chunk.css",
+    "static/js/main.cb35964d.chunk.js"
+  ]
 }
