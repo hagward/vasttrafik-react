@@ -1,4 +1,4 @@
-interface IToken {
+interface AuthToken {
   expiryDate: number;
   token: string;
 }
@@ -6,11 +6,15 @@ interface IToken {
 export default class Auth {
   private key: string;
   private secret: string;
-  private token: IToken;
+  private token: AuthToken;
 
   constructor(key: string, secret: string) {
     this.key = key;
     this.secret = secret;
+    this.token = {
+      expiryDate: 0,
+      token: ""
+    };
   }
 
   public getToken(): Promise<string> {
@@ -34,7 +38,7 @@ export default class Auth {
     });
   }
 
-  private getStoredToken(): IToken {
+  private getStoredToken(): AuthToken {
     return {
       expiryDate: Number(localStorage.getItem("tokenExpiryDate")),
       token: localStorage.getItem("token") as string

@@ -1,14 +1,14 @@
-import * as React from "react";
-import { ICoordLocation } from "../api";
-import Location from "./Location";
+import React from "react";
+import { CoordLocation } from "../api";
+import { Location } from "./Location";
 import "./LocationListItem.css";
 
-interface IProps {
-  location: ICoordLocation;
-  onClick(location: ICoordLocation): any;
+interface Props {
+  location: CoordLocation;
+  onClick(location: CoordLocation): any;
 }
 
-export default function LocationListItem({ location, onClick }: IProps) {
+export const LocationListItem = ({ location, onClick }: Props) => {
   function handleClick(event: React.MouseEvent<HTMLElement>) {
     event.stopPropagation();
     onClick(location);
@@ -19,4 +19,4 @@ export default function LocationListItem({ location, onClick }: IProps) {
       <Location name={location.name} />
     </li>
   );
-}
+};

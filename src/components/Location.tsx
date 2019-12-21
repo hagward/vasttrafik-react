@@ -1,11 +1,11 @@
-import * as React from "react";
+import React from "react";
 import "./Location.css";
 
-interface IProps {
+interface Props {
   name: string;
 }
 
-export default function Location({ name }: IProps) {
+export const Location = ({ name }: Props) => {
   const [station, address] = name.split(", ");
   return (
     <div className="location">
@@ -13,4 +13,4 @@ export default function Location({ name }: IProps) {
       {address && <div className="location__address">{address}</div>}
     </div>
   );
-}
+};

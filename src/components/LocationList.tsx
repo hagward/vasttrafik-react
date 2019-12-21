@@ -1,14 +1,14 @@
-import * as React from "react";
-import { ICoordLocation } from "../api";
+import React from "react";
+import { CoordLocation } from "../api";
 import "./LocationList.css";
-import LocationListItem from "./LocationListItem";
+import { LocationListItem } from "./LocationListItem";
 
-interface IProps {
-  locations: ICoordLocation[];
-  onSelect(location: ICoordLocation): any;
+interface Props {
+  locations: CoordLocation[];
+  onSelect(location: CoordLocation): any;
 }
 
-export default function LocationList({ locations, onSelect }: IProps) {
+export const LocationList = ({ locations, onSelect }: Props) => {
   return (
     <ul className="location-list">
       {locations.map(location => (
@@ -20,4 +20,4 @@ export default function LocationList({ locations, onSelect }: IProps) {
       ))}
     </ul>
   );
-}
+};

@@ -1,18 +1,14 @@
-import * as React from "react";
-import * as FontAwesome from "react-fontawesome";
+import React from "react";
+import FontAwesome from "react-fontawesome";
 import "./LocationSearchInput.css";
 
-interface IProps {
+interface Props {
   value: string;
-  onChange(event: React.FormEvent<HTMLInputElement>): any;
-  onCancel(event: React.MouseEvent<HTMLElement>): any;
+  onChange(event: React.FormEvent<HTMLInputElement>): void;
+  onCancel(event: React.MouseEvent<HTMLElement>): void;
 }
 
-export default function LocationSearchInput({
-  value,
-  onChange,
-  onCancel
-}: IProps) {
+export const LocationSearchInput = ({ value, onChange, onCancel }: Props) => {
   function focusInput(input: HTMLInputElement) {
     setTimeout(() => {
       if (input) {
@@ -39,4 +35,4 @@ export default function LocationSearchInput({
       </button>
     </div>
   );
-}
+};

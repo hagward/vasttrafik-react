@@ -1,8 +1,8 @@
-import * as React from "react";
-import * as FontAwesome from "react-fontawesome";
+import React from "react";
+import FontAwesome from "react-fontawesome";
 import "./Input.css";
 
-interface IProps {
+interface Props {
   className?: string;
   icon: string;
   placeholder?: string;
@@ -13,11 +13,11 @@ interface IProps {
   onFocus?(event: React.FocusEvent<HTMLInputElement>): any;
 }
 
-export default function Input(props: IProps) {
+export const Input = (props: Props) => {
   return (
     <div className="input">
       <FontAwesome name={props.icon} />
       <input className="input__input" {...props} />
     </div>
   );
-}
+};

@@ -11,11 +11,12 @@
   text-align: center;
 }
 
-.app__nav-bar a {
+.app__nav-bar button {
+  background: none;
+  border: none;
   color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 200;
-  text-decoration: none;
 }
 
 .app__nav-bar .fa {

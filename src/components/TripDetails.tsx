@@ -1,19 +1,19 @@
-import * as React from "react";
-import { ILeg, ILocation, ITrip } from "../api";
+import React from "react";
+import { Leg, Location, Trip } from "../api";
 import "./TripDetails.css";
 
-interface IProps {
-  trip: ITrip;
+interface Props {
+  trip: Trip;
 }
 
-export default function TripDetails({ trip }: IProps) {
+export const TripDetails = ({ trip }: Props) => {
   function renderLegs() {
     return trip.Leg.filter(leg => leg.type !== "WALK").map((leg, index) =>
       renderLeg(leg, index)
     );
   }
 
-  function renderLeg(leg: ILeg, index: number) {
+  function renderLeg(leg: Leg, index: number) {
     return (
       <li className="trip-details__leg" key={index}>
         {renderLocation(leg.Origin)}
@@ -25,7 +25,7 @@ export default function TripDetails({ trip }: IProps) {
     );
   }
 
-  function renderLocation(location: ILocation) {
+  function renderLocation(location: Location) {
     return (
       <div className="trip-details__location">
         <div className="location__overview">
@@ -47,4 +47,4 @@ export default function TripDetails({ trip }: IProps) {
   }
 
   return <ul className="trip-details">{renderLegs()}</ul>;
-}
+};

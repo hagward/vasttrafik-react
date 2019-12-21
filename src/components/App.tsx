@@ -1,21 +1,20 @@
-import * as dayjs from "dayjs";
-import * as React from "react";
-import { useState } from "react";
-import * as FontAwesome from "react-fontawesome";
-import { ICoordLocation, searchTrip } from "../api";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+import FontAwesome from "react-fontawesome";
+import { CoordLocation, searchTrip } from "../api";
 import Auth from "../Auth";
 import { useLocalStorage } from "../hooks";
 import settings from "../settings";
 import { list } from "../util";
 import "./App.css";
-import SearchBar from "./SearchBar";
-import SearchResult from "./SearchResult";
+import { SearchBar } from "./SearchBar";
+import { SearchResult } from "./SearchResult";
 
-function ErrorMessage(props: { error: string }) {
-  return <div className="app__error">{props.error}</div>;
-}
+const ErrorMessage = (props: { error: string }) => (
+  <div className="app__error">{props.error}</div>
+);
 
-export default function App() {
+const App: React.FC = () => {
   const auth: Auth = new Auth(settings.key, settings.secret);
 
   const [tripsState, setTripsState] = useLocalStorage("trips", []);
@@ -74,7 +73,7 @@ export default function App() {
     setNowState(false);
   }
 
-  function handleLocationChange(inputName: string, location: ICoordLocation) {
+  function handleLocationChange(inputName: string, location: CoordLocation) {
     switch (inputName) {
       case "dest":
         setDestState(location);
@@ -170,13 +169,15 @@ export default function App() {
     <React.StrictMode>
       <div className="app">
         <nav className="app__nav-bar">
-          <a href="#" onClick={handleNavBarClick}>
+          <button onClick={handleNavBarClick}>
             <FontAwesome name="bus" />
             Reaktiv Västtrafik
-          </a>
+          </button>
         </nav>
         {renderMainContent()}
       </div>
     </React.StrictMode>
   );
-}
+};
+
+export default App;

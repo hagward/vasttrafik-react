@@ -1,29 +1,30 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import { ICoordLocation, IStopLocation, searchLocation } from "../api";
+import React, { useEffect, useState } from "react";
+import { CoordLocation, StopLocation, searchLocation } from "../api";
 import Auth from "../Auth";
 import useDebounce from "../hooks";
 import MruCache from "../MruCache";
 import settings from "../settings";
 import { list, merge, removeDuplicates } from "../util";
-import LocationList from "./LocationList";
+import { LocationList } from "./LocationList";
 import "./LocationSearch.css";
-import LocationSearchInput from "./LocationSearchInput";
+import { LocationSearchInput } from "./LocationSearchInput";
 
-interface IProps {
-  onCancel(): any;
-  onSelect(location: ICoordLocation): any;
+interface Props {
+  onCancel(): void;
+  onSelect(location: CoordLocation): void;
 }
 
-export default function LocationSearch({ onCancel, onSelect }: IProps) {
+export const LocationSearch = ({ onCancel, onSelect }: Props) => {
   const auth: Auth = new Auth(settings.key, settings.secret);
-  const recentLocations: MruCache<IStopLocation> = new MruCache(10);
+  const recentLocations: MruCache<StopLocation> = new MruCache(10);
 
-  const [locationState, setLocationState] = useState(
+  const [locationState, setLocationState] = useState<CoordLocation[]>(
     recentLocations.getMostRecentlyUsed()
   );
   const [searchValue, setSearchValue] = useState("");
-  const [quickLocation, setQuickLocation] = useState(null);
+  const [quickLocation, setQuickLocation] = useState<
+    CoordLocation | undefined
+  >();
 
   const debouncedSearchValue = useDebounce(searchValue, 250);
 
@@ -39,23 +40,22 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
         const locations = merge(
           coordLocations,
           stopLocations,
-          (a: ICoordLocation, b: ICoordLocation) =>
-            Number(a.idx) - Number(b.idx)
+          (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx)
         );
         setLocationState(locations);
       });
     });
-  }, [debouncedSearchValue]);
+  }, [auth, debouncedSearchValue]);
 
   function renderResults() {
     if (!locationState.length && !quickLocation) {
       return null;
     }
 
-    const allLocations = quickLocation
+    const allLocations: CoordLocation[] = quickLocation
       ? removeDuplicates(
           [quickLocation, ...locationState],
-          (location: any) => location.id || location.name
+          location => location.id || location.name
         )
       : locationState;
 
@@ -71,7 +71,7 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
     const value = target.value;
 
     setSearchValue(value);
-    setQuickLocation(recentLocations.getFirstMatch(value) as any);
+    setQuickLocation(recentLocations.getFirstMatch(value));
 
     if (!value) {
       showMostRecentlyUsed();
@@ -87,10 +87,10 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
     onCancel();
   }
 
-  function handleSelect(location: ICoordLocation) {
+  function handleSelect(location: CoordLocation) {
     onSelect(location);
     if (location.id) {
-      recentLocations.add(location as IStopLocation);
+      recentLocations.add(location as StopLocation);
     }
   }
 
@@ -104,4 +104,4 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
       {renderResults()}
     </div>
   );
-}
+};

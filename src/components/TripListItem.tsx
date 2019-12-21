@@ -1,15 +1,14 @@
-import * as React from "react";
-import { useState } from "react";
-import { ITrip } from "../api";
-import TripDetails from "./TripDetails";
+import React, { useState } from "react";
+import { Trip } from "../api";
+import { TripDetails } from "./TripDetails";
 import "./TripListItem.css";
-import TripOverview from "./TripOverview";
+import { TripOverview } from "./TripOverview";
 
-interface IProps {
-  trip: ITrip;
+interface Props {
+  trip: Trip;
 }
 
-export default function TripListItem({ trip }: IProps) {
+export const TripListItem = ({ trip }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
   function handleClick() {
@@ -22,4 +21,4 @@ export default function TripListItem({ trip }: IProps) {
       {expanded && <TripDetails trip={trip} />}
     </div>
   );
-}
+};
