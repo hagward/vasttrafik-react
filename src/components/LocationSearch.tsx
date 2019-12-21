@@ -5,16 +5,16 @@ import useDebounce from "../hooks";
 import MruCache from "../MruCache";
 import settings from "../settings";
 import { list, merge, removeDuplicates } from "../util";
-import LocationList from "./LocationList";
+import { LocationList } from "./LocationList";
 import "./LocationSearch.css";
-import LocationSearchInput from "./LocationSearchInput";
+import { LocationSearchInput } from "./LocationSearchInput";
 
-interface IProps {
+interface Props {
   onCancel(): void;
   onSelect(location: ICoordLocation): void;
 }
 
-export default function LocationSearch({ onCancel, onSelect }: IProps) {
+export const LocationSearch = ({ onCancel, onSelect }: Props) => {
   const auth: Auth = new Auth(settings.key, settings.secret);
   const recentLocations: MruCache<IStopLocation> = new MruCache(10);
 
@@ -105,4 +105,4 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
       {renderResults()}
     </div>
   );
-}
+};

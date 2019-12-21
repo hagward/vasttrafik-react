@@ -5,12 +5,12 @@ import { ILeg, ILocation, ITrip } from "../api";
 import { first, last, padNumber } from "../util";
 import "./TripOverview.css";
 
-interface IProps {
+interface Props {
   trip: ITrip;
-  onClick(): any;
+  onClick(): void;
 }
 
-export default function TripOverview({ trip, onClick }: IProps) {
+export const TripOverview = ({ trip, onClick }: Props) => {
   const origin = first(trip.Leg).Origin;
   const destination = last(trip.Leg).Destination;
 
@@ -90,4 +90,4 @@ export default function TripOverview({ trip, onClick }: IProps) {
       </div>
     </div>
   );
-}
+};

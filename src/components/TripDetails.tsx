@@ -2,11 +2,11 @@ import React from "react";
 import { ILeg, ILocation, ITrip } from "../api";
 import "./TripDetails.css";
 
-interface IProps {
+interface Props {
   trip: ITrip;
 }
 
-export default function TripDetails({ trip }: IProps) {
+export const TripDetails = ({ trip }: Props) => {
   function renderLegs() {
     return trip.Leg.filter(leg => leg.type !== "WALK").map((leg, index) =>
       renderLeg(leg, index)
@@ -47,4 +47,4 @@ export default function TripDetails({ trip }: IProps) {
   }
 
   return <ul className="trip-details">{renderLegs()}</ul>;
-}
+};

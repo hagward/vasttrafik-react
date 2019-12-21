@@ -1,21 +1,21 @@
 import dayjs from "dayjs";
 import React from "react";
 import "./DatetimeInput.css";
-import Input from "./Input";
+import { Input } from "./Input";
 
-interface IProps {
+interface Props {
   date: Date;
   now: boolean;
   onChange(date: Date): void;
   onNowButtonClick(): void;
 }
 
-export default function DatetimeInput({
+export const DatetimeInput = ({
   date,
   now,
   onChange,
   onNowButtonClick
-}: IProps) {
+}: Props) => {
   const value = dayjs(date).format("YYYY-MM-DDTHH:mm:ss");
 
   function renderNowOverlay() {
@@ -47,4 +47,4 @@ export default function DatetimeInput({
       {now ? renderNowOverlay() : renderNowButton()}
     </div>
   );
-}
+};

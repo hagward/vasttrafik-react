@@ -1,15 +1,15 @@
 import React from "react";
 import { ITrip } from "../api";
 import "./SearchResult.css";
-import TripList from "./TripList";
+import { TripList } from "./TripList";
 
-interface IProps {
+interface Props {
   trips: ITrip[];
   onShowEarlier(): void;
   onShowLater(): void;
 }
 
-export default function SearchResult(props: IProps) {
+export const SearchResult = (props: Props) => {
   return (
     <div className="search-result">
       <div className="search-result__trips">
@@ -28,4 +28,4 @@ export default function SearchResult(props: IProps) {
       </div>
     </div>
   );
-}
+};

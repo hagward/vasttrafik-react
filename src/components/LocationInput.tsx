@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { ICoordLocation } from "../api";
-import Location from "./Location";
+import { Location } from "./Location";
 import "./LocationInput.css";
-import LocationSearch from "./LocationSearch";
-import Modal from "./Modal";
+import { LocationSearch } from "./LocationSearch";
+import { Modal } from "./Modal";
 
-interface IProps {
+interface Props {
   disabled: boolean;
   selected: ICoordLocation;
   onSelect(location: ICoordLocation): any;
 }
 
-export default function LocationInput({
-  disabled,
-  selected,
-  onSelect
-}: IProps) {
+export const LocationInput = ({ disabled, selected, onSelect }: Props) => {
   const [overlay, setOverlay] = useState(false);
   const name = selected.name;
 
@@ -55,4 +51,4 @@ export default function LocationInput({
       />
     </div>
   );
-}
+};

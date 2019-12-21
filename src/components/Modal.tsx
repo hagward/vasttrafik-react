@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
 
-export default function Modal({ children }: any) {
+export const Modal = ({ children }: any) => {
   const el: HTMLDivElement = document.createElement("div");
 
   useEffect(() => {
@@ -20,4 +20,4 @@ export default function Modal({ children }: any) {
   }, [el]);
 
   return ReactDOM.createPortal(children, el);
-}
+};

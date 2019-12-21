@@ -1,13 +1,13 @@
 import React from "react";
 import { ITrip } from "../api";
 import "./TripList.css";
-import TripListItem from "./TripListItem";
+import { TripListItem } from "./TripListItem";
 
-interface IProps {
+interface Props {
   trips: ITrip[];
 }
 
-export default function TripList({ trips }: IProps) {
+export const TripList = ({ trips }: Props) => {
   return (
     <ul className="trip-list">
       {trips.map((trip, tripIndex) => (
@@ -17,4 +17,4 @@ export default function TripList({ trips }: IProps) {
       ))}
     </ul>
   );
-}
+};

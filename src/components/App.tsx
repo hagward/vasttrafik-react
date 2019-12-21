@@ -7,14 +7,14 @@ import { useLocalStorage } from "../hooks";
 import settings from "../settings";
 import { list } from "../util";
 import "./App.css";
-import SearchBar from "./SearchBar";
-import SearchResult from "./SearchResult";
+import { SearchBar } from "./SearchBar";
+import { SearchResult } from "./SearchResult";
 
-function ErrorMessage(props: { error: string }) {
-  return <div className="app__error">{props.error}</div>;
-}
+const ErrorMessage = (props: { error: string }) => (
+  <div className="app__error">{props.error}</div>
+);
 
-export default function App() {
+const App: React.FC = () => {
   const auth: Auth = new Auth(settings.key, settings.secret);
 
   const [tripsState, setTripsState] = useLocalStorage("trips", []);
@@ -178,4 +178,6 @@ export default function App() {
       </div>
     </React.StrictMode>
   );
-}
+};
+
+export default App;
