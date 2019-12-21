@@ -169,10 +169,10 @@ export default function App() {
     <React.StrictMode>
       <div className="app">
         <nav className="app__nav-bar">
-          <a href="#" onClick={handleNavBarClick}>
+          <button onClick={handleNavBarClick}>
             <FontAwesome name="bus" />
             Reaktiv Västtrafik
-          </a>
+          </button>
         </nav>
         {renderMainContent()}
       </div>
