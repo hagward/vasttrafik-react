@@ -1,12 +1,12 @@
-import * as React from "react";
+import React from "react";
 import { ITrip } from "../api";
 import "./SearchResult.css";
 import TripList from "./TripList";
 
 interface IProps {
   trips: ITrip[];
-  onShowEarlier(): any;
-  onShowLater(): any;
+  onShowEarlier(): void;
+  onShowLater(): void;
 }
 
 export default function SearchResult(props: IProps) {

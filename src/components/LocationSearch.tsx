@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ICoordLocation, IStopLocation, searchLocation } from "../api";
 import Auth from "../Auth";
 import useDebounce from "../hooks";
@@ -11,19 +10,21 @@ import "./LocationSearch.css";
 import LocationSearchInput from "./LocationSearchInput";
 
 interface IProps {
-  onCancel(): any;
-  onSelect(location: ICoordLocation): any;
+  onCancel(): void;
+  onSelect(location: ICoordLocation): void;
 }
 
 export default function LocationSearch({ onCancel, onSelect }: IProps) {
   const auth: Auth = new Auth(settings.key, settings.secret);
   const recentLocations: MruCache<IStopLocation> = new MruCache(10);
 
-  const [locationState, setLocationState] = useState(
+  const [locationState, setLocationState] = useState<ICoordLocation[]>(
     recentLocations.getMostRecentlyUsed()
   );
   const [searchValue, setSearchValue] = useState("");
-  const [quickLocation, setQuickLocation] = useState(null);
+  const [quickLocation, setQuickLocation] = useState<
+    ICoordLocation | undefined
+  >();
 
   const debouncedSearchValue = useDebounce(searchValue, 250);
 
@@ -52,10 +53,10 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
       return null;
     }
 
-    const allLocations = quickLocation
+    const allLocations: ICoordLocation[] = quickLocation
       ? removeDuplicates(
           [quickLocation, ...locationState],
-          (location: any) => location.id || location.name
+          location => location.id || location.name
         )
       : locationState;
 
@@ -71,7 +72,7 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
     const value = target.value;
 
     setSearchValue(value);
-    setQuickLocation(recentLocations.getFirstMatch(value) as any);
+    setQuickLocation(recentLocations.getFirstMatch(value));
 
     if (!value) {
       showMostRecentlyUsed();

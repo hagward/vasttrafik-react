@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ITrip } from "../api";
 import TripDetails from "./TripDetails";
 import "./TripListItem.css";

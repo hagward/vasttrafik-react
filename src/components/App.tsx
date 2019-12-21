@@ -1,7 +1,6 @@
-import * as dayjs from "dayjs";
-import * as React from "react";
-import { useState } from "react";
-import * as FontAwesome from "react-fontawesome";
+import dayjs from "dayjs";
+import React, { useState } from "react";
+import FontAwesome from "react-fontawesome";
 import { ICoordLocation, searchTrip } from "../api";
 import Auth from "../Auth";
 import { useLocalStorage } from "../hooks";

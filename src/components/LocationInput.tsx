@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ICoordLocation } from "../api";
 import Location from "./Location";
 import "./LocationInput.css";

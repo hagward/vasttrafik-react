@@ -1,11 +1,11 @@
-import * as React from "react";
-import * as FontAwesome from "react-fontawesome";
+import React from "react";
+import FontAwesome from "react-fontawesome";
 import "./LocationSearchInput.css";
 
 interface IProps {
   value: string;
-  onChange(event: React.FormEvent<HTMLInputElement>): any;
-  onCancel(event: React.MouseEvent<HTMLElement>): any;
+  onChange(event: React.FormEvent<HTMLInputElement>): void;
+  onCancel(event: React.MouseEvent<HTMLElement>): void;
 }
 
 export default function LocationSearchInput({

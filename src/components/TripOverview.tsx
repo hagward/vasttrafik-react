@@ -1,6 +1,6 @@
-import * as dayjs from "dayjs";
-import * as React from "react";
-import * as FontAwesome from "react-fontawesome";
+import dayjs from "dayjs";
+import React from "react";
+import FontAwesome from "react-fontawesome";
 import { ILeg, ILocation, ITrip } from "../api";
 import { first, last, padNumber } from "../util";
 import "./TripOverview.css";

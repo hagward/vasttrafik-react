@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as FontAwesome from "react-fontawesome";
+import React from "react";
+import FontAwesome from "react-fontawesome";
 import { ICoordLocation } from "../api";
 import DatetimeInput from "./DatetimeInput";
 import LocationInput from "./LocationInput";

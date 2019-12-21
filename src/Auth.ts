@@ -11,6 +11,10 @@ export default class Auth {
   constructor(key: string, secret: string) {
     this.key = key;
     this.secret = secret;
+    this.token = {
+      expiryDate: 0,
+      token: ""
+    };
   }
 
   public getToken(): Promise<string> {
