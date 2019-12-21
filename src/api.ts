@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 
-export interface ITrip {
-  Leg: ILeg[];
+export interface Trip {
+  Leg: Leg[];
 }
 
-export interface ILeg {
-  Origin: ILocation;
-  Destination: ILocation;
+export interface Leg {
+  Origin: Location;
+  Destination: Location;
   direction: string;
   name: string;
   sname: string;
@@ -15,24 +15,24 @@ export interface ILeg {
   type: string;
 }
 
-export interface ILocation {
+export interface Location {
   date: string;
   name: string;
-  Notes?: { Note: INote[] };
+  Notes?: { Note: Note[] };
   rtDate?: string;
   rtTime?: string;
   time: string;
   track?: string;
 }
 
-interface INote {
+interface Note {
   $: string;
   key: string;
   priority: string;
   severity: string;
 }
 
-export interface ICoordLocation {
+export interface CoordLocation {
   id?: string;
   idx?: string;
   lat?: string;
@@ -40,7 +40,7 @@ export interface ICoordLocation {
   name: string;
 }
 
-export interface IStopLocation extends ICoordLocation {
+export interface StopLocation extends CoordLocation {
   id: string;
 }
 
@@ -59,8 +59,8 @@ export async function searchLocation(token: string, searchString: string) {
 
 export async function searchTrip(
   token: string,
-  origin: ICoordLocation,
-  dest: ICoordLocation,
+  origin: CoordLocation,
+  dest: CoordLocation,
   date: Date
 ) {
   const dateString = dayjs(date).format("YYYY-MM-DD");
@@ -83,7 +83,7 @@ export async function searchTrip(
 
 function getLocationParameter(
   inputName: string,
-  location: ICoordLocation
+  location: CoordLocation
 ): string {
   if (location.id) {
     return "&" + inputName + "Id=" + encodeURIComponent(location.id);

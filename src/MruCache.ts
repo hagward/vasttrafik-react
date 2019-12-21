@@ -1,9 +1,9 @@
-interface ICacheItem {
+interface CacheItem {
   id: string;
   name: string;
 }
 
-export default class MruCache<T extends ICacheItem> {
+export default class MruCache<T extends CacheItem> {
   private items: T[];
   private limit: number;
 

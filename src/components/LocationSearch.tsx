@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ICoordLocation, IStopLocation, searchLocation } from "../api";
+import { CoordLocation, StopLocation, searchLocation } from "../api";
 import Auth from "../Auth";
 import useDebounce from "../hooks";
 import MruCache from "../MruCache";
@@ -11,19 +11,19 @@ import { LocationSearchInput } from "./LocationSearchInput";
 
 interface Props {
   onCancel(): void;
-  onSelect(location: ICoordLocation): void;
+  onSelect(location: CoordLocation): void;
 }
 
 export const LocationSearch = ({ onCancel, onSelect }: Props) => {
   const auth: Auth = new Auth(settings.key, settings.secret);
-  const recentLocations: MruCache<IStopLocation> = new MruCache(10);
+  const recentLocations: MruCache<StopLocation> = new MruCache(10);
 
-  const [locationState, setLocationState] = useState<ICoordLocation[]>(
+  const [locationState, setLocationState] = useState<CoordLocation[]>(
     recentLocations.getMostRecentlyUsed()
   );
   const [searchValue, setSearchValue] = useState("");
   const [quickLocation, setQuickLocation] = useState<
-    ICoordLocation | undefined
+    CoordLocation | undefined
   >();
 
   const debouncedSearchValue = useDebounce(searchValue, 250);
@@ -40,8 +40,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
         const locations = merge(
           coordLocations,
           stopLocations,
-          (a: ICoordLocation, b: ICoordLocation) =>
-            Number(a.idx) - Number(b.idx)
+          (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx)
         );
         setLocationState(locations);
       });
@@ -53,7 +52,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
       return null;
     }
 
-    const allLocations: ICoordLocation[] = quickLocation
+    const allLocations: CoordLocation[] = quickLocation
       ? removeDuplicates(
           [quickLocation, ...locationState],
           location => location.id || location.name
@@ -88,10 +87,10 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
     onCancel();
   }
 
-  function handleSelect(location: ICoordLocation) {
+  function handleSelect(location: CoordLocation) {
     onSelect(location);
     if (location.id) {
-      recentLocations.add(location as IStopLocation);
+      recentLocations.add(location as StopLocation);
     }
   }
 

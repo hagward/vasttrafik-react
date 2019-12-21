@@ -1,10 +1,10 @@
 import React from "react";
-import { ITrip } from "../api";
+import { Trip } from "../api";
 import "./TripList.css";
 import { TripListItem } from "./TripListItem";
 
 interface Props {
-  trips: ITrip[];
+  trips: Trip[];
 }
 
 export const TripList = ({ trips }: Props) => {

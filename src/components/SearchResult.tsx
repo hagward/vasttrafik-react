@@ -1,10 +1,10 @@
 import React from "react";
-import { ITrip } from "../api";
+import { Trip } from "../api";
 import "./SearchResult.css";
 import { TripList } from "./TripList";
 
 interface Props {
-  trips: ITrip[];
+  trips: Trip[];
   onShowEarlier(): void;
   onShowLater(): void;
 }

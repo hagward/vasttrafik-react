@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { ITrip } from "../api";
+import { Trip } from "../api";
 import { TripDetails } from "./TripDetails";
 import "./TripListItem.css";
 import { TripOverview } from "./TripOverview";
 
 interface Props {
-  trip: ITrip;
+  trip: Trip;
 }
 
 export const TripListItem = ({ trip }: Props) => {

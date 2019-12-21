@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import FontAwesome from "react-fontawesome";
-import { ICoordLocation, searchTrip } from "../api";
+import { CoordLocation, searchTrip } from "../api";
 import Auth from "../Auth";
 import { useLocalStorage } from "../hooks";
 import settings from "../settings";
@@ -73,7 +73,7 @@ const App: React.FC = () => {
     setNowState(false);
   }
 
-  function handleLocationChange(inputName: string, location: ICoordLocation) {
+  function handleLocationChange(inputName: string, location: CoordLocation) {
     switch (inputName) {
       case "dest":
         setDestState(location);

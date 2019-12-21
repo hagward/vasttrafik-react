@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ICoordLocation } from "../api";
+import { CoordLocation } from "../api";
 import { Location } from "./Location";
 import "./LocationInput.css";
 import { LocationSearch } from "./LocationSearch";
@@ -7,8 +7,8 @@ import { Modal } from "./Modal";
 
 interface Props {
   disabled: boolean;
-  selected: ICoordLocation;
-  onSelect(location: ICoordLocation): any;
+  selected: CoordLocation;
+  onSelect(location: CoordLocation): any;
 }
 
 export const LocationInput = ({ disabled, selected, onSelect }: Props) => {
@@ -31,7 +31,7 @@ export const LocationInput = ({ disabled, selected, onSelect }: Props) => {
     setOverlay(false);
   }
 
-  function handleSelect(location: ICoordLocation) {
+  function handleSelect(location: CoordLocation) {
     setOverlay(false);
     onSelect(location);
   }

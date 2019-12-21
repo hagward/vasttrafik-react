@@ -1,12 +1,12 @@
 import dayjs from "dayjs";
 import React from "react";
 import FontAwesome from "react-fontawesome";
-import { ILeg, ILocation, ITrip } from "../api";
+import { Leg, Location, Trip } from "../api";
 import { first, last, padNumber } from "../util";
 import "./TripOverview.css";
 
 interface Props {
-  trip: ITrip;
+  trip: Trip;
   onClick(): void;
 }
 
@@ -14,7 +14,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   const origin = first(trip.Leg).Origin;
   const destination = last(trip.Leg).Destination;
 
-  function renderTime(location: ILocation, renderInfoIcon = false) {
+  function renderTime(location: Location, renderInfoIcon = false) {
     if (!location.rtTime) {
       return <span className="trip-overview__time">{location.time}</span>;
     }
@@ -39,7 +39,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
     );
   }
 
-  function renderLeg(leg: ILeg, index: number) {
+  function renderLeg(leg: Leg, index: number) {
     return (
       <span
         className="trip-overview__leg"
@@ -55,7 +55,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
     );
   }
 
-  function travelTime(start: ILocation, end: ILocation) {
+  function travelTime(start: Location, end: Location) {
     const startDate = dayjs(
       `${start.rtDate || start.date} ${start.rtTime || start.time}`
     );
@@ -67,7 +67,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
     return padNumber(hourDiff) + ":" + padNumber(minuteDiff);
   }
 
-  function showInfoIcon(location: ILocation) {
+  function showInfoIcon(location: Location) {
     return location.Notes != null;
   }
 

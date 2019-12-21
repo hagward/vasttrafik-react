@@ -1,11 +1,11 @@
 import React from "react";
-import { ICoordLocation } from "../api";
+import { CoordLocation } from "../api";
 import { Location } from "./Location";
 import "./LocationListItem.css";
 
 interface Props {
-  location: ICoordLocation;
-  onClick(location: ICoordLocation): any;
+  location: CoordLocation;
+  onClick(location: CoordLocation): any;
 }
 
 export const LocationListItem = ({ location, onClick }: Props) => {

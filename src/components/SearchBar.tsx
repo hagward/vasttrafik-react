@@ -1,18 +1,18 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
-import { ICoordLocation } from "../api";
+import { CoordLocation } from "../api";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
 import "./SearchBar.css";
 
 interface Props {
-  origin: ICoordLocation;
-  dest: ICoordLocation;
+  origin: CoordLocation;
+  dest: CoordLocation;
   date: Date;
   now: boolean;
   searching: boolean;
   onDatetimeChange(date: Date): any;
-  onLocationChange(inputName: string, location: ICoordLocation): any;
+  onLocationChange(inputName: string, location: CoordLocation): any;
   onLocationSwitch(): any;
   onNowButtonClick(): void;
   onSearch(): any;
@@ -30,11 +30,11 @@ export const SearchBar = ({
   onNowButtonClick,
   onSearch
 }: Props) => {
-  function onOriginSelected(location: ICoordLocation) {
+  function onOriginSelected(location: CoordLocation) {
     onLocationChange("origin", location);
   }
 
-  function onDestinationSelected(location: ICoordLocation) {
+  function onDestinationSelected(location: CoordLocation) {
     onLocationChange("dest", location);
   }
 

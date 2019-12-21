@@ -1,9 +1,9 @@
 import React from "react";
-import { ILeg, ILocation, ITrip } from "../api";
+import { Leg, Location, Trip } from "../api";
 import "./TripDetails.css";
 
 interface Props {
-  trip: ITrip;
+  trip: Trip;
 }
 
 export const TripDetails = ({ trip }: Props) => {
@@ -13,7 +13,7 @@ export const TripDetails = ({ trip }: Props) => {
     );
   }
 
-  function renderLeg(leg: ILeg, index: number) {
+  function renderLeg(leg: Leg, index: number) {
     return (
       <li className="trip-details__leg" key={index}>
         {renderLocation(leg.Origin)}
@@ -25,7 +25,7 @@ export const TripDetails = ({ trip }: Props) => {
     );
   }
 
-  function renderLocation(location: ILocation) {
+  function renderLocation(location: Location) {
     return (
       <div className="trip-details__location">
         <div className="location__overview">
