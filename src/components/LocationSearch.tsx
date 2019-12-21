@@ -46,7 +46,7 @@ export default function LocationSearch({ onCancel, onSelect }: IProps) {
         setLocationState(locations);
       });
     });
-  }, [debouncedSearchValue]);
+  }, [auth, debouncedSearchValue]);
 
   function renderResults() {
     if (!locationState.length && !quickLocation) {
