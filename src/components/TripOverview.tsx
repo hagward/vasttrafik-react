@@ -16,21 +16,17 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   const destination = last(trip.Leg).Destination;
 
   function renderTime(location: Location, renderInfoIcon = false) {
-    if (!location.rtTime) {
-      return <span>{location.time}</span>;
-    }
-
     return [
       <span key={0}>
-        {location.rtTime}
+        {location.rtTime ?? location.time}
         {renderInfoIcon && (
           <FontAwesome
-            className={classnames(styles.timeIcon, "right-icon")}
+            className={classnames(styles.notesIcon, "right-icon")}
             name="info-circle"
           />
         )}
       </span>,
-      location.time !== location.rtTime && (
+      location.rtTime && location.time !== location.rtTime && (
         <s className={classnames(styles.time, styles.invalid)} key={1}>
           {location.time}
         </s>
