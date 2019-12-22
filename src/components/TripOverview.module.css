@@ -24,8 +24,8 @@
   margin-left: 0.4rem;
 }
 
-.overview .notesIcon {
-  color: #00a5dc;
+.overview .notesIcon path {
+  fill: #00a5dc;
 }
 
 .legs,

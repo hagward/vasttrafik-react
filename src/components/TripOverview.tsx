@@ -69,16 +69,14 @@ export const TripOverview = ({ trip, onClick }: Props) => {
     return padNumber(hourDiff) + ":" + padNumber(minuteDiff);
   }
 
-  function showInfoIcon(location: Location) {
-    return location.Notes != null;
+  function showInfoIcon() {
+    return trip.Leg.some(leg => leg.Origin.Notes || leg.Destination.Notes);
   }
 
   return (
     <div className={styles.overview} onClick={onClick}>
       <div className={styles.origin}>
-        <div className={styles.times}>
-          {renderTime(origin, showInfoIcon(origin))}
-        </div>
+        <div className={styles.times}>{renderTime(origin, showInfoIcon())}</div>
         <div className={styles.legs}>{renderLegs()}</div>
       </div>
       <FontAwesomeIcon icon={faArrowRight} />
