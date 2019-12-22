@@ -31,6 +31,7 @@
 .searchButton {
   background-color: var(--primary-color);
   border: none;
+  border-radius: var(--border-radius);
   color: var(--inverted-text-color);
   padding: 0.8rem;
   width: 100%;
