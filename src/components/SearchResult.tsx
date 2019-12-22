@@ -11,7 +11,7 @@ interface Props {
 
 export const SearchResult = (props: Props) => {
   return (
-    <div className={styles.result}>
+    <div>
       <TripList trips={props.trips} />
       <div className={styles.earlierLaterButtons}>
         <button

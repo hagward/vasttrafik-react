@@ -15,10 +15,6 @@
   text-align: right;
 }
 
-.times {
-  margin-bottom: 0.4rem;
-}
-
 .invalid {
   color: var(--invalid-color);
   margin-left: 0.4rem;
@@ -33,10 +29,14 @@
   font-size: 0.8rem;
 }
 
+.travelTime {
+  margin-top: 0.4rem;
+}
+
 .leg {
   display: inline-block;
   padding: 0.1rem;
-  margin-right: 0.4rem;
+  margin: 0.4rem 0.4rem 0 0;
   min-width: 1.2rem;
   text-align: center;
   border-radius: var(--border-radius);

@@ -76,12 +76,12 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   return (
     <div className={styles.overview} onClick={onClick}>
       <div className={styles.origin}>
-        <div className={styles.times}>{renderTime(origin, showInfoIcon())}</div>
+        <div>{renderTime(origin, showInfoIcon())}</div>
         <div className={styles.legs}>{renderLegs()}</div>
       </div>
       <FontAwesomeIcon icon={faArrowRight} />
       <div className={styles.destination}>
-        <div className={styles.times}>{renderTime(destination)}</div>
+        <div>{renderTime(destination)}</div>
         <div className={styles.travelTime}>
           Restid: {travelTime(origin, destination)}
         </div>
