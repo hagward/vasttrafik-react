@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/vasttrafik-react/static/css/main.4cc56367.chunk.css",
-    "main.js": "/vasttrafik-react/static/js/main.6e65850f.chunk.js",
-    "main.js.map": "/vasttrafik-react/static/js/main.6e65850f.chunk.js.map",
+    "main.css": "/vasttrafik-react/static/css/main.0f127942.chunk.css",
+    "main.js": "/vasttrafik-react/static/js/main.32bad644.chunk.js",
+    "main.js.map": "/vasttrafik-react/static/js/main.32bad644.chunk.js.map",
     "runtime-main.js": "/vasttrafik-react/static/js/runtime-main.3cc248d7.js",
     "runtime-main.js.map": "/vasttrafik-react/static/js/runtime-main.3cc248d7.js.map",
-    "static/js/2.2657c41a.chunk.js": "/vasttrafik-react/static/js/2.2657c41a.chunk.js",
-    "static/js/2.2657c41a.chunk.js.map": "/vasttrafik-react/static/js/2.2657c41a.chunk.js.map",
+    "static/js/2.0a322a42.chunk.js": "/vasttrafik-react/static/js/2.0a322a42.chunk.js",
+    "static/js/2.0a322a42.chunk.js.map": "/vasttrafik-react/static/js/2.0a322a42.chunk.js.map",
     "index.html": "/vasttrafik-react/index.html",
-    "precache-manifest.a5bfe687c57b89557ce37de3ffd79c2b.js": "/vasttrafik-react/precache-manifest.a5bfe687c57b89557ce37de3ffd79c2b.js",
+    "precache-manifest.eb26b2775b74f8ff16d28fbd356fa135.js": "/vasttrafik-react/precache-manifest.eb26b2775b74f8ff16d28fbd356fa135.js",
     "service-worker.js": "/vasttrafik-react/service-worker.js",
-    "static/css/main.4cc56367.chunk.css.map": "/vasttrafik-react/static/css/main.4cc56367.chunk.css.map",
-    "static/js/2.2657c41a.chunk.js.LICENSE": "/vasttrafik-react/static/js/2.2657c41a.chunk.js.LICENSE"
+    "static/css/main.0f127942.chunk.css.map": "/vasttrafik-react/static/css/main.0f127942.chunk.css.map",
+    "static/js/2.0a322a42.chunk.js.LICENSE": "/vasttrafik-react/static/js/2.0a322a42.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.3cc248d7.js",
-    "static/js/2.2657c41a.chunk.js",
-    "static/css/main.4cc56367.chunk.css",
-    "static/js/main.6e65850f.chunk.js"
+    "static/js/2.0a322a42.chunk.js",
+    "static/css/main.0f127942.chunk.css",
+    "static/js/main.32bad644.chunk.js"
   ]
 }

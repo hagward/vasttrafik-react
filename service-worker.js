@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/vasttrafik-react/precache-manifest.a5bfe687c57b89557ce37de3ffd79c2b.js"
+  "/vasttrafik-react/precache-manifest.eb26b2775b74f8ff16d28fbd356fa135.js"
 );
 
 self.addEventListener('message', (event) => {
