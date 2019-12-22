@@ -1,7 +1,8 @@
+import classnames from "classnames";
 import React, { useState } from "react";
 import { CoordLocation } from "../api";
 import { Location } from "./Location";
-import "./LocationInput.css";
+import styles from "./LocationInput.module.css";
 import { LocationSearch } from "./LocationSearch";
 import { Modal } from "./Modal";
 
@@ -37,15 +38,12 @@ export const LocationInput = ({ disabled, selected, onSelect }: Props) => {
   }
 
   return (
-    <div className="location-input">
+    <div className={styles.wrapper}>
       {overlay && renderOverlay()}
       {name && <Location name={name} />}
       <input
         type="text"
-        className={
-          "location-input__fake-input" +
-          (!name ? " location-input__fake-input--static" : "")
-        }
+        className={classnames(styles.fakeInput, { [styles.static]: !name })}
         onFocus={handleFocus}
         placeholder={!name ? "Hållplats" : ""}
       />

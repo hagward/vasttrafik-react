@@ -1,6 +1,6 @@
 import React from "react";
 import { Leg, Location, Trip } from "../api";
-import "./TripDetails.css";
+import styles from "./TripDetails.module.css";
 
 interface Props {
   trip: Trip;
@@ -15,9 +15,9 @@ export const TripDetails = ({ trip }: Props) => {
 
   function renderLeg(leg: Leg, index: number) {
     return (
-      <li className="trip-details__leg" key={index}>
+      <li className={styles.leg} key={index}>
         {renderLocation(leg.Origin)}
-        <div className="trip-details__direction">
+        <div className={styles.direction}>
           {leg.name} mot {leg.direction}
         </div>
         {renderLocation(leg.Destination)}
@@ -27,16 +27,16 @@ export const TripDetails = ({ trip }: Props) => {
 
   function renderLocation(location: Location) {
     return (
-      <div className="trip-details__location">
-        <div className="location__overview">
-          <div className="location__time">{location.time}</div>
-          <div className="location__name">{location.name}</div>
-          <div className="location__track">
+      <div className={styles.location}>
+        <div className={styles.overview}>
+          <div className={styles.time}>{location.time}</div>
+          <div className={styles.name}>{location.name}</div>
+          <div className={styles.track}>
             {location.track && "Läge " + location.track}
           </div>
         </div>
         {location.Notes && (
-          <ul className="location__notes">
+          <ul className={styles.notes}>
             {location.Notes.Note.map((note, index) => (
               <li key={index}>{note.$}</li>
             ))}
@@ -46,5 +46,5 @@ export const TripDetails = ({ trip }: Props) => {
     );
   }
 
-  return <ul className="trip-details">{renderLegs()}</ul>;
+  return <ul className={styles.legs}>{renderLegs()}</ul>;
 };

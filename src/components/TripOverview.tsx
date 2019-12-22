@@ -1,9 +1,10 @@
+import classnames from "classnames";
 import dayjs from "dayjs";
 import React from "react";
 import FontAwesome from "react-fontawesome";
 import { Leg, Location, Trip } from "../api";
 import { first, last, padNumber } from "../util";
-import "./TripOverview.css";
+import styles from "./TripOverview.module.css";
 
 interface Props {
   trip: Trip;
@@ -15,18 +16,18 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   const destination = last(trip.Leg).Destination;
 
   function renderTime(location: Location, renderInfoIcon = false) {
-    if (!location.rtTime) {
-      return <span className="trip-overview__time">{location.time}</span>;
-    }
     return [
-      <span className="trip-overview__time" key={0}>
-        {location.rtTime}
+      <span key={0}>
+        {location.rtTime ?? location.time}
         {renderInfoIcon && (
-          <FontAwesome className="right-icon" name="info-circle" />
+          <FontAwesome
+            className={classnames(styles.notesIcon, "right-icon")}
+            name="info-circle"
+          />
         )}
       </span>,
-      location.time !== location.rtTime && (
-        <s className="trip-overview__time trip-overview__time--invalid" key={1}>
+      location.rtTime && location.time !== location.rtTime && (
+        <s className={classnames(styles.time, styles.invalid)} key={1}>
           {location.time}
         </s>
       )
@@ -42,7 +43,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   function renderLeg(leg: Leg, index: number) {
     return (
       <span
-        className="trip-overview__leg"
+        className={styles.leg}
         key={index}
         style={{
           backgroundColor: leg.fgColor,
@@ -72,19 +73,17 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   }
 
   return (
-    <div className="trip-overview" onClick={onClick}>
-      <div className="trip-overview__origin">
-        <div className="trip-overview__times">
+    <div className={styles.overview} onClick={onClick}>
+      <div className={styles.origin}>
+        <div className={styles.times}>
           {renderTime(origin, showInfoIcon(origin))}
         </div>
-        <div className="trip-overview__legs">{renderLegs()}</div>
+        <div className={styles.legs}>{renderLegs()}</div>
       </div>
-      <div className="trip-overview__arrow">
-        <FontAwesome name="arrow-right" />
-      </div>
-      <div className="trip-overview__destination">
-        <div className="trip-overview__times">{renderTime(destination)}</div>
-        <div className="trip-overview__travel-time">
+      <FontAwesome name="arrow-right" />
+      <div className={styles.destination}>
+        <div className={styles.times}>{renderTime(destination)}</div>
+        <div className={styles.travelTime}>
           Restid: {travelTime(origin, destination)}
         </div>
       </div>

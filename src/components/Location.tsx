@@ -1,5 +1,5 @@
 import React from "react";
-import "./Location.css";
+import styles from "./Location.module.css";
 
 interface Props {
   name: string;
@@ -8,9 +8,9 @@ interface Props {
 export const Location = ({ name }: Props) => {
   const [station, address] = name.split(", ");
   return (
-    <div className="location">
-      <div className="location__name">{station}</div>
-      {address && <div className="location__address">{address}</div>}
+    <div>
+      <div>{station}</div>
+      {address && <div className={styles.address}>{address}</div>}
     </div>
   );
 };

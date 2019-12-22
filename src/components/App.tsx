@@ -6,12 +6,12 @@ import Auth from "../Auth";
 import { useLocalStorage } from "../hooks";
 import settings from "../settings";
 import { list } from "../util";
-import "./App.css";
+import styles from "./App.module.css";
 import { SearchBar } from "./SearchBar";
 import { SearchResult } from "./SearchResult";
 
 const ErrorMessage = (props: { error: string }) => (
-  <div className="app__error">{props.error}</div>
+  <div className={styles.error}>{props.error}</div>
 );
 
 const App: React.FC = () => {
@@ -167,10 +167,10 @@ const App: React.FC = () => {
 
   return (
     <React.StrictMode>
-      <div className="app">
-        <nav className="app__nav-bar">
+      <div className={styles.app}>
+        <nav className={styles.navbar}>
           <button onClick={handleNavBarClick}>
-            <FontAwesome name="bus" />
+            <FontAwesome name="bus" className={styles.logo} />
             Reaktiv Västtrafik
           </button>
         </nav>

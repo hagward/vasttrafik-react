@@ -1,8 +1,8 @@
-.trip-list-item {
+.item {
   background-color: var(--bg-color);
   margin-bottom: 1px;
 }
 
-.trip-list-item:last-child {
+.item:last-child {
   margin: 0;
 }

@@ -1,22 +1,15 @@
-.input {
+.wrapper {
   position: relative;
   width: 100%;
 }
 
-.input:not(:last-child) {
+.wrapper:not(:last-child) {
   margin-right: 1px;
 }
 
-.input .fa {
-  position: absolute;
-  top: 50%;
-  left: .8rem;
-  transform: translateY(-50%);
-}
-
-.input__input {
+.input {
   background-color: transparent;
-  padding: .8rem;
+  padding: 0.8rem;
   padding-left: 2.4rem;
   -webkit-appearance: none;
   border: 0;
@@ -24,4 +17,11 @@
   border-radius: 0;
   width: 100%;
   display: block;
+}
+
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
 }

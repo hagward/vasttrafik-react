@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { CoordLocation, StopLocation, searchLocation } from "../api";
+import { CoordLocation, searchLocation, StopLocation } from "../api";
 import Auth from "../Auth";
 import useDebounce from "../hooks";
 import MruCache from "../MruCache";
 import settings from "../settings";
 import { list, merge, removeDuplicates } from "../util";
 import { LocationList } from "./LocationList";
-import "./LocationSearch.css";
+import styles from "./LocationSearch.module.css";
 import { LocationSearchInput } from "./LocationSearchInput";
 
 interface Props {
@@ -60,7 +60,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
       : locationState;
 
     return (
-      <div className="location-search__results">
+      <div className={styles.results}>
         <LocationList locations={allLocations} onSelect={handleSelect} />
       </div>
     );
@@ -95,7 +95,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
   }
 
   return (
-    <div className="location-search">
+    <div className={styles.search}>
       <LocationSearchInput
         value={searchValue}
         onChange={handleChange}

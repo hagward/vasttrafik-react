@@ -1,0 +1,45 @@
+.overview {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.origin,
+.destination {
+  flex: 1 1 0;
+  padding: 0.8rem;
+}
+
+.destination {
+  text-align: right;
+}
+
+.times {
+  margin-bottom: 0.4rem;
+}
+
+.invalid {
+  color: var(--invalid-color);
+  margin-left: 0.4rem;
+}
+
+.overview .notesIcon {
+  color: #00a5dc;
+}
+
+.legs,
+.travelTime {
+  font-size: 0.8rem;
+}
+
+.leg {
+  display: inline-block;
+  padding: 0.1rem;
+  margin-right: 0.4rem;
+  min-width: 1.2rem;
+  text-align: center;
+  border-radius: var(--border-radius);
+  border-width: 1px;
+  border-style: solid;
+}

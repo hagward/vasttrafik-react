@@ -1,7 +1,7 @@
 import React from "react";
 import { CoordLocation } from "../api";
 import { Location } from "./Location";
-import "./LocationListItem.css";
+import styles from "./LocationListItem.module.css";
 
 interface Props {
   location: CoordLocation;
@@ -15,7 +15,7 @@ export const LocationListItem = ({ location, onClick }: Props) => {
   }
 
   return (
-    <li className="location-list-item" onClick={handleClick}>
+    <li className={styles.item} onClick={handleClick}>
       <Location name={location.name} />
     </li>
   );

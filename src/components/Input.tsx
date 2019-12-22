@@ -1,6 +1,6 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
-import "./Input.css";
+import styles from "./Input.module.css";
 
 interface Props {
   className?: string;
@@ -15,9 +15,9 @@ interface Props {
 
 export const Input = (props: Props) => {
   return (
-    <div className="input">
-      <FontAwesome name={props.icon} />
-      <input className="input__input" {...props} />
+    <div className={styles.wrapper}>
+      <FontAwesome name={props.icon} className={styles.inputIcon} />
+      <input className={styles.input} {...props} />
     </div>
   );
 };
