@@ -1,6 +1,7 @@
+import { faExchangeAlt, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import { CoordLocation } from "../api";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
@@ -62,10 +63,10 @@ export const SearchBar = ({
           className={styles.switchLocationsButton}
           onClick={onLocationSwitch}
         >
-          <FontAwesome
-            name="exchange-alt"
-            rotate={90}
+          <FontAwesomeIcon
             className={styles.switchLocationsIcon}
+            icon={faExchangeAlt}
+            rotation={90}
           />
         </button>
       </div>
@@ -85,9 +86,9 @@ export const SearchBar = ({
         {searching ? (
           <span>
             Söker...
-            <FontAwesome
+            <FontAwesomeIcon
               className={classnames(styles.spinnerIcon, "right-icon")}
-              name="spinner"
+              icon={faSpinner}
               spin={true}
             />
           </span>

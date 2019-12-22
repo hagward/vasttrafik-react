@@ -87,9 +87,8 @@ body {
   padding: 0;
 }
 
-.fa {
-  color: var(--primary-color);
-  line-height: 1.2;
+.svg-inline--fa path {
+  fill: var(--primary-color);
 }
 
 .right-icon {

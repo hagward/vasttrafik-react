@@ -1,7 +1,8 @@
+import { faArrowRight, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import dayjs from "dayjs";
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import { Leg, Location, Trip } from "../api";
 import { first, last, padNumber } from "../util";
 import styles from "./TripOverview.module.css";
@@ -20,9 +21,9 @@ export const TripOverview = ({ trip, onClick }: Props) => {
       <span key={0}>
         {location.rtTime ?? location.time}
         {renderInfoIcon && (
-          <FontAwesome
+          <FontAwesomeIcon
             className={classnames(styles.notesIcon, "right-icon")}
-            name="info-circle"
+            icon={faInfoCircle}
           />
         )}
       </span>,
@@ -80,7 +81,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
         </div>
         <div className={styles.legs}>{renderLegs()}</div>
       </div>
-      <FontAwesome name="arrow-right" />
+      <FontAwesomeIcon icon={faArrowRight} />
       <div className={styles.destination}>
         <div className={styles.times}>{renderTime(destination)}</div>
         <div className={styles.travelTime}>

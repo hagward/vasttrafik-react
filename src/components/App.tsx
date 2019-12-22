@@ -1,6 +1,7 @@
+import { faBus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import FontAwesome from "react-fontawesome";
 import { CoordLocation, searchTrip } from "../api";
 import Auth from "../Auth";
 import { useLocalStorage } from "../hooks";
@@ -170,7 +171,7 @@ const App: React.FC = () => {
       <div className={styles.app}>
         <nav className={styles.navbar}>
           <button onClick={handleNavBarClick}>
-            <FontAwesome name="bus" className={styles.logo} />
+            <FontAwesomeIcon className={styles.logo} icon={faBus} />
             Reaktiv Västtrafik
           </button>
         </nav>

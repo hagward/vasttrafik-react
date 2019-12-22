@@ -23,9 +23,8 @@
   transform: translateY(-50%);
 }
 
-.locations .switchLocationsIcon {
-  font-size: 1.2rem;
-  color: var(--secondary-text-color);
+.locations .switchLocationsIcon path {
+  fill: var(--secondary-text-color);
 }
 
 .searchButton {
@@ -42,8 +41,8 @@
   cursor: default;
 }
 
-.searchButton .spinnerIcon {
-  color: var(--inverted-text-color);
+.searchButton .spinnerIcon path {
+  fill: var(--inverted-text-color);
 }
 
 .searching {

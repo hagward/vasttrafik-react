@@ -1,10 +1,11 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import styles from "./Input.module.css";
 
 interface Props {
   className?: string;
-  icon: string;
+  icon: IconProp;
   placeholder?: string;
   readOnly?: boolean;
   type: string;
@@ -16,7 +17,7 @@ interface Props {
 export const Input = (props: Props) => {
   return (
     <div className={styles.wrapper}>
-      <FontAwesome name={props.icon} className={styles.inputIcon} />
+      <FontAwesomeIcon className={styles.inputIcon} icon={props.icon} />
       <input className={styles.input} {...props} />
     </div>
   );

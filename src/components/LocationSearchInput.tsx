@@ -1,5 +1,6 @@
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import styles from "./LocationSearchInput.module.css";
 
 interface Props {
@@ -20,7 +21,7 @@ export const LocationSearchInput = ({ value, onChange, onCancel }: Props) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.icon}>
-        <FontAwesome name="map-marker-alt" />
+        <FontAwesomeIcon icon={faMapMarkerAlt} />
       </div>
       <input
         className={styles.input}

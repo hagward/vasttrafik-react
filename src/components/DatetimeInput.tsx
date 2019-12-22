@@ -1,3 +1,4 @@
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import React from "react";
 import styles from "./DatetimeInput.module.css";
@@ -38,7 +39,7 @@ export const DatetimeInput = ({
   return (
     <div className={styles.wrapper}>
       <Input
-        icon="calendar-alt"
+        icon={faCalendarAlt}
         type="datetime-local"
         value={value}
         onChange={handleChange}
