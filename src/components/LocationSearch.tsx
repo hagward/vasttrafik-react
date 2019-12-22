@@ -15,7 +15,6 @@ interface Props {
 }
 
 export const LocationSearch = ({ onCancel, onSelect }: Props) => {
-  const auth: Auth = new Auth(settings.key, settings.secret);
   const recentLocations: MruCache<StopLocation> = new MruCache(10);
 
   const [locationState, setLocationState] = useState<CoordLocation[]>(
@@ -33,7 +32,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
       return;
     }
 
-    auth.getToken().then(token => {
+    new Auth(settings.key, settings.secret).getToken().then(token => {
       searchLocation(token, debouncedSearchValue).then(response => {
         const coordLocations = list(response.LocationList.CoordLocation);
         const stopLocations = list(response.LocationList.StopLocation);
@@ -45,7 +44,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
         setLocationState(locations);
       });
     });
-  }, [auth, debouncedSearchValue]);
+  }, [debouncedSearchValue]);
 
   function renderResults() {
     if (!locationState.length && !quickLocation) {
