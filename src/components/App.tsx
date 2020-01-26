@@ -99,7 +99,14 @@ const App: React.FC = () => {
   }
 
   function handleSearch() {
-    search(nowState ? new Date() : dateState);
+    let date = dateState;
+
+    if (nowState) {
+      date = new Date();
+      setDateState(date);
+    }
+
+    search(date);
   }
 
   async function search(date?: Date) {
