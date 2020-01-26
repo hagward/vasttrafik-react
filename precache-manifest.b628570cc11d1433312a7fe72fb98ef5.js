@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "68b9f8068549933593603107556bee73",
+    "revision": "6ae1df67f84dde81e403782054dded32",
     "url": "/vasttrafik-react/index.html"
   },
   {
-    "revision": "2e73139a82b088c32d1a",
-    "url": "/vasttrafik-react/static/css/main.8b32ee32.chunk.css"
+    "revision": "99fb68aad07aa47359da",
+    "url": "/vasttrafik-react/static/css/main.1c5e882b.chunk.css"
   },
   {
     "revision": "2a45c562a1bad6cc2922",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vasttrafik-react/static/js/2.f500c5b6.chunk.js.LICENSE"
   },
   {
-    "revision": "2e73139a82b088c32d1a",
-    "url": "/vasttrafik-react/static/js/main.3d484198.chunk.js"
+    "revision": "99fb68aad07aa47359da",
+    "url": "/vasttrafik-react/static/js/main.28ce8438.chunk.js"
   },
   {
     "revision": "9a75fc3a8864d8149b5f",
