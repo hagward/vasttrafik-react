@@ -15,8 +15,11 @@
 }
 
 .switchLocationsButton {
-  border: none;
+  border: 1px solid var(--body-bg);
+  border-radius: var(--border-radius);
   background-color: var(--bg-color);
+  padding: 0.5rem;
+  display: flex;
   position: absolute;
   right: 0.8rem;
   top: 50%;
