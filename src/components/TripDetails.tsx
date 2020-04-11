@@ -1,5 +1,5 @@
 import React from "react";
-import { Leg, Location, Trip } from "../api";
+import { Leg, Location, Trip } from "../features/trips/tripsSlice";
 import styles from "./TripDetails.module.css";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 export const TripDetails = ({ trip }: Props) => {
   function renderLegs() {
-    return trip.Leg.filter(leg => leg.type !== "WALK").map((leg, index) =>
+    return trip.Leg.filter((leg) => leg.type !== "WALK").map((leg, index) =>
       renderLeg(leg, index)
     );
   }

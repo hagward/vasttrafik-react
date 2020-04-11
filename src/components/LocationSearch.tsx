@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { CoordLocation, searchLocation, StopLocation } from "../api";
-import Auth from "../Auth";
+import { searchLocation } from "../api";
+import { CoordLocation, StopLocation } from "../features/trips/tripsSlice";
 import useDebounce from "../hooks";
 import MruCache from "../MruCache";
-import settings from "../settings";
 import { list, merge, removeDuplicates } from "../util";
 import { LocationList } from "./LocationList";
 import styles from "./LocationSearch.module.css";
@@ -32,17 +31,15 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
       return;
     }
 
-    new Auth(settings.key, settings.secret).getToken().then(token => {
-      searchLocation(token, debouncedSearchValue).then(response => {
-        const coordLocations = list(response.LocationList.CoordLocation);
-        const stopLocations = list(response.LocationList.StopLocation);
-        const locations = merge(
-          coordLocations,
-          stopLocations,
-          (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx)
-        );
-        setLocationState(locations);
-      });
+    searchLocation(debouncedSearchValue).then((response) => {
+      const coordLocations = list(response.LocationList.CoordLocation);
+      const stopLocations = list(response.LocationList.StopLocation);
+      const locations = merge(
+        coordLocations,
+        stopLocations,
+        (a: CoordLocation, b: CoordLocation) => Number(a.idx) - Number(b.idx)
+      );
+      setLocationState(locations);
     });
   }, [debouncedSearchValue]);
 
@@ -54,7 +51,7 @@ export const LocationSearch = ({ onCancel, onSelect }: Props) => {
     const allLocations: CoordLocation[] = quickLocation
       ? removeDuplicates(
           [quickLocation, ...locationState],
-          location => location.id || location.name
+          (location) => location.id || location.name
         )
       : locationState;
 

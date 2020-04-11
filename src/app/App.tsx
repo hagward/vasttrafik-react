@@ -2,40 +2,46 @@ import { faBus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { CoordLocation, searchTrip } from "../api";
-import Auth from "../Auth";
-import { useLocalStorage } from "../hooks";
-import settings from "../settings";
-import { list } from "../util";
-import styles from "./App.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import { SearchBar } from "../components/SearchBar";
 import { SearchResult } from "../components/SearchResult";
+import {
+  clearTrips,
+  CoordLocation,
+  fetchTrips,
+} from "../features/trips/tripsSlice";
+import { useLocalStorage } from "../hooks";
+import styles from "./App.module.css";
+import { RootState } from "./rootReducer";
 
 const ErrorMessage = (props: { error: string }) => (
   <div className={styles.error}>{props.error}</div>
 );
 
 const App: React.FC = () => {
-  const auth: Auth = new Auth(settings.key, settings.secret);
+  const dispatch = useDispatch();
 
-  const [tripsState, setTripsState] = useLocalStorage("trips", []);
+  const { tripsLoading, tripsError, trips } = useSelector(
+    (state: RootState) => ({
+      tripsLoading: state.trips.loading,
+      tripsError: state.trips.error,
+      trips: state.trips.trips,
+    })
+  );
+
   const [originState, setOriginState] = useLocalStorage("origin", { name: "" });
   const [destState, setDestState] = useLocalStorage("dest", { name: "" });
-
   const [dateState, setDateState] = useState(new Date());
-  const [errorState, setErrorState] = useState("");
   const [nowState, setNowState] = useState(true);
-  const [searchingState, setSearchingState] = useState(false);
 
   function handleNavBarClick() {
-    setErrorState("");
-    setTripsState([]);
+    dispatch(clearTrips());
   }
 
   function renderMainContent() {
-    if (errorState) {
-      return <ErrorMessage error={errorState} />;
-    } else if (tripsState.length) {
+    if (tripsError) {
+      return <ErrorMessage error={tripsError} />;
+    } else if (trips.length) {
       return renderSearchResult();
     } else {
       return renderSearchBar();
@@ -49,7 +55,7 @@ const App: React.FC = () => {
         dest={destState}
         date={dateState}
         now={nowState}
-        searching={searchingState}
+        searching={tripsLoading}
         onDatetimeChange={handleDatetimeChange}
         onLocationChange={handleLocationChange}
         onLocationSwitch={switchLocations}
@@ -62,7 +68,7 @@ const App: React.FC = () => {
   function renderSearchResult() {
     return (
       <SearchResult
-        trips={tripsState}
+        trips={trips}
         onShowEarlier={findEarlierTrips}
         onShowLater={findLaterTrips}
       />
@@ -109,52 +115,8 @@ const App: React.FC = () => {
     search(date);
   }
 
-  async function search(date?: Date) {
-    date = date || dateState;
-
-    setErrorState("");
-    setSearchingState(true);
-    setTripsState([]);
-
-    try {
-      const token = await auth.getToken();
-      parseResponse(await searchTrip(token, originState, destState, date));
-    } catch {
-      parseError("Någonting gick snett.");
-    }
-  }
-
-  function parseResponse(response: any): void {
-    const tripList = response.TripList;
-    if (tripList.error) {
-      parseError("Inga resultat funna.");
-    } else {
-      parseTrips(tripList);
-    }
-  }
-
-  function parseError(error: string): void {
-    setErrorState(error);
-    setSearchingState(false);
-  }
-
-  function parseTrips(tripList: any): void {
-    const trips = list(tripList.Trip);
-
-    for (const trip of trips) {
-      trip.Leg = list(trip.Leg);
-      for (const leg of trip.Leg) {
-        if (leg.Origin.Notes) {
-          leg.Origin.Notes.Note = list(leg.Origin.Notes.Note);
-        }
-        if (leg.Destination.Notes) {
-          leg.Destination.Notes.Note = list(leg.Destination.Notes.Note);
-        }
-      }
-    }
-
-    setSearchingState(false);
-    setTripsState(trips);
+  function search(date?: Date) {
+    dispatch(fetchTrips(originState, destState, date ?? dateState));
   }
 
   function findEarlierTrips() {

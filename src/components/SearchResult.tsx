@@ -1,5 +1,5 @@
 import React from "react";
-import { Trip } from "../api";
+import { Trip } from "../features/trips/tripsSlice";
 import styles from "./SearchResult.module.css";
 import { TripList } from "./TripList";
 

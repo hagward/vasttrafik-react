@@ -2,7 +2,7 @@ import { faExchangeAlt, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import React from "react";
-import { CoordLocation } from "../api";
+import { CoordLocation } from "../features/trips/tripsSlice";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
 import styles from "./SearchBar.module.css";
@@ -30,7 +30,7 @@ export const SearchBar = ({
   onLocationChange,
   onLocationSwitch,
   onNowButtonClick,
-  onSearch
+  onSearch,
 }: Props) => {
   function onOriginSelected(location: CoordLocation) {
     onLocationChange("origin", location);
