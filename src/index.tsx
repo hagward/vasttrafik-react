@@ -1,9 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import { Provider } from "react-redux";
+import store from "./app/store";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById("app-root"));
+const render = () => {
+  const App = require("./app/App").default;
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("app-root")
+  );
+};
+
+render();
+
+if (process.env.NODE_ENV === "development" && module.hot) {
+  module.hot.accept("./app/App", render);
+}
 
 serviceWorker.register();

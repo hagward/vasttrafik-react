@@ -8,8 +8,8 @@ import { useLocalStorage } from "../hooks";
 import settings from "../settings";
 import { list } from "../util";
 import styles from "./App.module.css";
-import { SearchBar } from "./SearchBar";
-import { SearchResult } from "./SearchResult";
+import { SearchBar } from "../components/SearchBar";
+import { SearchResult } from "../components/SearchResult";
 
 const ErrorMessage = (props: { error: string }) => (
   <div className={styles.error}>{props.error}</div>
@@ -158,17 +158,13 @@ const App: React.FC = () => {
   }
 
   function findEarlierTrips() {
-    const newDate = dayjs(dateState)
-      .subtract(20, "minute")
-      .toDate();
+    const newDate = dayjs(dateState).subtract(20, "minute").toDate();
     setDateState(newDate);
     search(newDate);
   }
 
   function findLaterTrips() {
-    const newDate = dayjs(dateState)
-      .add(20, "minute")
-      .toDate();
+    const newDate = dayjs(dateState).add(20, "minute").toDate();
     setDateState(newDate);
     search(newDate);
   }
