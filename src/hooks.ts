@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 
 // https://usehooks.com/
-export function useLocalStorage(key: string, initialValue: any) {
-  const [item, setInnerValue] = useState(() =>
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, (value: T) => void] {
+  const [item, setInnerValue] = useState<T>(() =>
     window.localStorage.getItem(key)
       ? JSON.parse(window.localStorage.getItem(key)!)
       : initialValue
   );
 
-  const setValue = (value: any) => {
+  const setValue = (value: T) => {
     setInnerValue(value);
     window.localStorage.setItem(key, JSON.stringify(value));
   };

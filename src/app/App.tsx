@@ -29,8 +29,13 @@ const App: React.FC = () => {
     })
   );
 
-  const [originState, setOriginState] = useLocalStorage("origin", { name: "" });
-  const [destState, setDestState] = useLocalStorage("dest", { name: "" });
+  const [originState, setOriginState] = useLocalStorage<CoordLocation>(
+    "origin",
+    { name: "" }
+  );
+  const [destState, setDestState] = useLocalStorage<CoordLocation>("dest", {
+    name: "",
+  });
   const [dateState, setDateState] = useState(new Date());
   const [nowState, setNowState] = useState(true);
 
