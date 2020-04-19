@@ -8,7 +8,7 @@ interface Props {
 export const Location = ({ name }: Props) => {
   const [station, address] = name.split(", ");
   return (
-    <div>
+    <div className={styles.location}>
       <div>{station}</div>
       {address && <div className={styles.address}>{address}</div>}
     </div>
