@@ -62,7 +62,7 @@ const App: React.FC = () => {
     return (
       <SearchBar
         origin={searchOrigin}
-        dest={searchDestination}
+        destination={searchDestination}
         date={searchDate}
         now={searchNow}
         searching={tripsLoading}

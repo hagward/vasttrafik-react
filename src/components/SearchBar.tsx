@@ -9,7 +9,7 @@ import styles from "./SearchBar.module.css";
 
 interface Props {
   origin: CoordLocation;
-  dest: CoordLocation;
+  destination: CoordLocation;
   date: Date;
   now: boolean;
   searching: boolean;
@@ -22,7 +22,7 @@ interface Props {
 
 export const SearchBar = ({
   origin,
-  dest,
+  destination,
   date,
   now,
   searching,
@@ -55,7 +55,7 @@ export const SearchBar = ({
           />
           <LocationInput
             disabled={searching}
-            selected={dest}
+            selected={destination}
             onSelect={onDestinationSelected}
           />
         </div>
@@ -81,7 +81,7 @@ export const SearchBar = ({
       <button
         className={styles.searchButton}
         onClick={search}
-        disabled={searching}
+        disabled={searching || !origin.name || !destination.name}
       >
         {searching ? (
           <span>
