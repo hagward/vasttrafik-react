@@ -1,5 +1,5 @@
 import React from "react";
-import { CoordLocation } from "../features/trips/tripsSlice";
+import { CoordLocation } from "../features/search/searchSlice";
 import styles from "./LocationList.module.css";
 import { LocationListItem } from "./LocationListItem";
 

@@ -1,16 +1,19 @@
 import { faBus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchBar } from "../components/SearchBar";
 import { SearchResult } from "../components/SearchResult";
 import {
-  clearTrips,
   CoordLocation,
-  fetchTrips,
-} from "../features/trips/tripsSlice";
-import { useLocalStorage } from "../hooks";
+  LocationName,
+  setDate,
+  setLocation,
+  setNow,
+  switchLocations,
+} from "../features/search/searchSlice";
+import { clearTrips, fetchTrips } from "../features/trips/tripsSlice";
 import styles from "./App.module.css";
 import { RootState } from "./rootReducer";
 
@@ -29,15 +32,17 @@ const App: React.FC = () => {
     })
   );
 
-  const [originState, setOriginState] = useLocalStorage<CoordLocation>(
-    "origin",
-    { name: "" }
-  );
-  const [destState, setDestState] = useLocalStorage<CoordLocation>("dest", {
-    name: "",
-  });
-  const [dateState, setDateState] = useState(new Date());
-  const [nowState, setNowState] = useState(true);
+  const {
+    searchOrigin,
+    searchDestination,
+    searchDate,
+    searchNow,
+  } = useSelector((state: RootState) => ({
+    searchOrigin: state.search.origin,
+    searchDestination: state.search.destination,
+    searchDate: new Date(state.search.date),
+    searchNow: state.search.now,
+  }));
 
   function handleNavBarClick() {
     dispatch(clearTrips());
@@ -56,14 +61,14 @@ const App: React.FC = () => {
   function renderSearchBar() {
     return (
       <SearchBar
-        origin={originState}
-        dest={destState}
-        date={dateState}
-        now={nowState}
+        origin={searchOrigin}
+        dest={searchDestination}
+        date={searchDate}
+        now={searchNow}
         searching={tripsLoading}
         onDatetimeChange={handleDatetimeChange}
         onLocationChange={handleLocationChange}
-        onLocationSwitch={switchLocations}
+        onLocationSwitch={handleSwitchLocations}
         onNowButtonClick={handleNowButtonClick}
         onSearch={handleSearch}
       />
@@ -81,58 +86,45 @@ const App: React.FC = () => {
   }
 
   function handleDatetimeChange(date: Date) {
-    setDateState(date);
-    setNowState(false);
+    dispatch(setDate(date.toISOString()));
   }
 
-  function handleLocationChange(inputName: string, location: CoordLocation) {
-    switch (inputName) {
-      case "dest":
-        setDestState(location);
-        break;
-      case "origin":
-        setOriginState(location);
-        break;
-      default:
-        throw new Error("Unknown input name: " + inputName);
-    }
+  function handleLocationChange(name: LocationName, location: CoordLocation) {
+    dispatch(setLocation({ name, location }));
   }
 
   function handleNowButtonClick() {
-    setNowState(true);
+    dispatch(setNow());
   }
 
-  function switchLocations() {
-    const currentDest = destState;
-
-    setDestState(originState);
-    setOriginState(currentDest);
+  function handleSwitchLocations() {
+    dispatch(switchLocations());
   }
 
   function handleSearch() {
-    let date = dateState;
-
-    if (nowState) {
+    let date = searchDate;
+    if (searchNow) {
       date = new Date();
-      setDateState(date);
+      dispatch(setDate(date.toISOString()));
     }
-
     search(date);
   }
 
-  function search(date?: Date) {
-    dispatch(fetchTrips(originState, destState, date ?? dateState));
+  function search(date: Date) {
+    dispatch(fetchTrips(searchOrigin, searchDestination, date));
   }
 
   function findEarlierTrips() {
-    const newDate = dayjs(dateState).subtract(20, "minute").toDate();
-    setDateState(newDate);
-    search(newDate);
+    searchAddMinutes(-20);
   }
 
   function findLaterTrips() {
-    const newDate = dayjs(dateState).add(20, "minute").toDate();
-    setDateState(newDate);
+    searchAddMinutes(20);
+  }
+
+  function searchAddMinutes(minutes: number) {
+    const newDate = dayjs(searchDate).add(minutes, "minute").toDate();
+    dispatch(setDate(newDate.toISOString()));
     search(newDate);
   }
 

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import Auth from "./Auth";
-import { CoordLocation } from "./features/trips/tripsSlice";
+import { CoordLocation } from "./features/search/searchSlice";
 import settings from "./settings";
 
 const auth = new Auth(settings.key, settings.secret);

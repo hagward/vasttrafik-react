@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getTrips } from "../../api";
 import { AppThunk } from "../../app/store";
 import { list } from "../../util";
+import { CoordLocation } from "../search/searchSlice";
 
 interface TripsState {
   trips: Trip[];
@@ -39,18 +40,6 @@ interface Note {
   key: string;
   priority: string;
   severity: string;
-}
-
-export interface CoordLocation {
-  id?: string;
-  idx?: string;
-  lat?: string;
-  lon?: string;
-  name: string;
-}
-
-export interface StopLocation extends CoordLocation {
-  id: string;
 }
 
 const initialState: TripsState = {

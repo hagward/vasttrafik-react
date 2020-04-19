@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { searchLocation } from "../api";
-import { CoordLocation, StopLocation } from "../features/trips/tripsSlice";
+import { CoordLocation, StopLocation } from "../features/search/searchSlice";
 import useDebounce from "../hooks";
 import MruCache from "../MruCache";
 import { list, merge, removeDuplicates } from "../util";

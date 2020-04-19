@@ -2,7 +2,7 @@ import { faExchangeAlt, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import React from "react";
-import { CoordLocation } from "../features/trips/tripsSlice";
+import { CoordLocation, LocationName } from "../features/search/searchSlice";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
 import styles from "./SearchBar.module.css";
@@ -14,7 +14,7 @@ interface Props {
   now: boolean;
   searching: boolean;
   onDatetimeChange(date: Date): any;
-  onLocationChange(inputName: string, location: CoordLocation): any;
+  onLocationChange(inputName: LocationName, location: CoordLocation): any;
   onLocationSwitch(): any;
   onNowButtonClick(): void;
   onSearch(): any;
@@ -37,7 +37,7 @@ export const SearchBar = ({
   }
 
   function onDestinationSelected(location: CoordLocation) {
-    onLocationChange("dest", location);
+    onLocationChange("destination", location);
   }
 
   function search() {
