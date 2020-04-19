@@ -1,16 +1,12 @@
 .wrapper {
   background-color: var(--bg-color);
   border: 1px solid var(--bg-color);
-  margin-bottom: 1px;
-  display: flex;
-  align-items: center;
-  min-height: 4.1rem;
-  padding: 0.8rem;
   position: relative;
 }
 
 .wrapper:first-child {
   border-radius: var(--border-radius) var(--border-radius) 0 0;
+  margin-bottom: 1px;
 }
 
 .wrapper:last-child {
@@ -21,10 +17,11 @@
   background-color: transparent;
   border: none;
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
+  width: 100%;
+  min-height: 4.1rem;
+  padding: 0.8rem;
 }
 
 .static {

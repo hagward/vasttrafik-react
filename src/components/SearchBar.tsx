@@ -2,19 +2,19 @@ import { faExchangeAlt, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import React from "react";
-import { CoordLocation } from "../api";
+import { CoordLocation, LocationName } from "../features/search/searchSlice";
 import { DatetimeInput } from "./DatetimeInput";
 import { LocationInput } from "./LocationInput";
 import styles from "./SearchBar.module.css";
 
 interface Props {
   origin: CoordLocation;
-  dest: CoordLocation;
+  destination: CoordLocation;
   date: Date;
   now: boolean;
   searching: boolean;
   onDatetimeChange(date: Date): any;
-  onLocationChange(inputName: string, location: CoordLocation): any;
+  onLocationChange(inputName: LocationName, location: CoordLocation): any;
   onLocationSwitch(): any;
   onNowButtonClick(): void;
   onSearch(): any;
@@ -22,7 +22,7 @@ interface Props {
 
 export const SearchBar = ({
   origin,
-  dest,
+  destination,
   date,
   now,
   searching,
@@ -30,14 +30,14 @@ export const SearchBar = ({
   onLocationChange,
   onLocationSwitch,
   onNowButtonClick,
-  onSearch
+  onSearch,
 }: Props) => {
   function onOriginSelected(location: CoordLocation) {
     onLocationChange("origin", location);
   }
 
   function onDestinationSelected(location: CoordLocation) {
-    onLocationChange("dest", location);
+    onLocationChange("destination", location);
   }
 
   function search() {
@@ -55,7 +55,7 @@ export const SearchBar = ({
           />
           <LocationInput
             disabled={searching}
-            selected={dest}
+            selected={destination}
             onSelect={onDestinationSelected}
           />
         </div>
@@ -81,7 +81,7 @@ export const SearchBar = ({
       <button
         className={styles.searchButton}
         onClick={search}
-        disabled={searching}
+        disabled={searching || !origin.name || !destination.name}
       >
         {searching ? (
           <span>

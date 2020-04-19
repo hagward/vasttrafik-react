@@ -1,5 +1,5 @@
 import React from "react";
-import { CoordLocation } from "../api";
+import { CoordLocation } from "../features/search/searchSlice";
 import styles from "./LocationList.module.css";
 import { LocationListItem } from "./LocationListItem";
 
@@ -11,7 +11,7 @@ interface Props {
 export const LocationList = ({ locations, onSelect }: Props) => {
   return (
     <ul className={styles.list}>
-      {locations.map(location => (
+      {locations.map((location) => (
         <LocationListItem
           location={location}
           key={location.id || location.name}

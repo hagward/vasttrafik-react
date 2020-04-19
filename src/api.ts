@@ -1,50 +1,12 @@
 import dayjs from "dayjs";
+import Auth from "./Auth";
+import { CoordLocation } from "./features/search/searchSlice";
+import settings from "./settings";
 
-export interface Trip {
-  Leg: Leg[];
-}
+const auth = new Auth(settings.key, settings.secret);
 
-export interface Leg {
-  Origin: Location;
-  Destination: Location;
-  direction: string;
-  name: string;
-  sname: string;
-  fgColor: string;
-  bgColor: string;
-  type: string;
-}
-
-export interface Location {
-  date: string;
-  name: string;
-  Notes?: { Note: Note[] };
-  rtDate?: string;
-  rtTime?: string;
-  time: string;
-  track?: string;
-}
-
-interface Note {
-  $: string;
-  key: string;
-  priority: string;
-  severity: string;
-}
-
-export interface CoordLocation {
-  id?: string;
-  idx?: string;
-  lat?: string;
-  lon?: string;
-  name: string;
-}
-
-export interface StopLocation extends CoordLocation {
-  id: string;
-}
-
-export async function searchLocation(token: string, searchString: string) {
+export async function searchLocation(searchString: string) {
+  const token = await auth.getToken();
   const url =
     "https://api.vasttrafik.se/bin/rest.exe/v2/location.name" +
     "?format=json&input=" +
@@ -52,17 +14,17 @@ export async function searchLocation(token: string, searchString: string) {
 
   const response = await fetch(url, {
     headers: new Headers({ Authorization: "Bearer " + token }),
-    method: "GET"
+    method: "GET",
   });
   return response.json();
 }
 
-export async function searchTrip(
-  token: string,
+export async function getTrips(
   origin: CoordLocation,
   dest: CoordLocation,
   date: Date
 ) {
+  const token = await auth.getToken();
   const dateString = dayjs(date).format("YYYY-MM-DD");
   const timeString = dayjs(date).format("HH:mm");
   const url =
@@ -76,7 +38,7 @@ export async function searchTrip(
 
   const response = await fetch(url, {
     headers: new Headers({ Authorization: "Bearer " + token }),
-    method: "GET"
+    method: "GET",
   });
   return response.json();
 }

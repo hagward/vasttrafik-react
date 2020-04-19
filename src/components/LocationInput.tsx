@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import React, { useState } from "react";
-import { CoordLocation } from "../api";
+import { CoordLocation } from "../features/search/searchSlice";
 import { Location } from "./Location";
 import styles from "./LocationInput.module.css";
 import { LocationSearch } from "./LocationSearch";

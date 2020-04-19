@@ -1,7 +1,6 @@
 .item {
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
-  padding: 0.8rem;
 }
 
 .item:last-child {

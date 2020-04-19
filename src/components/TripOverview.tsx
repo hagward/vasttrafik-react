@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classnames from "classnames";
 import dayjs from "dayjs";
 import React from "react";
-import { Leg, Location, Trip } from "../api";
+import { Leg, Location, Trip } from "../features/trips/tripsSlice";
 import { first, last, padNumber } from "../util";
 import styles from "./TripOverview.module.css";
 
@@ -31,12 +31,12 @@ export const TripOverview = ({ trip, onClick }: Props) => {
         <s className={classnames(styles.time, styles.invalid)} key={1}>
           {location.time}
         </s>
-      )
+      ),
     ];
   }
 
   function renderLegs() {
-    return trip.Leg.filter(leg => leg.sname).map((leg, index) =>
+    return trip.Leg.filter((leg) => leg.sname).map((leg, index) =>
       renderLeg(leg, index)
     );
   }
@@ -49,7 +49,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
         style={{
           backgroundColor: leg.fgColor,
           borderColor: leg.fgColor === "#ffffff" ? "#EE1844" : "transparent",
-          color: leg.bgColor
+          color: leg.bgColor,
         }}
       >
         {leg.sname}
@@ -70,7 +70,7 @@ export const TripOverview = ({ trip, onClick }: Props) => {
   }
 
   function showInfoIcon() {
-    return trip.Leg.some(leg => leg.Origin.Notes || leg.Destination.Notes);
+    return trip.Leg.some((leg) => leg.Origin.Notes || leg.Destination.Notes);
   }
 
   return (

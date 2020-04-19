@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Trip } from "../api";
+import { Trip } from "../features/trips/tripsSlice";
 import { TripDetails } from "./TripDetails";
 import styles from "./TripListItem.module.css";
 import { TripOverview } from "./TripOverview";

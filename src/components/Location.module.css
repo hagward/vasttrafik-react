@@ -1,3 +1,11 @@
+.location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 4.1rem;
+  padding: 0.8rem;
+}
+
 .address {
   color: var(--secondary-text-color);
   font-size: 0.8rem;
