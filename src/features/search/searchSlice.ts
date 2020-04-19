@@ -32,13 +32,10 @@ const search = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setDate(state, action: PayloadAction<string>) {
-      state.date = action.payload;
-      state.now = false;
-    },
-    setNow(state) {
-      state.date = new Date().toISOString();
-      state.now = true;
+    setDate(state, action: PayloadAction<{ date: string; now: boolean }>) {
+      const { date, now } = action.payload;
+      state.date = date;
+      state.now = now;
     },
     setLocation(
       state,
@@ -58,5 +55,5 @@ const search = createSlice({
   },
 });
 
-export const { setDate, setNow, setLocation, switchLocations } = search.actions;
+export const { setDate, setLocation, switchLocations } = search.actions;
 export default search.reducer;

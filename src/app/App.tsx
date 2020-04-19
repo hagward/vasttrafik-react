@@ -10,7 +10,6 @@ import {
   LocationName,
   setDate,
   setLocation,
-  setNow,
   switchLocations,
 } from "../features/search/searchSlice";
 import { clearTrips, fetchTrips } from "../features/trips/tripsSlice";
@@ -86,7 +85,7 @@ const App: React.FC = () => {
   }
 
   function handleDatetimeChange(date: Date) {
-    dispatch(setDate(date.toISOString()));
+    dispatch(setDate({ date: date.toISOString(), now: false }));
   }
 
   function handleLocationChange(name: LocationName, location: CoordLocation) {
@@ -94,7 +93,7 @@ const App: React.FC = () => {
   }
 
   function handleNowButtonClick() {
-    dispatch(setNow());
+    dispatch(setDate({ date: new Date().toISOString(), now: true }));
   }
 
   function handleSwitchLocations() {
@@ -105,7 +104,7 @@ const App: React.FC = () => {
     let date = searchDate;
     if (searchNow) {
       date = new Date();
-      dispatch(setDate(date.toISOString()));
+      dispatch(setDate({ date: date.toISOString(), now: true }));
     }
     search(date);
   }
@@ -124,7 +123,7 @@ const App: React.FC = () => {
 
   function searchAddMinutes(minutes: number) {
     const newDate = dayjs(searchDate).add(minutes, "minute").toDate();
-    dispatch(setDate(newDate.toISOString()));
+    dispatch(setDate({ date: newDate.toISOString(), now: searchNow }));
     search(newDate);
   }
 
