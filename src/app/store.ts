@@ -1,8 +1,26 @@
-import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import {
+  Action,
+  configureStore,
+  getDefaultMiddleware,
+  Middleware,
+  ThunkAction,
+} from "@reduxjs/toolkit";
 import rootReducer, { RootState } from "./rootReducer";
+
+const localStorageSaver: Middleware = (api) => (next) => (action) => {
+  const dispatch = next(action);
+
+  window.localStorage.setItem("state", JSON.stringify(api.getState()));
+
+  return dispatch;
+};
+
+const localStorageState = window.localStorage.getItem("state");
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: [...getDefaultMiddleware(), localStorageSaver],
+  preloadedState: localStorageState ? JSON.parse(localStorageState) : undefined,
 });
 
 const m = module as any;
