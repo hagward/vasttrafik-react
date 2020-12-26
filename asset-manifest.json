@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/vasttrafik-react/static/css/main.21b637a2.chunk.css",
-    "main.js": "/vasttrafik-react/static/js/main.3d6a0ff5.chunk.js",
-    "main.js.map": "/vasttrafik-react/static/js/main.3d6a0ff5.chunk.js.map",
+    "main.js": "/vasttrafik-react/static/js/main.e5b9686a.chunk.js",
+    "main.js.map": "/vasttrafik-react/static/js/main.e5b9686a.chunk.js.map",
     "runtime-main.js": "/vasttrafik-react/static/js/runtime-main.0d31ab55.js",
     "runtime-main.js.map": "/vasttrafik-react/static/js/runtime-main.0d31ab55.js.map",
-    "static/js/2.4f3b45d2.chunk.js": "/vasttrafik-react/static/js/2.4f3b45d2.chunk.js",
-    "static/js/2.4f3b45d2.chunk.js.map": "/vasttrafik-react/static/js/2.4f3b45d2.chunk.js.map",
+    "static/js/2.aec8b220.chunk.js": "/vasttrafik-react/static/js/2.aec8b220.chunk.js",
+    "static/js/2.aec8b220.chunk.js.map": "/vasttrafik-react/static/js/2.aec8b220.chunk.js.map",
     "index.html": "/vasttrafik-react/index.html",
     "static/css/main.21b637a2.chunk.css.map": "/vasttrafik-react/static/css/main.21b637a2.chunk.css.map",
-    "static/js/2.4f3b45d2.chunk.js.LICENSE.txt": "/vasttrafik-react/static/js/2.4f3b45d2.chunk.js.LICENSE.txt"
+    "static/js/2.aec8b220.chunk.js.LICENSE.txt": "/vasttrafik-react/static/js/2.aec8b220.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0d31ab55.js",
-    "static/js/2.4f3b45d2.chunk.js",
+    "static/js/2.aec8b220.chunk.js",
     "static/css/main.21b637a2.chunk.css",
-    "static/js/main.3d6a0ff5.chunk.js"
+    "static/js/main.e5b9686a.chunk.js"
   ]
 }
