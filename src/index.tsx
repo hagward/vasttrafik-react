@@ -3,15 +3,16 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import "./index.css";
-import * as serviceWorker from "./serviceWorker";
 
 const render = () => {
   const App = require("./app/App").default;
 
   ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
     document.getElementById("app-root")
   );
 };
@@ -22,5 +23,3 @@ const m = module as any;
 if (process.env.NODE_ENV === "development" && m.hot) {
   m.hot.accept("./app/App", render);
 }
-
-serviceWorker.register();
